@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Phần header */
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+}
+
+.header .header_top {
+  display: flex;
+  background-color: yellow;
+  width: 1200px;
+  margin: auto;
+  padding-top: 10px;
+}
+
+.logo {
+  background-color: black;
+  width: 300px;
+  height: 40px;
+}
+
+.searchBar {
+  background-color: lightgray;
+  width: 500px;
+  height: 40px;
+  margin: 0 10px;
+  border-radius: 35px;
+  position: relative;
+}
+.searchBar > button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 40px;
+  border-radius: 35px;
+  z-index: 1;
+  background-color: white;
+}
+.search {
+  width: 100%;
+  height: 100%;
+  border-radius: 35px;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid red;
+}
+
+.btn-cart {
+  background-color: rgb(10, 49, 84);
+  width: 200px;
+  height: 40px;
+}
+
+.btn-login {
+  background-color: aquamarine;
+  width: 200px;
+  height: 40px;
+}
