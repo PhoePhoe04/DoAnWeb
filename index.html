@@ -3,28 +3,104 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/a4434c7b27.js"
+      crossorigin="anonymous"
+    ></script>
     <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
     <div>
-      <div class="header">
-        <div class="header_top">
-          <div class="logo"></div>
-          <form class="searchBar">
-            <button>
-              <i></i>
-            </button>
-            <input
-              type="text"
-              class="search"
-              placeholder="Bạn muốn tìm gì...."
-            />
-          </form>
-          <div class="btn-cart"></div>
-          <div class="btn-login"></div>
+      <!-- HEADER -->
+      <header>
+        <!-- Header -->
+        <div class="header">
+          <div class="container">
+            <div class="logo"></div>
+            <form class="searchBar">
+              <button></button>
+              <input
+                type="text"
+                class="search"
+                placeholder="Bạn muốn tìm gì...."
+              />
+            </form>
+            <div class="cart">
+              <button class="btn-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>Giỏ hàng</p>
+              </button>
+            </div>
+            <div class="login">
+              <button class="btn-login">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <p>Đăng nhập</p>
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+        <!-- Navigation -->
+        <div class="navigation">
+          <div class="container">
+            <div class="iphone">iPhone</div>
+            <div class="samsung">SAMSUNG</div>
+            <div class="oppo">OPPO</div>
+            <div class="xiaomi">XIAOMI</div>
+          </div>
+        </div>
+      </header>
+      <!-- MAIN -->
+      <main>
+        <div class="main">
+          <!-- Slider -->
+          <div class="container slider-banner">
+            <div class="banner"></div>
+            <div class="banner"></div>
+            <div class="banner"></div>
+          </div>
+          <div class="container suggestion">
+            <div>Gợi ý cho bạn</div>
+            <div class="products">
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+            </div>
+            <div class="showMore">
+              <button id="showMoreBtn" onclick="showMoreProducts()">
+                Hiển thị thêm
+              </button>
+            </div>
+          </div>
+          <div class="container suggestion">
+            <div>Gợi ý cho bạn</div>
+            <div class="products">
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">SAMSUNG</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+              <div class="product">iPhone</div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
+    <script src="./javascript.js"></script>
   </body>
 </html>
