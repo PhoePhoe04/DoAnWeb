@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/DoAnWeb/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="/DoAnWeb/js/test.js">
+    <title>Responsive Admin</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <div class="logo">
+                            <img src="/IMG/phonelogo-removebg-preview.png">
+                            <h2>BiDiEO</h2>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        <span class="title">Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="title">Customer</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span class="title">Order</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-sharp fa-solid fa-chart-simple"></i>
+                        <span class="title">Statistic</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Tìm kiếm">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </label>
+                </div>
+                <div class="userImg">
+                    <img src="/IMG/HutaoPF.png">
+                </div>
+            </div>
+            <div class="details">
+                <div class="recentProducts"  id="recentProducts">
+                    <div class="table-header">
+                        <h2>Sản phẩm</h2>
+                        <div>
+                            <button class="add-new" id="btnAddNew">+ Add New</button>
+                        </div>
+                    </div>
+                    <div class="table-product">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Giá cả</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTableBody">
+                                <tr>
+                                    <td>Iphone 15</td>
+                                    <td><img src="/IMG/ip15.jpg"></td>
+                                    <td>$1500</td>
+                                    <td class="details-action">
+                                        <button><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button><i class="fa-solid fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="container-table" id="containerTable" style="display: none;">
+                    <form class="card">
+                        <div class="row-card">
+                            <label for="">Tên sản phẩm</label>
+                            <br>
+                            <input type="text" id="Add-name_product">
+                        </div>
+                        <span id="span_namePro"></span>
+                        <div class="row-card">
+                            <label for="">Loại sản phẩm</label>
+                            <br>
+                            <select name="" id="select_category">
+                                <option value="" disabled selected>Chọn loại</option>
+                                <option value="iphone">Iphone</option>
+                                <option value="sam_sung">Samsung</option>
+                                <option value="oppo">Oppo</option>
+                                <option value="xiaomi">Xioami</option>
+                            </select>
+                        </div>
+                        <span id="span_CategoryPro"></span>
+                        <div class="row-card">
+                            <label for="">Giá</label>
+                            <br>
+                            <input type="number" id="Add-price">
+                        </div>
+                        <span id="span_pricePro"></span>
+                        <div class="row-card">
+                            <label for="">Mô tả</label>
+                            <br>
+                            <textarea id="Add-detail_Product" ></textarea>
+                        </div>
+                        <span id="span_detailPro"></span>
+                        <div class="row-card">
+                            <label for="">Chọn ảnh mới</label>
+                            <input type="file" id="fileInput" accept="image/*"> 
+                        </div>
+                        <!-- <div class="row-card rowDeleteImg">
+                            <label for="">Hoặc xóa ảnh</label>
+                            <input type="checkbox" id="deleteImg">
+                        </div> -->
+
+                        <span id="span_imagePro"></span>
+                        </form>
+                        <br>
+                        <button type="button" id="btn-submit">Update</button>
+                        <button type="button" id="btn-exit">Exit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+        let toggle = document.querySelector('.toggle');
+        let navigation = document.querySelector('.navigation');
+        let main = document.querySelector('.main');
+        let editIndex = null; // Lưu chỉ số sản phẩm đang chỉnh sửa
+
+        toggle.onclick = function() {
+            navigation.classList.toggle('active');
+            main.classList.toggle('active');
+        }
+
+        let list = document.querySelectorAll('.navigation li');
+        function activeLink(){
+            list.forEach((item) => item.classList.remove('hovered'));
+            this.classList.add('hovered');
+        }
+        list.forEach((item) => item.addEventListener('mouseover', activeLink));
+
+        // Hiển thị danh sách sản phẩm từ LocalStorage
+        function displayProducts() {
+            let productTableBody = document.getElementById("productTableBody");
+            productTableBody.innerHTML = "";
+
+            let products = getProductsFromLocalStorage();
+            products.forEach((product, index) => {
+                let newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${product.name}</td>
+                    <td><img src="${product.image}" width="50"></td>
+                    <td>$${product.price}</td>
+                    <td class="details-action">
+                        <button onclick="editProduct(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="confirmDeleteProduct(${index})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                productTableBody.appendChild(newRow);
+            });
+        }
+
+        // Lấy sản phẩm từ LocalStorage
+        function getProductsFromLocalStorage() {
+            return JSON.parse(localStorage.getItem("products")) || [];
+        }
+
+        // Lưu sản phẩm vào LocalStorage
+        function saveProductsToLocalStorage(products) {
+            localStorage.setItem("products", JSON.stringify(products));
+        }
+
+        // Xử lý nút Add New
+        document.getElementById("btnAddNew").onclick = function() {
+            document.getElementById("recentProducts").style.display = "none";  
+            document.getElementById("containerTable").style.display = "block";
+            document.getElementById("btn-submit").innerText = "Create";  
+            resetForm();  // Đặt lại form khi thêm sản phẩm mới
+        };
+
+        // Xử lý nút Exit
+        document.getElementById("btn-exit").onclick = function() {
+            document.getElementById("containerTable").style.display = "none";
+            document.getElementById("recentProducts").style.display = "block";
+            resetForm();
+        };
+
+        // Hàm thêm sản phẩm mới
+        function addNewProduct() {
+            let name = document.getElementById("Add-name_product").value;
+            let price = document.getElementById("Add-price").value;
+            let category = document.getElementById("select_category").value;
+            let imageFile = document.getElementById("fileInput").files[0];
+
+            if (!name || !price || !category || !imageFile) {
+                alert("Vui lòng điền đầy đủ thông tin sản phẩm.");
+                return;
+            }
+
+            let products = getProductsFromLocalStorage();
+            let reader = new FileReader();
+            reader.onload = function(event) {
+                products.push({ name, price, category, image: event.target.result });
+                saveProductsToLocalStorage(products);
+                displayProducts();
+                resetForm();
+
+                document.getElementById("containerTable").style.display = "none";
+                document.getElementById("recentProducts").style.display = "block";
+            };
+            reader.readAsDataURL(imageFile);
+        }
+
+        // Hàm cập nhật sản phẩm
+        function updateProduct() {
+            let name = document.getElementById("Add-name_product").value;
+            let price = document.getElementById("Add-price").value;
+            let category = document.getElementById("select_category").value;
+            let imageFile = document.getElementById("fileInput").files[0];
+
+            if (!name || !price || !category) {
+                alert("Vui lòng điền đầy đủ thông tin sản phẩm.");
+                return;
+            }
+
+            let products = getProductsFromLocalStorage();
+            let product = products[editIndex];
+            product.name = name;
+            product.price = price;
+            product.category = category;
+
+            if (imageFile) {
+                let reader = new FileReader();
+                reader.onload = function(event) {
+                    product.image = event.target.result;
+                    saveProductsToLocalStorage(products);
+                    displayProducts();
+                    resetForm();
+                    document.getElementById("containerTable").style.display = "none";
+                    document.getElementById("recentProducts").style.display = "block";
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                saveProductsToLocalStorage(products);
+                displayProducts();
+                resetForm();
+                document.getElementById("containerTable").style.display = "none";
+                document.getElementById("recentProducts").style.display = "block";
+            }
+        }
+
+        // Xử lý khi nhấn nút Create hoặc Update
+        document.getElementById("btn-submit").onclick = function() {
+            if (this.innerText === "Create") {
+                addNewProduct();
+            } else if (this.innerText === "Update") {
+                updateProduct();
+            }
+        };
+
+        // Đặt lại form
+        function resetForm() {
+            document.getElementById("Add-name_product").value = "";
+            document.getElementById("Add-price").value = "";
+            document.getElementById("select_category").value = "";
+            document.getElementById("fileInput").value = "";
+        }
+
+        // Sửa thông tin sản phẩm
+        function editProduct(index) {
+            let products = getProductsFromLocalStorage();
+            let product = products[index];
+
+            editIndex = index;
+
+            document.getElementById("Add-name_product").value = product.name;
+            document.getElementById("Add-price").value = product.price;
+            document.getElementById("select_category").value = product.category || ""; // Đặt lại giá trị của select
+
+            document.getElementById("btn-submit").innerText = "Update";
+
+            document.getElementById("recentProducts").style.display = "none";  
+            document.getElementById("containerTable").style.display = "block";
+        }
+
+        // Xóa sản phẩm
+        function confirmDeleteProduct(index) {
+            if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
+                let products = getProductsFromLocalStorage();
+                products.splice(index, 1);
+                saveProductsToLocalStorage(products);
+                displayProducts();
+            }
+        }
+
+        // Hiển thị sản phẩm khi trang được tải
+        window.onload = displayProducts;
+    </script>    
+</body>
+</html>
