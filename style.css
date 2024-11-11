@@ -4,34 +4,42 @@
   padding: 0;
 }
 
-/* Phần header */
+.container {
+  width: 120rem;
+  margin: 0 auto;
+}
+
+html {
+  font-size: 62.5%;
+  /* => 1rem = 10px */
+}
+
+/*====================================================  HEADER ==================================================== */
+/*                                                .header                                            */
 .header {
-  position: fixed;
-  left: 0;
-  top: 0;
   width: 100%;
+  background-color: rgb(26, 144, 212);
 }
 
-.header .header_top {
+.header > .container {
   display: flex;
-  background-color: yellow;
-  width: 1200px;
-  margin: auto;
-  padding-top: 10px;
+  background-color: rgb(26, 144, 212);
+  padding-top: 1rem;
 }
-
+/* LOGO */
 .logo {
   background-color: black;
-  width: 300px;
-  height: 40px;
+  width: 30rem;
+  height: 4rem;
 }
 
+/* THANH TÌM KIẾM */
 .searchBar {
   background-color: lightgray;
-  width: 500px;
-  height: 40px;
-  margin: 0 10px;
-  border-radius: 35px;
+  width: 50rem;
+  height: 4rem;
+  margin: 0 1rem;
+  border-radius: 3.5rem;
   position: relative;
 }
 .searchBar > button {
@@ -39,29 +47,142 @@
   top: 0;
   left: 0;
   height: 100%;
-  width: 40px;
-  border-radius: 35px;
+  width: 4rem;
+  border-radius: 3.5rem;
   z-index: 1;
   background-color: white;
 }
 .search {
   width: 100%;
   height: 100%;
-  border-radius: 35px;
-  padding: 10px;
-  font-size: 14px;
+  border-radius: 3.5rem;
+  padding: 1rem;
+  font-size: 1.4rem;
   text-align: center;
   border: 1px solid red;
 }
 
+/* GIỎ HÀNG*/
+.cart {
+  padding: 0 1rem;
+}
 .btn-cart {
-  background-color: rgb(10, 49, 84);
-  width: 200px;
-  height: 40px;
+  background-color: transparent;
+  width: 20rem;
+  height: 4rem;
+  border-radius: 3.5rem;
+  border: none;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều ngang */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  gap: 0.5rem; /* Khoảng cách giữa icon và chữ */
+  font-size: 1.6rem; /* Kích thước cho chữ và icon */
+}
+.btn-cart:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+
+/* ĐĂNG NHẬP */
+.login {
+  padding: 0 1rem;
+  margin: 0 auto;
 }
 
 .btn-login {
-  background-color: aquamarine;
-  width: 200px;
-  height: 40px;
+  background-color: transparent;
+  width: 20rem;
+  height: 4rem;
+  border-radius: 3.5em;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.6em;
+}
+
+.btn-login:hover {
+  background-color: blue;
+  cursor: pointer;
+}
+/*                                                .navigation                                            */
+.navigation {
+  width: 100%;
+  background-color: red;
+}
+.navigation .container {
+  display: flex;
+  background-color: violet;
+  padding: 0 10px;
+}
+
+.iphone,
+.samsung,
+.oppo,
+.xiaomi {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1em;
+  width: 7em;
+  height: 2em;
+  font-size: 1.4em;
+  border-radius: 10px 10px 0 0;
+  border: 1px solid green;
+}
+
+/*====================================================  MAIN ==================================================== */
+.main {
+  width: 100%;
+  background-color: yellow;
+}
+
+.main > .container {
+  margin-top: 1rem;
+  background-color: green;
+}
+/*                                                      .slider-banner                                            */
+.slider-banner {
+  height: 20rem;
+}
+
+/*                                                      .products                                           */
+.products {
+  display: grid;
+  grid-template-columns: repeat(
+    6,
+    1fr
+  ); /* Tối đa 6 cột, mỗi cột rộng bằng nhau */
+  gap: 10px; /* Khoảng cách giữa các div con */
+}
+
+.product {
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  height: 40rem;
+}
+
+.products .product:nth-child(n + 7) {
+  display: none;
+}
+
+.showMore {
+  display: flex;
+  width: 100%;
+  background-color: green;
+  justify-content: center;
+}
+
+.container.suggestion {
+  padding-top: 1rem;
+  background-color: #fff;
+}
+
+.suggestion > div:first-child {
+  margin-left: 2rem;
+  font-size: 2.4rem;
+  font-weight: bold;
 }
