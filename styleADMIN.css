@@ -55,9 +55,14 @@ body{
     position: relative;
     width: 100%;
     list-style: none;
+    font-weight: 600;
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
 }
+.navigation ul li:nth-child(3),:nth-child(4),:nth-child(5){
+    margin-top: 15px;
+}
+.navigation ul li:active,
 .navigation ul li:hover,
 .navigation ul li.hovered{
     background: var(--white);
@@ -84,6 +89,7 @@ body{
     text-decoration: none;
     color: var(--white);
 }
+.navigation ul li:active a,
 .navigation ul li:hover a,
 .navigation ul li.hovered a{
     color: var(--blue1,--blue2);
@@ -106,6 +112,7 @@ body{
     text-align: start;
     white-space: nowrap;
 }
+.navigation ul li:active a::before,
 .navigation ul li:hover a::before,
 .navigation ul li.hovered a::before{
     content: '';
@@ -119,6 +126,7 @@ body{
     box-shadow: 35px 35px 0 10px var(--white);
     pointer-events: none;
 }
+.navigation ul li:active a::after,
 .navigation ul li:hover a::after,
 .navigation ul li.hovered a::after{
     content: '';
@@ -132,6 +140,7 @@ body{
     box-shadow: 35px -35px 0 10px var(--white);
     pointer-events: none;
 }
+
 
 .main{
     position: absolute;
@@ -153,7 +162,6 @@ body{
     justify-content: space-between;
     align-items: center;
     padding: 0 10px;
-
 }
 .toggle{
     position: relative;
@@ -215,7 +223,7 @@ body{
     padding: 20px;
     margin-top: 10px;
 }
-.details .recentProducts{
+.details .form-container{
     position: relative;
     display: grid;
     background: var(--white);
@@ -254,7 +262,7 @@ td button:nth-child(2){
     color: #fff;
     background-color: var(--blue1,--blue2);
 }
-.table-product{
+.container-table{
     margin-top: 40px;
     height: 650px;
     overflow: auto;
@@ -298,9 +306,11 @@ tr:hover td{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 20px; /* Add space from elements above if needed */
+    margin-top: 20px;
 }
-
+.pagination>button{
+    width: 75px;
+}
 .pagination button {
     margin: 0 5px; /* Adjust spacing between buttons */
 }
@@ -322,7 +332,7 @@ tr:hover td{
     }
 }
 @media (max-width: 768px){
-    .recentProducts{
+    .form-container{
         overflow-x: auto;
     }
 }
@@ -350,16 +360,6 @@ tr:hover td{
         left: initial;
         color: var(--white);
     }
-}
-.container-table{
-    margin-top: 10px;
-    position: relative;
-    display: grid;
-    background: var(--white);
-    min-height: 500px;
-    padding: 30px;
-    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
 }
 .row-card{
     width: 100%;

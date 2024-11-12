@@ -20,27 +20,27 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" id="productLink">
                         <i class="fa-solid fa-boxes-stacked"></i>
-                        <span class="title">Product</span>
+                        <span class="title">Sản phẩm</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" id="customerLink">
                         <i class="fa-solid fa-users"></i>
-                        <span class="title">Customer</span>
+                        <span class="title">Khách hàng</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <i class="fa-solid fa-file-contract"></i>
-                        <span class="title">Order</span>
+                        <span class="title">Đơn hàng</span>
                     </a>
                 </li>
                 <li>
                     <a href="#">
                         <i class="fa-sharp fa-solid fa-chart-simple"></i>
-                        <span class="title">Statistic</span>
+                        <span class="title">Thống kê</span>
                     </a>
                 </li>
             </ul>
@@ -57,18 +57,18 @@
                     </label>
                 </div>
                 <div class="userImg">
-                    <img src="/IMG/HutaoPF.png">
+                    <img src="/assets/img/logo-img/HutaoPF.png">
                 </div>
             </div>
             <div class="details">
-                <div class="recentProducts"  id="recentProducts">
+                <div class="form-container"  id="recentProducts">
                     <div class="table-header">
                         <h2>Sản phẩm</h2>
                         <div>
-                            <button class="add-new" id="btnAddNew">+ Add New</button>
+                            <button class="add-new" id="btnAddNew">+ Thêm</button>
                         </div>
                     </div>
-                    <div class="table-product">
+                    <div class="container-table">
                         <table>
                             <thead>
                                 <tr>
@@ -79,15 +79,7 @@
                                 </tr>
                             </thead>
                             <tbody id="productTableBody">
-                                <tr>
-                                    <td>Iphone 15</td>
-                                    <td><img src="/assets/img/logo-img/HutaoPF.png"></td>
-                                    <td>$1500</td>
-                                    <td class="details-action">
-                                        <button><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button><i class="fa-solid fa-trash"></i></button>
-                                    </td>
-                                </tr>
+
                             </tbody>
                         </table>
                     </div>
@@ -97,7 +89,33 @@
                         <button id="nextPage">Next</button>
                     </div>
                 </div>
-                <div class="container-table" id="containerTable" style="display: none;">
+                <div class="form-container"  id="recentCustomer" style="display: none;">
+                    <div class="table-header">
+                        <h2>Khách Hàng</h2>
+                    </div>
+                    <div class="container-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Email</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Khóa tài khoản</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customerTableBody">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <button id="prevPage" disabled>Previous</button>
+                        <span id="pageIndicator">Page 1</span>
+                        <button id="nextPage">Next</button>
+                    </div>
+                </div>
+                <div class="form-container" id="containerTable" style="display: none;">
                     <form class="card">
                         <div class="row-card">
                             <label for="">Tên sản phẩm</label>
@@ -157,7 +175,7 @@
         let toggle = document.querySelector('.toggle');
         let navigation = document.querySelector('.navigation');
         let main = document.querySelector('.main');
-        let editIndex = null; // Lưu chỉ số sản phẩm đang chỉnh sửa
+        let editIndex = null;
 
         toggle.onclick = function() {
             navigation.classList.toggle('active');
@@ -169,7 +187,67 @@
             list.forEach((item) => item.classList.remove('hovered'));
             this.classList.add('hovered');
         }
+
+        // Biến lưu trữ mục đang được click
+        let currentActiveItem = null;
+
+        // Xử lý hover effect
+        function activeLink() {
+            if (!this.classList.contains('active')) {
+                this.classList.add('hovered');
+            }
+        }
+
         list.forEach((item) => item.addEventListener('mouseover', activeLink));
+
+        // Xử lý click vào các mục trong navigation
+        list.forEach((item) => {
+            item.addEventListener('click', function() {
+                // Nếu mục này đã là 'active', double-click sẽ loại bỏ lớp 'active'
+                if (this.classList.contains('active')) {
+                    this.classList.remove('active');
+                    currentActiveItem = null; // Không có mục nào đang 'active'
+                } else {
+                    // Nếu có mục trước đó, loại bỏ lớp 'active' và 'hovered'
+                    if (currentActiveItem) {
+                        currentActiveItem.classList.remove('active');
+                        currentActiveItem.classList.remove('hovered');
+                    }
+                    // Thêm lớp 'active' cho mục hiện tại
+                    this.classList.add('active');
+                    // Cập nhật mục hiện tại
+                    currentActiveItem = this;
+                }
+            });
+        });
+
+        // Xử lý khi chuột rời khỏi các mục
+        list.forEach((item) => {
+            item.addEventListener('mouseout', function() {
+                if (!this.classList.contains('active')) {
+                    this.classList.remove('hovered');
+                }
+            });
+        });
+        
+        // Lấy các phần tử cần thiết
+        const productLink = document.getElementById("productLink");
+        const customerLink = document.getElementById("customerLink");
+
+        const recentProduct = document.getElementById("recentProducts");
+        const recentCustomer = document.getElementById("recentCustomer");
+
+        // Khi nhấn vào "Product", hiển thị recentProduct và ẩn recentCustomer
+        productLink.addEventListener("click", function() {
+            recentProduct.style.display = "block";  // Hiển thị recentProduct
+            recentCustomer.style.display = "none"; // Ẩn recentCustomer
+        });
+
+        // Khi nhấn vào "Customer", hiển thị recentCustomer và ẩn recentProduct
+        customerLink.addEventListener("click", function() {
+            recentProduct.style.display = "none";  // Ẩn recentProduct
+            recentCustomer.style.display = "block"; // Hiển thị recentCustomer
+        });
 
         // Hiển thị danh sách sản phẩm từ LocalStorage
         function displayProducts() {
