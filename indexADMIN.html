@@ -91,6 +91,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="pagination">
+                        <button id="prevPage" disabled>Previous</button>
+                        <span id="pageIndicator">Page 1</span>
+                        <button id="nextPage">Next</button>
+                    </div>
                 </div>
                 <div class="container-table" id="containerTable" style="display: none;">
                     <form class="card">
@@ -136,8 +141,10 @@
                         <span id="span_imagePro"></span>
                         </form>
                         <br>
-                        <button type="button" id="btn-submit">Update</button>
-                        <button type="button" id="btn-exit">Exit</button>
+                        <div class="button-container">
+                            <button type="button" id="btn-submit">Update</button>
+                            <button type="button" id="btn-exit">Exit</button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -317,6 +324,62 @@
                 displayProducts();
             }
         }
+        let currentPage = 1;
+        const productsPerPage = 6; // Display 6 products per page
+
+        // Display products with pagination
+        function displayPaginatedProducts() {
+            const products = getProductsFromLocalStorage();
+            const totalProducts = products.length;
+            const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+            // Update page indicator and button states
+            document.getElementById("pageIndicator").innerText = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById("prevPage").disabled = currentPage === 1;
+            document.getElementById("nextPage").disabled = currentPage === totalPages;
+
+            // Slice the products array to get only the products for the current page
+            const start = (currentPage - 1) * productsPerPage;
+            const end = start + productsPerPage;
+            const paginatedProducts = products.slice(start, end);
+
+            // Display the paginated products
+            let productTableBody = document.getElementById("productTableBody");
+            productTableBody.innerHTML = "";
+            paginatedProducts.forEach((product, index) => {
+                let newRow = document.createElement("tr");
+                newRow.innerHTML = `
+                    <td>${product.name}</td>
+                    <td><img src="${product.image}" width="50"></td>
+                    <td>$${product.price}</td>
+                    <td class="details-action">
+                        <button onclick="editProduct(${start + index})"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button onclick="confirmDeleteProduct(${start + index})"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                `;
+                productTableBody.appendChild(newRow);
+            });
+        }
+
+        // Pagination controls
+        document.getElementById("prevPage").onclick = function() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayPaginatedProducts();
+            }
+        };
+
+        document.getElementById("nextPage").onclick = function() {
+            const products = getProductsFromLocalStorage();
+            const totalPages = Math.ceil(products.length / productsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayPaginatedProducts();
+            }
+        };
+
+        // Initialize display with pagination
+        window.onload = displayPaginatedProducts;
 
         // Hiển thị sản phẩm khi trang được tải
         window.onload = displayProducts;

@@ -241,6 +241,7 @@ button{
     cursor: pointer;
     padding: 10px;
     color: white;
+    background-color: var(--blue1,--blue2);
 }
 td button:nth-child(1){
     background-color: var(--blue1,--blue2);
@@ -373,11 +374,7 @@ input, textarea{
     padding-left: 0;
     border: 0px ;
 }
-.container-table button{
-    cursor: pointer;
-    width: 80px;
-    height: 30px;
-    color: #fff;
-    background-color: var(--blue1,--blue2);
+.container-table .button-container {
+    display: flex;
+    gap: 10px;
 }
-
