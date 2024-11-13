@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styleADMIN.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Responsive Admin</title>
+</head>
+<body>
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <div class="logo">
+                            <img src="assets/img/logo-img/logophone.png">
+                            <h2>BiDiEO</h2>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="productLink">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                        <span class="title">Sản phẩm</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" id="customerLink">
+                        <i class="fa-solid fa-users"></i>
+                        <span class="title">Khách hàng</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-solid fa-file-contract"></i>
+                        <span class="title">Đơn hàng</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa-sharp fa-solid fa-chart-simple"></i>
+                        <span class="title">Thống kê</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <i class="fa-solid fa-bars"></i>
+                </div>
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Tìm kiếm">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </label>
+                </div>
+                <div class="userImg">
+                    <img src="/assets/img/logo-img/HutaoPF.png">
+                </div>
+            </div>
+            <div class="details">
+                <div class="form-container"  id="recentProducts">
+                    <div class="table-header">
+                        <h2>Sản phẩm</h2>
+                        <div>
+                            <button class="add-new" id="btnAddNew">+ Thêm</button>
+                        </div>
+                    </div>
+                    <div class="container-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Giá cả</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTableBody">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <button id="prevPage" disabled>Previous</button>
+                        <span id="pageIndicator">Page 1</span>
+                        <button id="nextPage">Next</button>
+                    </div>
+                </div>
+                <div class="form-container"  id="recentCustomer" style="display: none;">
+                    <div class="table-header">
+                        <h2>Khách Hàng</h2>
+                    </div>
+                    <div class="container-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Email</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Khóa tài khoản</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customerTableBody">
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination">
+                        <button id="prevPage" disabled>Previous</button>
+                        <span id="pageIndicator">Page 1</span>
+                        <button id="nextPage">Next</button>
+                    </div>
+                </div>
+                <div class="form-container" id="containerTable" style="display: none;">
+                    <form class="card">
+                        <div class="row-card">
+                            <label for="">Tên sản phẩm</label>
+                            <br>
+                            <input type="text" id="Add-name_product">
+                        </div>
+                        <span id="span_namePro"></span>
+                        <div class="row-card">
+                            <label for="">Loại sản phẩm</label>
+                            <br>
+                            <select name="" id="select_category">
+                                <option value="" disabled selected>Chọn loại</option>
+                                <option value="iphone">Iphone</option>
+                                <option value="sam_sung">Samsung</option>
+                                <option value="oppo">Oppo</option>
+                                <option value="xiaomi">Xioami</option>
+                            </select>
+                        </div>
+                        <span id="span_CategoryPro"></span>
+                        <div class="row-card">
+                            <label for="">Giá</label>
+                            <br>
+                            <input type="number" id="Add-price">
+                        </div>
+                        <span id="span_pricePro"></span>
+                        <div class="row-card">
+                            <label for="">Mô tả</label>
+                            <br>
+                            <textarea id="Add-detail_Product" ></textarea>
+                        </div>
+                        <span id="span_detailPro"></span>
+                        <div class="row-card">
+                            <label for="">Chọn ảnh mới</label>
+                            <input type="file" id="fileInput" accept="image/*"> 
+                        </div>
+                        <!-- <div class="row-card rowDeleteImg">
+                            <label for="">Hoặc xóa ảnh</label>
+                            <input type="checkbox" id="deleteImg">
+                        </div> -->
+
+                        <span id="span_imagePro"></span>
+                        </form>
+                        <br>
+                        <div class="button-container">
+                            <button type="button" id="btn-submit">Update</button>
+                            <button type="button" id="btn-exit">Exit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="/ADMIN.js"></script>   
+</body>
+</html> 
