@@ -47,3 +47,26 @@ document.querySelector(".cart").addEventListener("click", () => {
     </div>
   </div>`;
 });
+
+// SLIDER-BANNER
+const slides = document.querySelectorAll(".banner");
+const slidesContainer = document.querySelector(".slider");
+const totalSlides = slides.length;
+let currentIndex = 0;
+
+function showSlides() {
+  // Tính toán vị trí dịch chuyển cho từng cặp slide
+  slidesContainer.style.transform = `translateX(-${
+    currentIndex * (1200 / 2 + 5)
+  }px)`;
+
+  // Cập nhật currentIndex để chuyển đến cặp slide kế tiếp
+  currentIndex = (currentIndex + 1) % totalSlides;
+
+  // Nếu đã đến slide cuối cùng, chuyển về vị trí ban đầu
+  if (currentIndex === totalSlides - 1) {
+    currentIndex = 0;
+  }
+}
+
+setInterval(showSlides, 3000); // Thay đổi slide mỗi 3 giây

@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+ul {
+  list-style: none;
+}
+
 .container {
   width: 120rem;
   margin: 0 auto;
@@ -15,13 +19,23 @@ html {
 }
 
 /*====================================================  HEADER ==================================================== */
+header {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
+}
+
+.header-mask {
+  width: 100%;
+  height: 90px;
+}
 /*                                                .header                                            */
 .header {
   width: 100%;
   background-color: rgb(26, 144, 212);
 }
 
-.header > .container {
+.header .container {
   display: flex;
   background-color: rgb(26, 144, 212);
   padding-top: 1rem;
@@ -107,37 +121,40 @@ html {
 }
 /*                                                .navigation                                            */
 .navigation {
-  width: 100%;
   background-color: rgb(26, 144, 212);
-  padding-top: 5px;
+  padding: 0 0 10px;
+  padding-bottom: 0;
+  padding-top: 4px;
 }
-.navigation .container {
-  display: flex;
+
+.navigation > div {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
   padding: 0 10px;
 }
 
-.iphone,
-.samsung,
-.oppo,
-.xiaomi {
+.main-menu {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1em;
-  width: 7em;
-  height: 2em;
-  font-size: 1.4em;
-  font-weight: bold;
-  border-radius: 10px 10px 0 0;
-  border: 1px solid green;
-  background-color: rgba(231, 234, 246, 0.652);
+  margin: 0 -10px 0;
 }
 
-.iphone:hover,
-.samsung:hover,
-.oppo:hover,
-.xiaomi:hover {
-  background-color: green;
+.main-menu li {
+  cursor: pointer;
+  padding: 10px;
+  position: relative;
+  border: 2px solid green;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1.6em;
+  margin-right: 10px;
+  width: 100%;
+  max-width: 100px;
+  text-align: center;
+}
+
+.main-menu > li:hover {
+  background-color: yellow;
 }
 
 /*====================================================  MAIN ==================================================== */
@@ -150,8 +167,33 @@ html {
   background-color: green;
 }
 /*                                                      .slider-banner                                            */
+
 .slider-banner {
-  height: 20rem;
+  width: 100%;
+  max-width: 1200px;
+  overflow: hidden;
+  margin: auto;
+  position: relative;
+}
+
+.slider {
+  display: flex;
+  width: calc(100% * 5); /* Đảm bảo đủ không gian cho tất cả slide */
+  transition: transform 0.5s ease;
+}
+
+.banner {
+  width: calc(
+    (1200px / 2) - 5px
+  ); /* Mỗi slide chiếm 1/2 div cha, trừ đi khoảng cách 10px */
+  margin-right: 10px; /* Khoảng cách giữa các slide */
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
 }
 
 /*                                                      .products                                           */
