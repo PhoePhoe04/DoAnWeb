@@ -248,7 +248,7 @@ html {
 }
 #bang_gh {
   display: grid;
-  grid-template-columns: 1fr 80px 200px 120px;
+  grid-template-columns: 1fr 120px 160px 120px;
   font-size: 20px;
 }
 #quantity {
@@ -261,10 +261,57 @@ html {
 #control_quantity {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
 }
 #control_quantity button {
   width: 20px;
   margin-left: -1px;
   margin-right: -1px;
+}
+.th{
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bolder;
+}
+#empty_cart{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#empty_cart_info{
+  margin-left: 10px;
+}
+#empty_cart_info h1{
+  font-size: 40px;
+  font-weight: bold;
+}
+#empty_cart_info p{
+  font-size: 28px;
+}
+#suggest_phone{
+  margin-left: 60px;
+  width: 400px;
+}
+#suggest_phone h1{
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+.phone_area{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.phone_name{
+  font-size: 26px
+}
+#page_sc{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.phone_data{
+  display: flex;
+  flex-direction: column;
 }
