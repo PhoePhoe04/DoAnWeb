@@ -13,12 +13,12 @@ function showMoreProducts() {
     button.textContent === "Hiển thị thêm" ? "Thu gọn" : "Hiển thị thêm";
 }
 // su kien gio hang
-document.querySelector('.cart').addEventListener('click',() =>{
-  document.querySelector('.container.slider-banner').style.display = 'none';
-  document.querySelectorAll('.container.suggestion').forEach(div => {
-    div.style.display = 'none';
+document.querySelector(".cart").addEventListener("click", () => {
+  document.querySelector(".container.slider-banner").style.display = "none";
+  document.querySelectorAll(".container.suggestion").forEach((div) => {
+    div.style.display = "none";
   });
-  document.querySelector('.main').innerHTML = `
+  document.querySelector(".main").innerHTML = `
   <h1 id="gio_hang">Giỏ hàng của bạn</h1>
   <div id="bang_gh">
     <div id="phone_area">
@@ -45,5 +45,5 @@ document.querySelector('.cart').addEventListener('click',() =>{
       <hr>
       <div>VNĐ</div>
     </div>
-  </div>`
+  </div>`;
 });
