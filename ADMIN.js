@@ -59,20 +59,44 @@ let editIndex = null;
         // Lấy các phần tử cần thiết
         const productLink = document.getElementById("productLink");
         const customerLink = document.getElementById("customerLink");
+        const orderLink = document.getElementById("orderLink");
+        const staticsLink = document.getElementById("staticsLink");
 
         const recentProduct = document.getElementById("recentProducts");
         const recentCustomer = document.getElementById("recentCustomer");
+        const recentOrder = document.getElementById("recentOrder");
+        const recentStatics = document.getElementById("recentStatics");
 
-        // Khi nhấn vào "Product", hiển thị recentProduct và ẩn recentCustomer
+        // Khi nhấn vào "Product", hiển thị recentProduct và ẩn recentCustomer, recentOrder, recentStatics
         productLink.addEventListener("click", function() {
-            recentProduct.style.display = "block";  // Hiển thị recentProduct
-            recentCustomer.style.display = "none"; // Ẩn recentCustomer
+            recentProduct.style.display = "block";
+            recentCustomer.style.display = "none";
+            recentOrder.style.display = "none";
+            recentStatics.style.display = "none";
         });
 
-        // Khi nhấn vào "Customer", hiển thị recentCustomer và ẩn recentProduct
+        // Khi nhấn vào "Customer", hiển thị recentCustomer và ẩn recentProduct, recentOrder, recentStatics
         customerLink.addEventListener("click", function() {
-            recentProduct.style.display = "none";  // Ẩn recentProduct
-            recentCustomer.style.display = "block"; // Hiển thị recentCustomer
+            recentProduct.style.display = "none";
+            recentCustomer.style.display = "block";
+            recentOrder.style.display = "none";
+            recentStatics.style.display = "none";
+        });
+
+        // Khi nhấn vào "Order", hiển thị recentOrder và ẩn recentProduct, recentCustomer, recentStatics
+        orderLink.addEventListener("click", function() {
+            recentProduct.style.display = "none";
+            recentCustomer.style.display = "none";
+            recentOrder.style.display = "block";
+            recentStatics.style.display = "none";
+        });
+
+        // Khi nhấn vào "Statics", hiển thị recentStatics và ẩn recentProduct, recentCustomer, recentOrder
+        staticsLink.addEventListener("click", function() {
+            recentProduct.style.display = "none";
+            recentCustomer.style.display = "none";
+            recentOrder.style.display = "none";
+            recentStatics.style.display = "block";
         });
 
         // Hiển thị danh sách sản phẩm từ LocalStorage
