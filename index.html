@@ -44,7 +44,11 @@
         <div class="navigation">
           <div>
             <ul class="main-menu">
-              <li>iPhone</li>
+              <li>
+                <a href="" onclick="changePage('iphone-page'); return false;"
+                  >iPhone</a
+                >
+              </li>
               <li>SAMSUNG</li>
               <li>XIAOMI</li>
               <li>OPPO</li>
@@ -56,7 +60,8 @@
       <div class="header-mask"></div>
       <!-- MAIN -->
       <main>
-        <div class="main">
+        <!-- Trang chủ -->
+        <div id="home" class="page section">
           <!-- Slider -->
           <div class="container slider-banner">
             <div class="slider">
@@ -98,10 +103,34 @@
               </button>
             </div>
           </div>
-          <div class="container suggestion">
-            <div>Gợi ý cho bạn</div>
+        </div>
+        <!-- iPhone -->
+        <div id="iphone-page" class="page active">
+          <div class="container">
+            <nav>
+              <a href="" onclick="changePage('home'); return false;">Home</a>
+              <div>></div>
+              <a href="">iPhone</a>
+            </nav>
+            <div class="filter">
+              <button><i class="fa-solid fa-filter"></i>Lọc</button>
+            </div>
+            <div class="sort">
+              <p>Sắp xếp theo:</p>
+              <p>Nổi bật</p>
+              <p>Mới</p>
+              <p>Giá</p>
+            </div>
             <div class="products">
-              <div class="product">SAMSUNG</div>
+              <div class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip13.jpg" alt="" />
+                </div>
+                <div class="productName">iPhone 13 PROMAX</div>
+                <div class="productDetail"></div>
+                <div class="productPrice">200.000 VND</div>
+                <button>Mua ngay</button>
+              </div>
               <div class="product">SAMSUNG</div>
               <div class="product">SAMSUNG</div>
               <div class="product">SAMSUNG</div>
@@ -114,9 +143,16 @@
               <div class="product">iPhone</div>
               <div class="product">iPhone</div>
             </div>
+            <div class="showMore">
+              <button id="showMoreBtn" onclick="showMoreProducts()">
+                Hiển thị thêm
+              </button>
+            </div>
           </div>
         </div>
       </main>
+
+      <footer></footer>
     </div>
     <script src="./javascript.js"></script>
   </body>

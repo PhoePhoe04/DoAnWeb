@@ -125,3 +125,21 @@ function showSlides() {
 }
 
 setInterval(showSlides, 3000); // Thay đổi slide mỗi 3 giây
+
+// Chuyển trang
+function changePage(pageId) {
+  // Tìm tất cả các phần tử có class 'page'
+  const pages = document.querySelectorAll(".page");
+  pages.forEach((page) => {
+    // Gỡ bỏ class 'active' và thêm class 'section' cho tất cả các trang
+    page.classList.remove("active");
+    page.classList.add("section");
+  });
+
+  // Tìm phần tử có id trùng với pageId và thêm class 'active'
+  const targetPage = document.getElementById(pageId);
+  if (targetPage) {
+    targetPage.classList.add("active");
+    targetPage.classList.remove("section");
+  }
+}
