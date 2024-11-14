@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styleLogin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="close">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="form-box dangnhap">
+            <h2>Đăng Nhập</h2>
+            <form action="#">
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" required>
+                    <label>Tên đăng nhập</label>
+                </div>
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" required>
+                    <label>Mật khẩu</label>
+                </div>
+                <div class="nhomatkhau">
+                    <label><input type="checkbox">Nhớ mật khẩu</label>
+                    <a href="#">Quên Mật Khẩu?</a>
+                </div>
+                <button type="submit" class="btn">Đăng nhập</button>
+                <div class="dangnhap-dangky">
+                    <p>Không có tài khoản?<a href="#" class="dangky-link">Đăng ký</a></p>
+                </div>
+            </form>        
+        </div>
+        
+        <div class="form-box dangky">
+            <h2>Đăng ký</h2>
+            <form action="#">
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" required>
+                    <label>Tên đăng nhập</label>
+                </div>
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" required>
+                    <label>Mật khẩu</label>
+                </div>
+                <div class="input-box">
+                    <i class="fa-solid fa-lock"></i>
+                    <input type="password" required>
+                    <label>Nhập lại mật khẩu</label>
+                </div>
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" required>
+                    <label>E-mail</label>
+                </div>
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" required>
+                    <label>Địa chỉ</label>
+                </div>   
+                <div class="input-box">
+                    <i class="fa-solid fa-user"></i>
+                    <input type="text" required>
+                    <label>Số điện thoại</label>
+                </div>              
+                <div class="nhomatkhau">
+                    <label><input type="checkbox">Tôi đồng ý với các điều khoản và điều kiện</label>
+                </div>
+                <button type="submit" class="btn">Đăng ký</button>
+                <div class="dangnhap-dangky">
+                    <p>Bạn đã có tài khoản?<a href="#" class="dangnhap-link">Đăng nhập</a></p>
+                </div>
+            </form>        
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

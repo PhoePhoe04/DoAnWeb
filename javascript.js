@@ -122,3 +122,7 @@ function showSlides() {
 }
 
 setInterval(showSlides, 3000); // Thay đổi slide mỗi 3 giây
+
+
+
+
