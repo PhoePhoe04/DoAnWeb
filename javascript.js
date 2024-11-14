@@ -126,6 +126,7 @@ function showSlides() {
 
 setInterval(showSlides, 3000); // Thay đổi slide mỗi 3 giây
 
+
 // Chuyển trang
 function changePage(pageId) {
   // Tìm tất cả các phần tử có class 'page'
@@ -143,3 +144,4 @@ function changePage(pageId) {
     targetPage.classList.remove("section");
   }
 }
+
