@@ -18,32 +18,87 @@ document.querySelector(".cart").addEventListener("click", () => {
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "none";
   });
-  document.querySelector(".main").innerHTML = `
+    //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm
+    /*document.querySelector(".main").innerHTML = `
   <h1 id="gio_hang">Giỏ hàng của bạn</h1>
   <div id="bang_gh">
-    <div id="phone_area">
-      <div>Điện thoại</div>
+    <div>
+      <div class="th">Điện thoại</div>
       <hr>
-      <div></div>
-    </div>
-    <div id="price_area">
-      <div>Đơn giá</div>
-      <hr>
-      <div>VNĐ</div>
-    </div> 
-    <div id="quantity_area">
-      <div>Số lượng</div>
-      <hr>
-      <div id="control_quantity">
-        <button>-</button>
-        <div id="quantity">0</div>
-        <button>+</button>
+      <div>
+        Khong co dien thoai
       </div>
     </div>
-    <div id="total_area">
-      <div>Tổng tiền</div>
+    <div>
+      <div class="th">Đơn giá</div>
       <hr>
-      <div>VNĐ</div>
+      <div>0VNĐ</div>
+    </div> 
+    <div>
+      <div class="th">Số lượng</div>
+      <hr>
+      <div id="control_quantity">
+        <button class="change_number">-</button>
+        <div id="quantity">0</div>
+        <button class="change_number">+</button>
+      </div>
+    </div>
+    <div>
+      <div class="th">Tổng tiền</div>
+      <hr>
+      <div>0VNĐ</div>
+    </div>
+  </div>`;
+  document.querySelectorAll(".change_number").forEach(button => {
+    button.addEventListener("click",() => {
+      var i = parseInt(document.querySelector("#quantity").textContent);
+      if( button.textContent == "-")
+        i -=1;
+      if( button.textContent == "+")
+        i +=1;
+      if(i >= 0)
+        document.querySelector("#quantity").textContent = i;
+      else
+        alert("Số sản phẩm phải lớn hơn hoặc bằng 0");
+    });
+  }); */
+  //Khi giỏ hàng không có sản phẩm nào.
+  document.querySelector(".main").innerHTML = `
+  <div id="sc_top">
+    <div id="sc_top_content">
+        <div id="empty_cart">
+          <img src="./assets/img/logo-img/empty_cart.png" width="280" height="280"></img>
+          <div id="empty_cart_info">
+            <h1>Bạn chưa mua sản phẩm của cửa hàng chúng tôi</h1>
+            <p>Bạn hãy tiếp tục mua sắm.</p>
+            <p>Bạn sẽ tìm được chiếc điện thoại yêu thích của mình.</p>
+            <button id="return_main_page">Bắt Đầu Mua Sắm</button>
+          </div>
+        </div>
+        <div id="suggest_phone">
+          <h1>Gợi ý những điện thoại nên mua</h3>
+          <div class="phone_area">
+            <img src="./assets/item/ip16.jpg" width="100" height="100"></img>
+            <div class="phone_data">
+              <div class="phone_name">Iphone 16 Pro Max</div>
+              <div class="phone_price">50.000.000VNĐ</div>
+            </div>
+          </div>
+          <div class="phone_area">
+            <img src="./assets/item/ip15.jpg" width="100" height="100"></img>
+            <div class="phone_data">
+              <div class="phone_name">Iphone 15 Pro Max</div>
+              <div class="phone_price">30.000.000VNĐ</div>
+            </div>
+          </div>
+          <div class="phone_area">
+            <img src="./assets/item/ip14.jpg" width="100" height="100"></img>
+            <div class="phone_data">
+              <div class="phone_name">Iphone 14 Pro Max</div>
+              <div class="phone_price">28.000.000VNĐ</div>
+            </div>
+          </div>
+        </div> 
     </div>
   </div>`;
 });

@@ -267,65 +267,6 @@ header {
   display: none;
 }
 
-/* NÚT XEM THÊM SẢN PHẨM */
-.showMore {
-  display: flex;
-  width: 100%;
-  background-color: green;
-  justify-content: center;
-}
-
-.container.suggestion {
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 10px;
-  background-color: #ede6e6;
-}
-
-.suggestion > div:first-child {
-  margin-left: 2rem;
-  margin-bottom: 1rem;
-  font-size: 2.4rem;
-  font-weight: bold;
-}
-#bang_gio_hang {
-  margin: 20px auto 0 auto;
-  border-spacing: 4px;
-}
-#bang_gio_hang td,
-#bang_gio_hang th {
-  border: 2px solid black;
-  height: 50px;
-}
-#gio_hang {
-  font-size: 30px;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-}
-#bang_gh {
-  display: grid;
-  grid-template-columns: 1fr 80px 200px 120px;
-  font-size: 20px;
-}
-#quantity {
-  background-color: white;
-  display: inline-block;
-  width: 60px;
-  height: auto;
-  border: 1px solid black;
-}
-#control_quantity {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
-#control_quantity button {
-  width: 20px;
-  margin-left: -1px;
-  margin-right: -1px;
-}
-
 /* --------------------------------------------- IPHONE --------------------------------------------- */
 #iphone-page {
   width: 100%;
@@ -372,4 +313,133 @@ header {
 
 .sort > p {
   font-size: 1.4em;
+}
+
+/* NÚT XEM THÊM SẢN PHẨM */
+.showMore {
+  display: flex;
+  width: 100%;
+  background-color: green;
+  justify-content: center;
+}
+
+.container.suggestion {
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  background-color: #ede6e6;
+}
+
+.suggestion > div:first-child {
+  margin-left: 2rem;
+  margin-bottom: 1rem;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+#bang_gio_hang {
+  margin: 20px auto 0 auto;
+  border-spacing: 4px;
+}
+#bang_gio_hang td,
+#bang_gio_hang th {
+  border: 2px solid black;
+  height: 50px;
+}
+#gio_hang {
+  font-size: 30px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+}
+#bang_gh {
+  display: grid;
+  grid-template-columns: 1fr 120px 160px 120px;
+  font-size: 20px;
+}
+#quantity {
+  background-color: white;
+  display: inline-block;
+  width: 60px;
+  height: auto;
+  border: 1px solid black;
+}
+#control_quantity {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+#control_quantity button {
+  width: 20px;
+  margin-left: -1px;
+  margin-right: -1px;
+}
+.th{
+  margin-bottom: 20px;
+  font-size: 26px;
+  font-weight: bolder;
+}
+#empty_cart{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid black;
+  padding: 8px;
+}
+#empty_cart_info h1{
+  font-size: 30px;
+  font-weight: bold;
+}
+#empty_cart_info p{
+  font-size: 28px;
+}
+#suggest_phone{
+  margin-left: 20px;
+  border: 2px solid black;
+  padding: 8px;
+}
+#suggest_phone h1{
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+.phone_area{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.phone_area:hover .phone_data  {
+  font-weight: bold;
+  font-style: oblique;
+}
+
+.phone_name{
+  font-size: 26px
+}
+#sc_top {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 60%;
+  height: 60%;
+}
+#sc_top_content{
+  display: grid;
+  grid-template-columns: 1fr 430px;
+}
+.phone_data{
+  display: flex;
+  flex-direction: column;
+}
+.phone_price{
+  color: brown;
+  font-size: 18px;
+}
+#return_main_page{
+  background-color: darkblue;
+  color: white;
+  border-radius: 20px;
+  padding: 6px;
+  font-size: 20px;
+  margin-top: 10px;
 }
