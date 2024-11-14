@@ -317,23 +317,23 @@ header {
 }
 #empty_cart{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-#empty_cart_info{
-  margin-left: 10px;
+  border: 2px solid black;
+  padding: 8px;
 }
 #empty_cart_info h1{
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
 }
 #empty_cart_info p{
   font-size: 28px;
 }
 #suggest_phone{
-  margin-left: 60px;
-  width: 400px;
+  margin-left: 20px;
+  border: 2px solid black;
+  padding: 8px;
 }
 #suggest_phone h1{
   font-size: 28px;
@@ -342,18 +342,41 @@ header {
 .phone_area{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
 }
+.phone_area:hover .phone_data  {
+  font-weight: bold;
+  font-style: oblique;
+}
+
 .phone_name{
   font-size: 26px
 }
-#page_sc{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+#sc_top {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 60%;
+  height: 60%;
+}
+#sc_top_content{
+  display: grid;
+  grid-template-columns: 1fr 430px;
 }
 .phone_data{
   display: flex;
   flex-direction: column;
+}
+.phone_price{
+  color: brown;
+  font-size: 18px;
+}
+#return_main_page{
+  background-color: darkblue;
+  color: white;
+  border-radius: 20px;
+  padding: 6px;
+  font-size: 20px;
+  margin-top: 10px;
 }
