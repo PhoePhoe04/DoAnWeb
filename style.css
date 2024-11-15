@@ -378,70 +378,30 @@ header {
   font-size: 26px;
   font-weight: bolder;
 }
-#empty_cart{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 2px solid black;
-  padding: 8px;
-}
-#empty_cart_info h1{
-  font-size: 30px;
-  font-weight: bold;
-}
-#empty_cart_info p{
-  font-size: 28px;
-}
-#suggest_phone{
-  margin-left: 20px;
-  border: 2px solid black;
-  padding: 8px;
-}
-#suggest_phone h1{
-  font-size: 28px;
-  margin-bottom: 10px;
-}
-.phone_area{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-.phone_area:hover .phone_data  {
-  font-weight: bold;
-  font-style: oblique;
-}
-
-.phone_name{
-  font-size: 26px
-}
-#sc_top {
-  display: none;
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  width: 60%;
-  height: 60%;
-}
-#sc_top_content{
-  display: grid;
-  grid-template-columns: 1fr 430px;
-}
-.phone_data{
-  display: flex;
-  flex-direction: column;
-}
-.phone_price{
-  color: brown;
-  font-size: 18px;
-}
 #return_main_page{
   background-color: darkblue;
   color: white;
   border-radius: 20px;
-  padding: 6px;
+  border: none;
+  padding: 8px;
   font-size: 20px;
   margin-top: 10px;
   cursor: pointer;
+}
+#shopping_cart_page{
+  display: none;
+  position: absolute;
+  height: 50%;
+  width: 50%;
+  inset: 0;
+  margin: auto;
+}
+#non_empty{
+  display: none;
+}
+#empty{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 21px;
 }

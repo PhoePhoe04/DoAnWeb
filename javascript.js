@@ -18,38 +18,9 @@ document.querySelector(".cart").addEventListener("click", () => {
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "none";
   });
-    //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm
-    /*document.querySelector(".main").innerHTML = `
-  <h1 id="gio_hang">Giỏ hàng của bạn</h1>
-  <div id="bang_gh">
-    <div>
-      <div class="th">Điện thoại</div>
-      <hr>
-      <div>
-        Khong co dien thoai
-      </div>
-    </div>
-    <div>
-      <div class="th">Đơn giá</div>
-      <hr>
-      <div>0VNĐ</div>
-    </div> 
-    <div>
-      <div class="th">Số lượng</div>
-      <hr>
-      <div id="control_quantity">
-        <button class="change_number">-</button>
-        <div id="quantity">0</div>
-        <button class="change_number">+</button>
-      </div>
-    </div>
-    <div>
-      <div class="th">Tổng tiền</div>
-      <hr>
-      <div>0VNĐ</div>
-    </div>
-  </div>`;
-  document.querySelectorAll(".change_number").forEach(button => {
+  document.querySelector("#iphone-page").style.display = "none";
+    //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm 
+/*   document.querySelectorAll(".change_number").forEach(button => {
     button.addEventListener("click",() => {
       var i = parseInt(document.querySelector("#quantity").textContent);
       if( button.textContent == "-")
@@ -61,13 +32,13 @@ document.querySelector(".cart").addEventListener("click", () => {
       else
         alert("Số sản phẩm phải lớn hơn hoặc bằng 0");
     });
-  }); */
+  });  */
   //Khi giỏ hàng không có sản phẩm nào.
-  document.querySelector("#iphone-page").style.display = "none";
-  document.querySelector("#sc_top").style.display="block";
+  document.querySelector("#shopping_cart_page").style.display="block";
 });
 
 returnToMainPage = () =>{
+  document.querySelector("#shopping_cart_page").style.display="none";
   document.querySelector(".container.slider-banner").style.display = "block";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "block";
