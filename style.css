@@ -31,7 +31,7 @@ header {
 
 .header-mask {
   width: 100%;
-  height: 90px;
+  height: 95px;
 }
 /*                                                .header                                            */
 .header {
@@ -212,6 +212,7 @@ header {
 }
 
 /*.products*/
+
 .products {
   display: grid;
   grid-template-columns: repeat(
@@ -233,6 +234,14 @@ header {
 
 .productImg {
   border: 1px solid red;
+}
+
+.productImg img {
+  width: 100%; /* Hoặc đặt một giá trị cụ thể, ví dụ: 80% */
+  height: auto; /* Đảm bảo ảnh giữ nguyên tỉ lệ */
+  max-width: 80%; /* Hoặc kích thước cụ thể, ví dụ: 150px */
+  max-height: 200px; /* Đặt chiều cao tối đa */
+  object-fit: contain; /* Giữ tỉ lệ mà không cắt ảnh */
 }
 
 .productName {
@@ -292,28 +301,139 @@ header {
   text-decoration: underline;
 }
 
-.filter {
-  margin: 10px 0 0 10px;
+/* FILTER-SORT >>---------  */
+.margin-filter-sort {
+  margin: 10px;
+  border: 1px green solid;
 }
 
-.filter > button {
+/* FILTER */
+.filter {
+  position: relative;
+}
+.triangle {
+  position: absolute;
+  top: 25px;
+  left: 20px;
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent; /* Tạo cạnh bên trái */
+  border-right: 15px solid transparent; /* Tạo cạnh bên phải */
+  border-bottom: 20px solid #007bff; /* Tạo đáy của tam giác */
+}
+
+.filterBtn {
+  font-size: 1.4em;
+  font-weight: bold;
+  display: flex;
+  gap: 4px;
+  padding: 2px;
+  margin: 2px 0;
+}
+
+.filter-popup {
+  position: absolute;
+  top: 45px;
+  left: 0;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 800px;
+  height: 300px;
+  background-color: #fff;
+  border: 1px solid blue;
+  padding: 0 10px;
+  overflow: auto;
+}
+
+.dong-san-pham,
+.gia-san-pham,
+.tuy-chon {
+  margin-top: 4px;
+  border: 1px solid red;
+}
+
+.dong-san-pham > h3 {
+  text-align: left;
+}
+
+.dong-san-pham > div {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.dong-san-pham > div > div {
   display: flex;
   text-align: center;
   justify-content: center;
-  gap: 5px;
-  font-size: 1.4em;
-  font-weight: bold;
+  border: 1px solid green;
+  width: 50px;
+  padding: 5px 0;
+  border-radius: 5px;
 }
 
+.dong-san-pham > div > div:hover {
+  background-color: yellow;
+}
+
+.gia-san-pham > h3 {
+  text-align: left;
+}
+
+.gia-san-pham > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+}
+
+.gia-san-pham > div > div {
+  border-radius: 5px;
+  border: 1px solid green;
+  padding: 10px;
+}
+
+.gia-san-pham > div > div:hover {
+  background-color: yellow;
+}
+
+.tuy-chon {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.tuy-chon > .option > h3 {
+  text-align: left;
+}
+
+.tuy-chon > .option > div {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.tuy-chon > .option > div > div {
+  border: 1px solid green;
+  padding: 4px;
+  border-radius: 5px;
+}
+
+.tuy-chon > .option > div > div:hover {
+  background-color: yellow;
+}
+
+/* SORT */
 .sort {
-  margin: 10px 0 10px 10px;
   display: flex;
   gap: 10px;
 }
 
 .sort > p {
-  font-size: 1.4em;
+  font-size: 1.6em;
 }
+
+/*---------<< FILTER-SORT  */
 
 /* NÚT XEM THÊM SẢN PHẨM */
 .showMore {
@@ -373,12 +493,12 @@ header {
   margin-left: -1px;
   margin-right: -1px;
 }
-.th{
+.th {
   margin-bottom: 20px;
   font-size: 26px;
   font-weight: bolder;
 }
-#empty_cart{
+#empty_cart {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -386,35 +506,35 @@ header {
   border: 2px solid black;
   padding: 8px;
 }
-#empty_cart_info h1{
+#empty_cart_info h1 {
   font-size: 30px;
   font-weight: bold;
 }
-#empty_cart_info p{
+#empty_cart_info p {
   font-size: 28px;
 }
-#suggest_phone{
+#suggest_phone {
   margin-left: 20px;
   border: 2px solid black;
   padding: 8px;
 }
-#suggest_phone h1{
+#suggest_phone h1 {
   font-size: 28px;
   margin-bottom: 10px;
 }
-.phone_area{
+.phone_area {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
-.phone_area:hover .phone_data  {
+.phone_area:hover .phone_data {
   font-weight: bold;
   font-style: oblique;
 }
 
-.phone_name{
-  font-size: 26px
+.phone_name {
+  font-size: 26px;
 }
 #sc_top {
   position: absolute;
@@ -423,19 +543,19 @@ header {
   width: 60%;
   height: 60%;
 }
-#sc_top_content{
+#sc_top_content {
   display: grid;
   grid-template-columns: 1fr 430px;
 }
-.phone_data{
+.phone_data {
   display: flex;
   flex-direction: column;
 }
-.phone_price{
+.phone_price {
   color: brown;
   font-size: 18px;
 }
-#return_main_page{
+#return_main_page {
   background-color: darkblue;
   color: white;
   border-radius: 20px;

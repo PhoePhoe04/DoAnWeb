@@ -1,3 +1,6 @@
+// ============================================================ Main ============================================================
+
+// Sự kiện cho nút hiển thị thêm
 function showMoreProducts() {
   const items = document.querySelectorAll(
     ".products .product:nth-child(n + 7)"
@@ -12,14 +15,80 @@ function showMoreProducts() {
   button.textContent =
     button.textContent === "Hiển thị thêm" ? "Thu gọn" : "Hiển thị thêm";
 }
+
+// SLIDER-BANNER
+const slides = document.querySelectorAll(".banner");
+const slidesContainer = document.querySelector(".slider");
+const totalSlides = slides.length;
+let currentIndex = 0;
+
+function showSlides() {
+  // Tính toán vị trí dịch chuyển cho từng cặp slide
+  slidesContainer.style.transform = `translateX(-${
+    currentIndex * (1200 / 2 + 5)
+  }px)`;
+
+  // Cập nhật currentIndex để chuyển đến cặp slide kế tiếp
+  currentIndex = (currentIndex + 1) % totalSlides;
+
+  // Nếu đã đến slide cuối cùng, chuyển về vị trí ban đầu
+  if (currentIndex === totalSlides - 1) {
+    currentIndex = 0;
+  }
+}
+
+setInterval(showSlides, 3000); // Thay đổi slide mỗi 3 giây
+
+// Chuyển trang
+function changePage(pageId) {
+  // Tìm tất cả các phần tử có class 'page'
+  const pages = document.querySelectorAll(".page");
+  pages.forEach((page) => {
+    // Gỡ bỏ class 'active' và thêm class 'section' cho tất cả các trang
+    page.classList.remove("active");
+    page.classList.add("section");
+  });
+
+  // Tìm phần tử có id trùng với pageId và thêm class 'active'
+  const targetPage = document.getElementById(pageId);
+  if (targetPage) {
+    targetPage.classList.add("active");
+    targetPage.classList.remove("section");
+  }
+}
+
+// FILTER BUTTON
+const filterBtn = document.querySelector(".filterBtn");
+const triangle = document.querySelector(".triangle");
+const filterPopup = document.querySelector(".filter-popup");
+
+filterBtn.addEventListener("click", (event) => {
+  const isActive = triangle.classList.contains("active");
+
+  // Chuyển đổi giữa 'active' và 'section'
+  if (isActive) {
+    triangle.classList.remove("active");
+    triangle.classList.add("section");
+    filterPopup.classList.remove("active");
+    filterPopup.classList.add("section");
+  } else {
+    triangle.classList.remove("section");
+    triangle.classList.add("active");
+    filterPopup.classList.remove("section");
+    filterPopup.classList.add("active");
+  }
+});
+
+// ============================================================ Cart ============================================================
+
 // su kien gio hang
 document.querySelector(".cart").addEventListener("click", () => {
   document.querySelector(".container.slider-banner").style.display = "none";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "none";
   });
-    //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm
-    /*document.querySelector(".main").innerHTML = `
+  //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm
+  /*document.querySelector(".main").innerHTML = `
   <h1 id="gio_hang">Giỏ hàng của bạn</h1>
   <div id="bang_gh">
     <div>
@@ -102,44 +171,3 @@ document.querySelector(".cart").addEventListener("click", () => {
     </div>
   </div>`;
 });
-
-// SLIDER-BANNER
-const slides = document.querySelectorAll(".banner");
-const slidesContainer = document.querySelector(".slider");
-const totalSlides = slides.length;
-let currentIndex = 0;
-
-function showSlides() {
-  // Tính toán vị trí dịch chuyển cho từng cặp slide
-  slidesContainer.style.transform = `translateX(-${
-    currentIndex * (1200 / 2 + 5)
-  }px)`;
-
-  // Cập nhật currentIndex để chuyển đến cặp slide kế tiếp
-  currentIndex = (currentIndex + 1) % totalSlides;
-
-  // Nếu đã đến slide cuối cùng, chuyển về vị trí ban đầu
-  if (currentIndex === totalSlides - 1) {
-    currentIndex = 0;
-  }
-}
-
-setInterval(showSlides, 3000); // Thay đổi slide mỗi 3 giây
-
-// Chuyển trang
-function changePage(pageId) {
-  // Tìm tất cả các phần tử có class 'page'
-  const pages = document.querySelectorAll(".page");
-  pages.forEach((page) => {
-    // Gỡ bỏ class 'active' và thêm class 'section' cho tất cả các trang
-    page.classList.remove("active");
-    page.classList.add("section");
-  });
-
-  // Tìm phần tử có id trùng với pageId và thêm class 'active'
-  const targetPage = document.getElementById(pageId);
-  if (targetPage) {
-    targetPage.classList.add("active");
-    targetPage.classList.remove("section");
-  }
-}
