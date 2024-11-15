@@ -85,17 +85,69 @@
                 <div class="productPrice">200.000 VND</div>
                 <button>Mua ngay</button>
               </div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
+              <div class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip13.jpg" alt="" />
+                </div>
+                <div class="productName">iPhone 13 PROMAX</div>
+                <div class="productDetail"></div>
+                <div class="productPrice">200.000 VND</div>
+                <button>Mua ngay</button>
+              </div>
+              <div class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip13.jpg" alt="" />
+                </div>
+                <div class="productName">iPhone 13 PROMAX</div>
+                <div class="productDetail"></div>
+                <div class="productPrice">200.000 VND</div>
+                <button>Mua ngay</button>
+              </div>
+              <div class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip13.jpg" alt="" />
+                </div>
+                <div class="productName">iPhone 13 PROMAX</div>
+                <div class="productDetail"></div>
+                <div class="productPrice">200.000 VND</div>
+                <button>Mua ngay</button>
+              </div>
+              <div class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip13.jpg" alt="" />
+                </div>
+                <div class="productName">iPhone 13 PROMAX</div>
+                <div class="productDetail"></div>
+                <div class="productPrice">200.000 VND</div>
+                <button>Mua ngay</button>
+              </div>
+              <div class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip13.jpg" alt="" />
+                </div>
+                <div class="productName">iPhone 13 PROMAX</div>
+                <div class="productDetail"></div>
+                <div class="productPrice">200.000 VND</div>
+                <button>Mua ngay</button>
+              </div>
+              <div class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip13.jpg" alt="" />
+                </div>
+                <div class="productName">iPhone 13 PROMAX</div>
+                <div class="productDetail"></div>
+                <div class="productPrice">200.000 VND</div>
+                <button>Mua ngay</button>
+              </div>
+              <div class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip13.jpg" alt="" />
+                </div>
+                <div class="productName">iPhone 13 PROMAX</div>
+                <div class="productDetail"></div>
+                <div class="productPrice">200.000 VND</div>
+                <button>Mua ngay</button>
+              </div>
             </div>
             <div class="showMore">
               <button id="showMoreBtn" onclick="showMoreProducts()">
@@ -107,20 +159,85 @@
         <!-- iPhone -->
         <div id="iphone-page" class="page active">
           <div class="container">
+            <!-- Link chuyển hướng -->
             <nav>
               <a href="" onclick="changePage('home'); return false;">Home</a>
               <div>></div>
               <a href="">iPhone</a>
             </nav>
-            <div class="filter">
-              <button><i class="fa-solid fa-filter"></i>Lọc</button>
+
+            <div class="margin-filter-sort">
+              <!-- Nút Filter -->
+              <div class="filter">
+                <button id="iphone-filterBtn" class="filterBtn">
+                  <i class="fa-solid fa-filter"></i>Lọc
+                  <div class="triangle active"></div>
+                  <div class="filter-popup active">
+                    <div class="dong-san-pham">
+                      <h3>Dòng sản phẩm</h3>
+                      <div>
+                        <div>S</div>
+                        <div>Z</div>
+                        <div>A</div>
+                        <div>M</div>
+                      </div>
+                    </div>
+                    <div class="gia-san-pham">
+                      <h3>Giá sản phẩm</h3>
+                      <div>
+                        <div>Dưới 2 triệu</div>
+                        <div>Từ 2 - 4 triệu</div>
+                        <div>Từ 4 - 7 triệu</div>
+                        <div>Từ 7 - 13 triệu</div>
+                        <div>Từ 13 - 20 triệu</div>
+                        <div>Trên 20 triệu</div>
+                      </div>
+                    </div>
+                    <div class="tuy-chon">
+                      <div class="option">
+                        <h3>RAM</h3>
+                        <div>
+                          <div>3 GB</div>
+                          <div>4 GB</div>
+                          <div>6 GB</div>
+                          <div>8 GB</div>
+                          <div>12 GB</div>
+                        </div>
+                      </div>
+                      <div class="option">
+                        <h3>Dung lượng</h3>
+                        <div>
+                          <div>32 GB</div>
+                          <div>64 GB</div>
+                          <div>128 GB</div>
+                          <div>256 GB</div>
+                          <div>512 GB</div>
+                          <div>1 TB</div>
+                        </div>
+                      </div>
+                      <div class="option">
+                        <h3>Tần số quét</h3>
+                        <div>
+                          <div>60 Hz</div>
+                          <div>90 Hz</div>
+                          <div>120 Hz</div>
+                          <div>144 Hz</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+              <!-- Button sort -->
+              <div class="sort">
+                <p>Sắp xếp theo:</p>
+                <p>Nổi bật</p>
+                <p>Mới</p>
+                <p>Giá</p>
+              </div>
             </div>
-            <div class="sort">
-              <p>Sắp xếp theo:</p>
-              <p>Nổi bật</p>
-              <p>Mới</p>
-              <p>Giá</p>
-            </div>
+
+            <!-- Phần sản phẩm của iPhone -->
             <div class="products">
               <div class="product">
                 <div class="productImg">
@@ -143,6 +260,7 @@
               <div class="product">iPhone</div>
               <div class="product">iPhone</div>
             </div>
+
             <div class="showMore">
               <button id="showMoreBtn" onclick="showMoreProducts()">
                 Hiển thị thêm
