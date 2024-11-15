@@ -63,45 +63,19 @@ document.querySelector(".cart").addEventListener("click", () => {
     });
   }); */
   //Khi giỏ hàng không có sản phẩm nào.
-  document.querySelector(".main").innerHTML = `
-  <div id="sc_top">
-    <div id="sc_top_content">
-        <div id="empty_cart">
-          <img src="./assets/img/logo-img/empty_cart.png" width="280" height="280"></img>
-          <div id="empty_cart_info">
-            <h1>Bạn chưa mua sản phẩm của cửa hàng chúng tôi</h1>
-            <p>Bạn hãy tiếp tục mua sắm.</p>
-            <p>Bạn sẽ tìm được chiếc điện thoại yêu thích của mình.</p>
-            <button id="return_main_page">Bắt Đầu Mua Sắm</button>
-          </div>
-        </div>
-        <div id="suggest_phone">
-          <h1>Gợi ý những điện thoại nên mua</h3>
-          <div class="phone_area">
-            <img src="./assets/item/ip16.jpg" width="100" height="100"></img>
-            <div class="phone_data">
-              <div class="phone_name">Iphone 16 Pro Max</div>
-              <div class="phone_price">50.000.000VNĐ</div>
-            </div>
-          </div>
-          <div class="phone_area">
-            <img src="./assets/item/ip15.jpg" width="100" height="100"></img>
-            <div class="phone_data">
-              <div class="phone_name">Iphone 15 Pro Max</div>
-              <div class="phone_price">30.000.000VNĐ</div>
-            </div>
-          </div>
-          <div class="phone_area">
-            <img src="./assets/item/ip14.jpg" width="100" height="100"></img>
-            <div class="phone_data">
-              <div class="phone_name">Iphone 14 Pro Max</div>
-              <div class="phone_price">28.000.000VNĐ</div>
-            </div>
-          </div>
-        </div> 
-    </div>
-  </div>`;
+  document.querySelector("#iphone-page").style.display = "none";
+  document.querySelector("#sc_top").style.display="block";
 });
+
+returnToMainPage = () =>{
+  document.querySelector(".container.slider-banner").style.display = "block";
+  document.querySelectorAll(".container.suggestion").forEach((div) => {
+    div.style.display = "block";
+  });
+  document.querySelector("#iphone-page").style.display = "block";
+  document.querySelector("#sc_top").style.display="none";
+};
+document.querySelector("#return_main_page").onclick = returnToMainPage;
 
 // SLIDER-BANNER
 const slides = document.querySelectorAll(".banner");

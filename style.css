@@ -417,6 +417,7 @@ header {
   font-size: 26px
 }
 #sc_top {
+  display: none;
   position: absolute;
   inset: 0;
   margin: auto;
@@ -442,4 +443,5 @@ header {
   padding: 6px;
   font-size: 20px;
   margin-top: 10px;
+  cursor: pointer;
 }
