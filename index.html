@@ -7,7 +7,7 @@
       src="https://kit.fontawesome.com/a4434c7b27.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/style.css" />
     <title>Document</title>
   </head>
   <body>
@@ -265,6 +265,46 @@
               <button id="showMoreBtn" onclick="showMoreProducts()">
                 Hiển thị thêm
               </button>
+            </div>
+          </div>
+        </div>
+        <div id="shopping_cart_page">
+          <div id="empty">
+            <img src="./assets/img/logo-img/empty_cart.png" width="340" height="300"></img>
+            <h1>Bạn chưa mua sản phẩm của cửa hàng chúng tôi</h1>
+            <p>Bạn hãy tiếp tục mua sắm.</p>
+            <p>Bạn sẽ tìm được chiếc điện thoại yêu thích của mình.</p>
+            <button id="return_main_page">Bắt Đầu Mua Sắm</button>
+          </div>
+          <div id="non_empty">
+            <h1 id="gio_hang">Giỏ hàng của bạn</h1>
+            <div id="bang_gh">
+              <div>
+                <div class="th">Điện thoại</div>
+                <hr>
+                <div>
+                  Khong co dien thoai
+                </div>
+              </div>
+              <div>
+                <div class="th">Đơn giá</div>
+                <hr>
+                <div>0VNĐ</div>
+              </div> 
+              <div>
+                <div class="th">Số lượng</div>
+                <hr>
+                <div id="control_quantity">
+                  <button class="change_number">-</button>
+                  <div id="quantity">0</div>
+                  <button class="change_number">+</button>
+                </div>
+              </div>
+              <div>
+                <div class="th">Tổng tiền</div>
+                <hr>
+                <div>0VNĐ</div>
+              </div>
             </div>
           </div>
         </div>
