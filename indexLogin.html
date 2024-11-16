@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="styleLogin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h2 class="logo">Logo</h2>
+        <nav class="navigation">
+            <button class="btnLogin-popup">Đăng nhập</button>
+            <div class="user-menu" style="display: none;">
+                <div class="user"><i class="fa-regular fa-user"></i><span class="username-display"></span></div>
+                <button class="btnLogout">
+                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </button>
+            </div>
+        </nav>        
+    </header>
+
+    <div class="wrapper">
+        <span class="icon-close"><i class="fa-solid fa-xmark"></i></span>
+        <div class="form-box login">
+            <h2>ĐĂNG NHẬP</h2>
+            <form id="loginForm">
+                <div class="input-box">
+                    <span class="icon"><i class="fa-duotone fa-solid fa-envelope"></i></span>
+                    <input type="text" id="loginEmail" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-duotone fa-solid fa-lock"></i></span>
+                    <input type="password" id="loginPassword" required>
+                    <label>Mật khẩu</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox" id="rememberMe">Nhớ tôi</label>
+                    <a href="#">Quên mật khẩu</a>
+                </div>
+                <button type="button" class="btn" id="loginButton">Đăng nhập</button>
+                <div class="login-register">
+                    <p>Chưa có tài khoản<a href="#" class="register-link">Đăng ký</a></p>
+                </div>
+            </form>
+            <p id="loginMessage" style="color: red; font-weight: bold; text-align: center;"></p>
+        </div>                
+        <div class="form-box register">
+            <h2>ĐĂNG KÝ</h2>
+            <form action="#">
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-user"></i></span>
+                    <input type="text" id="username" required>
+                    <label>Tên người dùng</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-duotone fa-solid fa-envelope"></i></span>
+                    <input type="email" id="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-duotone fa-solid fa-lock"></i></span>
+                    <input type="password" id="password" required>
+                    <label>Mật khẩu</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-duotone fa-solid fa-lock"></i></span>
+                    <input type="password" id="repassword" required>
+                    <label>Nhập lại mật khẩu</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-house"></i></span>
+                    <input type="text" id="address" required>
+                    <label>Địa chỉ</label>
+                </div>
+                <div class="input-box">
+                    <span class="icon"><i class="fa-solid fa-phone"></i></span>
+                    <input id="phone" type="tel" maxlength="10" required>
+
+                    <label>Số điện thoại</label>
+                </div>
+                <div class="remember-forgot">
+                    <label><input type="checkbox">Tôi đồng ý với các điều khoản và điều kiện</label>
+                </div>
+                <button type="submit" class="btn">Đăng ký</button>
+                <div class="login-register">
+                    <p>Bạn đã có tài khoản?<a href="#" class="login-link">Đăng nhập</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>
