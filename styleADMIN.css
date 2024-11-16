@@ -413,3 +413,15 @@ input, textarea{
     padding: 2px;
     margin-left: 5px;
 }
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
