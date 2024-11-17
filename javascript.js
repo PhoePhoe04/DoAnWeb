@@ -105,7 +105,6 @@ document.querySelector(".cart").addEventListener("click", () => {
   //Khi giỏ hàng không có sản phẩm nào.
   document.querySelector("#shopping_cart_page").style.display="block";
 });
-
 returnToMainPage = () =>{
   document.querySelector("#shopping_cart_page").style.display="none";
   document.querySelector(".container.slider-banner").style.display = "block";
@@ -116,4 +115,29 @@ returnToMainPage = () =>{
   document.querySelector("#sc_top").style.display="none";
 };
 document.querySelector("#return_main_page").onclick = returnToMainPage;
-
+// Lưu toàn bộ thông tin điện thoại vào localStorage
+const productImg = document.querySelectorAll(".productImg img");
+const productName = document.querySelectorAll(".productName");
+const productDetail = document.querySelectorAll(".productDetail");
+const productPrice = document.querySelectorAll(".productPrice");
+getInfor = (mangA, a, i) => {
+  var thongtin;
+  if(a == "img"){
+    thongtin = 1;
+  } else{
+    thongtin = (a == "detail")? 2:3;
+  }
+  mangA.forEach(A => {
+    if (thongtin == 3) {
+      localStorage.setItem(`${a}${i}`, A.textContent);
+    }else if (thongtin == 1) {
+      localStorage.setItem(`${a}${i}`, A.src);
+    } else {
+      
+    }
+    i++;
+  });
+};
+themGioHang = () => {
+  
+};

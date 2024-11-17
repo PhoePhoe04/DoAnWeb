@@ -457,7 +457,7 @@ header {
   font-weight: bold;
 }
 #bang_gio_hang {
-  margin: 20px auto 0 auto;
+  margin: 20rem auto 0 auto;
   border-spacing: 4px;
 }
 #bang_gio_hang td,
@@ -466,7 +466,7 @@ header {
   height: 50px;
 }
 #gio_hang {
-  font-size: 30px;
+  font-size: 3rem;
   font-weight: bold;
   display: flex;
   justify-content: center;
@@ -474,12 +474,12 @@ header {
 #bang_gh {
   display: grid;
   grid-template-columns: 1fr 120px 160px 120px;
-  font-size: 20px;
+  font-size: 2rem;
 }
 #quantity {
   background-color: white;
   display: inline-block;
-  width: 60px;
+  width: 6rem;
   height: auto;
   border: 1px solid black;
 }
@@ -489,13 +489,13 @@ header {
   justify-content: flex-start;
 }
 #control_quantity button {
-  width: 20px;
+  width: 2rem;
   margin-left: -1px;
   margin-right: -1px;
 }
 .th{
-  margin-bottom: 20px;
-  font-size: 26px;
+  margin-bottom: 2rem;
+  font-size: 2.6rem;
   font-weight: bolder;
 }
 #return_main_page{
@@ -504,8 +504,7 @@ header {
   border-radius: 20px;
   border: none;
   padding: 8px;
-  font-size: 20px;
-  margin-top: 10px;
+  font-size: 2rem;
   cursor: pointer;
 }
 #shopping_cart_page{
@@ -523,5 +522,11 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-size: 21px;
+  font-size: 1.8rem;
+}
+#empty h1{
+  margin-bottom: 4px;
+}
+#empty p{
+  margin-bottom: 4px;
 }
