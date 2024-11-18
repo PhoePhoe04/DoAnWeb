@@ -74,13 +74,14 @@ function displayProducts() {
     products.forEach((product, index) => {
         let newRow = document.createElement("tr");
         newRow.innerHTML = `
-        <td>${product.name}</td>
-        <td><img src="${product.image}" width="50"></td>
-        <td>$${product.price}</td>
-        <td class="details-action">
-        <button onclick="editProduct(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button onclick="confirmDeleteProduct(${index})"><i class="fa-solid fa-trash"></i></button>
-        </td>
+            <td>${product.name}</td>
+            <td><img src="${product.image}" width="50"></td>
+            <td>${product.configuration}</td>
+            <td>${product.price}đ</td>
+            <td class="details-action">
+                <button onclick="editProduct(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onclick="confirmDeleteProduct(${index})"><i class="fa-solid fa-trash"></i></button>
+            </td>
         `;
         productTableBody.appendChild(newRow);
     });
@@ -111,15 +112,24 @@ function addNewProduct() {
     let name = document.getElementById("Add-name_product").value;
     let price = document.getElementById("Add-price").value;
     let category = document.getElementById("select_category").value;
+    let configuration = document.getElementById("Add-configuration_product").value;
     let imageFile = document.getElementById("fileInput").files[0];
-    if (!name || !price || !category || !imageFile) {
+
+    if (!name || !price || !category || !configuration || !imageFile) {
         alert("Vui lòng điền đầy đủ thông tin sản phẩm.");
         return;
     }
+
     let products = getProductsFromLocalStorage();
     let reader = new FileReader();
     reader.onload = function(event) {
-        products.push({ name, price, category, image: event.target.result });
+        products.push({ 
+            name, 
+            price, 
+            category, 
+            configuration, 
+            image: event.target.result 
+        });
         saveProductsToLocalStorage(products);
         displayProducts();
         resetForm();
@@ -128,22 +138,28 @@ function addNewProduct() {
     };
     reader.readAsDataURL(imageFile);
 }
+
       
 // Hàm cập nhật sản phẩm
 function updateProduct() {
     let name = document.getElementById("Add-name_product").value;
     let price = document.getElementById("Add-price").value;
     let category = document.getElementById("select_category").value;
+    let configuration = document.getElementById("Add-configuration_product").value;
     let imageFile = document.getElementById("fileInput").files[0];
-    if (!name || !price || !category) {
+
+    if (!name || !price || !category || !configuration) {
         alert("Vui lòng điền đầy đủ thông tin sản phẩm.");
         return;
     }
+
     let products = getProductsFromLocalStorage();
     let product = products[editIndex];
     product.name = name;
     product.price = price;
     product.category = category;
+    product.configuration = configuration;
+
     if (imageFile) {
         let reader = new FileReader();
         reader.onload = function(event) {
@@ -163,6 +179,7 @@ function updateProduct() {
         document.getElementById("recentProducts").style.display = "block";
     }
 }
+
 // Xử lý khi nhấn nút Create hoặc Update
 document.getElementById("btn-submit").onclick = function() {
     if (this.innerText === "Create") {
@@ -176,6 +193,7 @@ function resetForm() {
     document.getElementById("Add-name_product").value = "";
     document.getElementById("Add-price").value = "";
     document.getElementById("select_category").value = "";
+    document.getElementById("Add-configuration_product").value = "";
     document.getElementById("fileInput").value = "";
 }
 // Sửa thông tin sản phẩm
@@ -183,10 +201,13 @@ function editProduct(index) {
     let products = getProductsFromLocalStorage();
     let product = products[index];
     editIndex = index;
+
     document.getElementById("Add-name_product").value = product.name;
     document.getElementById("Add-price").value = product.price;
-    document.getElementById("select_category").value = product.category || ""; // Đặt lại giá trị của select
+    document.getElementById("select_category").value = product.category || "";
+    document.getElementById("Add-configuration_product").value = product.configuration || "";
     document.getElementById("btn-submit").innerText = "Update";
+
     document.getElementById("recentProducts").style.display = "none";  
     document.getElementById("containerTable").style.display = "block";
 }
@@ -216,27 +237,32 @@ function displayPaginatedProducts() {
     const products = getProductsFromLocalStorage();
     const totalProducts = products.length;
     const totalPages = Math.ceil(totalProducts / productsPerPage);
+    
     // Cập nhật chỉ báo trang và trạng thái của các nút
     document.getElementById("pageIndicator").innerText = `Trang ${currentPage} của ${totalPages}`;
     document.getElementById("prevPage").disabled = currentPage === 1;
     document.getElementById("nextPage").disabled = currentPage === totalPages;
+
     // Cắt mảng sản phẩm để chỉ lấy sản phẩm của trang hiện tại
     const start = (currentPage - 1) * productsPerPage;
     const end = start + productsPerPage;
     const paginatedProducts = products.slice(start, end);
+    
     // Hiển thị các sản phẩm phân trang            
-    let productTableBody = document.getElementById("productTableBody");            
-    productTableBody.innerHTML = "";           
+    let productTableBody = document.getElementById("productTableBody");
+    productTableBody.innerHTML = ""; // Xóa nội dung hiện tại của bảng
+
     paginatedProducts.forEach((product, index) => {
         let newRow = document.createElement("tr");
-        newRow.innerHTML = `            
-        <td>${product.name}</td>           
-        <td><img src="${product.image}" width="50"></td>       
-        <td>$${product.price}</td>       
-        <td class="details-action">       
-        <button onclick="editProduct(${start + index})"><i class="fa-solid fa-pen-to-square"></i></button>
-        <button onclick="confirmDeleteProduct(${start + index})"><i class="fa-solid fa-trash"></i></button>
-        </td>
+        newRow.innerHTML = `
+            <td>${product.name}</td>
+            <td><img src="${product.image}" width="50"></td>
+            <td>${product.configuration}</td>
+            <td>${product.price}đ</td>
+            <td class="details-action">
+                <button onclick="editProduct(${start + index})"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onclick="confirmDeleteProduct(${start + index})"><i class="fa-solid fa-trash"></i></button>
+            </td>
         `;
         productTableBody.appendChild(newRow);
     });

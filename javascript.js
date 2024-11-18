@@ -3,7 +3,7 @@
 // Sự kiện cho nút hiển thị thêm
 function showMoreProducts() {
   const items = document.querySelectorAll(
-    ".products .product:nth-child(n + 7)"
+    ".products .product:nth-child(n + 9)"
   );
   const button = document.getElementById("showMoreBtn");
 
@@ -89,8 +89,8 @@ document.querySelector(".cart").addEventListener("click", () => {
     div.style.display = "none";
   });
   document.querySelector("#iphone-page").style.display = "none";
-  //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm
-  /*   document.querySelectorAll(".change_number").forEach(button => {
+    //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm 
+/*   document.querySelectorAll(".change_number").forEach(button => {
     button.addEventListener("click",() => {
       var i = parseInt(document.querySelector("#quantity").textContent);
       if( button.textContent == "-")
@@ -104,19 +104,44 @@ document.querySelector(".cart").addEventListener("click", () => {
     });
   });  */
   //Khi giỏ hàng không có sản phẩm nào.
-  document.querySelector("#shopping_cart_page").style.display = "block";
+  document.querySelector("#shopping_cart_page").style.display="block";
 });
-
-returnToMainPage = () => {
-  document.querySelector("#shopping_cart_page").style.display = "none";
+returnToMainPage = () =>{
+  document.querySelector("#shopping_cart_page").style.display="none";
   document.querySelector(".container.slider-banner").style.display = "block";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "block";
   });
   document.querySelector("#iphone-page").style.display = "block";
-  document.querySelector("#sc_top").style.display = "none";
+  document.querySelector("#sc_top").style.display="none";
 };
 document.querySelector("#return_main_page").onclick = returnToMainPage;
+// Lưu toàn bộ thông tin điện thoại vào localStorage
+const productImg = document.querySelectorAll(".productImg img");
+const productName = document.querySelectorAll(".productName");
+const productDetail = document.querySelectorAll(".productDetail");
+const productPrice = document.querySelectorAll(".productPrice");
+getInfor = (mangA, a, i) => {
+  var thongtin;
+  if(a == "img"){
+    thongtin = 1;
+  } else{
+    thongtin = (a == "detail")? 2:3;
+  }
+  mangA.forEach(A => {
+    if (thongtin == 3) {
+      localStorage.setItem(`${a}${i}`, A.textContent);
+    }else if (thongtin == 1) {
+      localStorage.setItem(`${a}${i}`, A.src);
+    } else {
+      
+    }
+    i++;
+  });
+};
+themGioHang = () => {
+  
+};
 
 // +++++++++++++++++++++++++++++++++++ OOP +++++++++++++++++++++++++++++++++++
 class Product {
@@ -267,3 +292,4 @@ productManager.loadFromLocalStorage();
 
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
+
