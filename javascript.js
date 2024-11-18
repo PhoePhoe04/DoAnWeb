@@ -89,8 +89,8 @@ document.querySelector(".cart").addEventListener("click", () => {
     div.style.display = "none";
   });
   document.querySelector("#iphone-page").style.display = "none";
-    //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm 
-/*   document.querySelectorAll(".change_number").forEach(button => {
+  //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm
+  /*   document.querySelectorAll(".change_number").forEach(button => {
     button.addEventListener("click",() => {
       var i = parseInt(document.querySelector("#quantity").textContent);
       if( button.textContent == "-")
@@ -104,16 +104,16 @@ document.querySelector(".cart").addEventListener("click", () => {
     });
   });  */
   //Khi giỏ hàng không có sản phẩm nào.
-  document.querySelector("#shopping_cart_page").style.display="block";
+  document.querySelector("#shopping_cart_page").style.display = "block";
 });
-returnToMainPage = () =>{
-  document.querySelector("#shopping_cart_page").style.display="none";
+returnToMainPage = () => {
+  document.querySelector("#shopping_cart_page").style.display = "none";
   document.querySelector(".container.slider-banner").style.display = "block";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "block";
   });
   document.querySelector("#iphone-page").style.display = "block";
-  document.querySelector("#sc_top").style.display="none";
+  document.querySelector("#sc_top").style.display = "none";
 };
 document.querySelector("#return_main_page").onclick = returnToMainPage;
 // Lưu toàn bộ thông tin điện thoại vào localStorage
@@ -123,35 +123,34 @@ const productDetail = document.querySelectorAll(".productDetail");
 const productPrice = document.querySelectorAll(".productPrice");
 getInfor = (mangA, a, i) => {
   var thongtin;
-  if(a == "img"){
+  if (a == "img") {
     thongtin = 1;
-  } else{
-    thongtin = (a == "detail")? 2:3;
+  } else {
+    thongtin = a == "detail" ? 2 : 3;
   }
-  mangA.forEach(A => {
+  mangA.forEach((A) => {
     if (thongtin == 3) {
       localStorage.setItem(`${a}${i}`, A.textContent);
-    }else if (thongtin == 1) {
+    } else if (thongtin == 1) {
       localStorage.setItem(`${a}${i}`, A.src);
     } else {
-      
     }
     i++;
   });
 };
-themGioHang = () => {
-  
-};
+themGioHang = () => {};
 
 // +++++++++++++++++++++++++++++++++++ OOP +++++++++++++++++++++++++++++++++++
 class Product {
-  constructor(type, id, img, name, price, quantity) {
+  constructor(type, id, img, name, price, quantity, ram, storage) {
     this.type = type;
     this.id = id;
     this.img = img;
     this.name = name;
     this.price = price;
     this.quantity = quantity;
+    this.ram = ram;
+    this.storage = storage;
   }
 }
 
@@ -167,6 +166,28 @@ class ProductManager {
     } else {
       console.log("Đối tượng không phải là sản phẩm hợp lệ.");
     }
+  }
+
+  updateProductByID(productID, updateFields) {
+    // Tìm sản phẩm cần thay đổi
+    const productIndex = this.productList.findIndex(
+      (product) => product.id === productID
+    );
+
+    if (productIndex === -1) {
+      console.error(`Không tìm thấy sản phẩm với ID: ${productID}`);
+      return;
+    }
+    // Cập nhật các thuộc tính được truyền vào
+    Object.assign(this.productList[productIndex], updateFields);
+
+    // Lưu lại vào localStorage
+    this.saveToLocalStorage();
+
+    console.log(
+      `Đã cập nhật sản phẩm với ID: ${productID}`,
+      this.productList[productIndex]
+    );
   }
 
   saveToLocalStorage() {
@@ -185,7 +206,9 @@ class ProductManager {
             product.img,
             product.name,
             product.price,
-            product.quantity
+            product.quantity,
+            product.ram,
+            product.storage
           )
       );
       console.log("Danh sách sản phẩm đã được tải từ localStorage.");
@@ -201,28 +224,17 @@ class ProductManager {
       <div class="productName">${product.name}</div>
       <div class="productDetail"></div>
       <div class="productPrice">${product.price}</div>
-      <div class="productQuantity">${product.quantity}</div>
       <button>Mua ngay</button>
       `;
   }
 
+  // Trình bày sản phẩm ra màn hình
   displayProductsToUI(containerID) {
     const container = document.getElementById(containerID);
+    container.innerHTML = ""; // Xóa các sản phẩm cũ
 
     this.productList.forEach((product) => {
-      const productDiv = document.createElement("div");
-
-      productDiv.classList.add("product");
-      this.displayProduct(productDiv, product);
-      container.appendChild(productDiv);
-    });
-  }
-
-  displayProductsWithType(containerID, type) {
-    const container = document.getElementById(containerID);
-
-    this.productList.forEach((product) => {
-      if (String(product.type) === String(type)) {
+      if (product.quantity > 0) {
         const productDiv = document.createElement("div");
 
         productDiv.classList.add("product");
@@ -231,24 +243,97 @@ class ProductManager {
       }
     });
   }
+
+  displayProductsWithType(containerID, type) {
+    const container = document.getElementById(containerID);
+    container.innerHTML = ""; // Xóa các sản phẩm cũ
+
+    this.productList.forEach((product) => {
+      if (String(product.type) === String(type) && product.quantity > 0) {
+        const productDiv = document.createElement("div");
+
+        productDiv.classList.add("product");
+        this.displayProduct(productDiv, product);
+        container.appendChild(productDiv);
+      }
+    });
+  }
+
+  // Trình bài option filter
 }
 
 // ==================================================== Products Manager ====================================================
 const productManager = new ProductManager();
 
-// const product1 = new Product("iphone", "ipX", "", "iPhone X", 20000000, 20);
-// const product2 = new Product("iphone", "ip11", "", "iPhone 11", 20000000, 20);
-// const product3 = new Product("iphone", "ip12", "", "iPhone 12", 20000000, 20);
-// const product4 = new Product("iphone", "ip13", "", "iPhone 13", 20000000, 20);
-// const product5 = new Product("iphone", "ip14", "", "iPhone 14", 20000000, 20);
-// const product6 = new Product("iphone", "ip15", "", "iPhone 15", 20000000, 20);
+// const product1 = new Product(
+//   "iphone",
+//   "ipX",
+//   "",
+//   "iPhone X",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+// const product2 = new Product(
+//   "iphone",
+//   "ip11",
+//   "",
+//   "iPhone 11",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+// const product3 = new Product(
+//   "iphone",
+//   "ip12",
+//   "",
+//   "iPhone 12",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+// const product4 = new Product(
+//   "iphone",
+//   "ip13",
+//   "",
+//   "iPhone 13",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+// const product5 = new Product(
+//   "iphone",
+//   "ip14",
+//   "",
+//   "iPhone 14",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+// const product6 = new Product(
+//   "iphone",
+//   "ip15",
+//   "",
+//   "iPhone 15",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
 // const product7 = new Product(
 //   "samsung",
 //   "",
 //   "ssS24",
 //   "SAMSUNG S24",
 //   20000000,
-//   20
+//   20,
+//   "8 GB",
+//   "256 GB"
 // );
 // const product8 = new Product(
 //   "samsung",
@@ -256,7 +341,9 @@ const productManager = new ProductManager();
 //   "ssS21",
 //   "SAMSUNG S21",
 //   20000000,
-//   20
+//   20,
+//   "8 GB",
+//   "256 GB"
 // );
 // const product9 = new Product(
 //   "samsung",
@@ -264,7 +351,9 @@ const productManager = new ProductManager();
 //   "ssS20",
 //   "SAMSUNG S20",
 //   20000000,
-//   20
+//   20,
+//   "8 GB",
+//   "256 GB"
 // );
 // const product10 = new Product(
 //   "samsung",
@@ -272,7 +361,9 @@ const productManager = new ProductManager();
 //   "ssS22",
 //   "SAMSUNG S22",
 //   20000000,
-//   20
+//   20,
+//   "8 GB",
+//   "256 GB"
 // );
 
 // productManager.addProduct(product1);
@@ -292,4 +383,3 @@ productManager.loadFromLocalStorage();
 
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
-

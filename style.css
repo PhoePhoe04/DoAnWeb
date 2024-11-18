@@ -4,7 +4,7 @@
   padding: 0;
 }
 
-:root{
+:root {
   --blue1: #598fbf;
   --white: #fff;
   --white2: #f6f9fc;
@@ -47,12 +47,12 @@ header {
 /*                                                .header                                            */
 .header {
   width: 100%;
-  background-color: var(--blue1,--blue2);
+  background-color: var(--blue1, --blue2);
 }
 
 .header .container {
   display: flex;
-  background-color: var(--blue1,--blue2);
+  background-color: var(--blue1, --blue2);
   padding-top: 1rem;
 }
 /* LOGO */
@@ -136,7 +136,7 @@ header {
 }
 /*                                                .navigation                                            */
 .navigation {
-  background-color: var(--blue1,--blue2);
+  background-color: var(--blue1, --blue2);
   padding: 0 0 10px;
   padding-bottom: 0;
   padding-top: 4px;
@@ -258,7 +258,7 @@ header {
 .productName {
   margin-top: 10px;
   width: 100%;
-  height: 30px; 
+  height: 30px;
   text-align: left;
   font-weight: bold;
   font-size: 1.8em;
@@ -270,7 +270,6 @@ header {
 .productDetail {
   width: 100%;
   height: 4em;
-
 }
 
 .productPrice {
@@ -280,12 +279,12 @@ header {
   font-size: 2em;
   color: var(--red);
 }
-.btn-them-gio-hang{
+.btn-them-gio-hang {
   display: flex;
   width: 100%;
   justify-content: center;
 }
-.btn-them-gio-hang > button{
+.btn-them-gio-hang > button {
   height: 40px;
   width: 100px;
   background-color: var(--white);
@@ -294,8 +293,8 @@ header {
   color: var(--black1);
   border-radius: 10px;
 }
-.btn-them-gio-hang > button:hover{
-  color: var(--blue1,--blue2);
+.btn-them-gio-hang > button:hover {
+  color: var(--blue1, --blue2);
 }
 /* NẾU SẢN PHẨM VƯỚT QUÁ 8 SẢN PHẨM TRONG 1 PRODUCT-CONTAINER SẼ BỊ THU GỌN */
 
@@ -363,10 +362,10 @@ header {
   justify-content: center;
   align-items: center;
 }
-.filterBtn>i{
-  color: var(--blue1,--black2);
+.filterBtn > i {
+  color: var(--blue1, --black2);
 }
-.filterBtn:hover{
+.filterBtn:hover {
   background-color: var(--white2);
 }
 
@@ -376,47 +375,17 @@ header {
   left: 0;
   border-radius: 10px;
   width: 100%;
-  max-width: 800px;
+  max-width: 500px;
   height: 300px;
   background-color: #fff;
   border: 1px solid blue;
   padding: 0 10px;
   overflow: auto;
 }
-.sort{
-  margin-top: 20px;
-  font-size: 1.2em;
-}
-
-.dong-san-pham,
 .gia-san-pham,
 .tuy-chon {
   margin-top: 4px;
   border: 1px solid red;
-}
-
-.dong-san-pham > h3 {
-  text-align: left;
-}
-
-.dong-san-pham > div {
-  padding: 10px;
-  display: flex;
-  gap: 10px;
-}
-
-.dong-san-pham > div > div {
-  display: flex;
-  text-align: center;
-  justify-content: center;
-  border: 1px solid green;
-  width: 50px;
-  padding: 5px 0;
-  border-radius: 5px;
-}
-
-.dong-san-pham > div > div:hover {
-  background-color: yellow;
 }
 
 .gia-san-pham > h3 {
@@ -442,7 +411,7 @@ header {
 
 .tuy-chon {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .tuy-chon > .option > h3 {
@@ -476,6 +445,8 @@ header {
 .sort {
   display: flex;
   gap: 10px;
+  margin-top: 20px;
+  font-size: 1.2em;
 }
 
 .sort > p {
@@ -492,15 +463,15 @@ header {
   margin-top: 30px;
 }
 /* NÚT XEM THÊM SẢN PHẨM */
-.showMore>button{
+.showMore > button {
   height: 40px;
   width: 100px;
   background-color: var(--white);
   border-radius: 10px;
 }
-.showMore>button:hover{
+.showMore > button:hover {
   color: var(--white);
-  background-color: var(--blue1,--blue2);
+  background-color: var(--blue1, --blue2);
 }
 .container.suggestion {
   padding: 1rem;
@@ -552,7 +523,7 @@ header {
   margin-left: -1px;
   margin-right: -1px;
 }
-.th{
+.th {
   margin-bottom: 2rem;
   font-size: 2.6rem;
   font-weight: bolder;
@@ -583,9 +554,9 @@ header {
   align-items: center;
   font-size: 1.8rem;
 }
-#empty h1{
+#empty h1 {
   margin-bottom: 4px;
 }
-#empty p{
+#empty p {
   margin-bottom: 4px;
 }
