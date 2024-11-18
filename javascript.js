@@ -3,7 +3,7 @@
 // Sự kiện cho nút hiển thị thêm
 function showMoreProducts() {
   const items = document.querySelectorAll(
-    ".products .product:nth-child(n + 7)"
+    ".products .product:nth-child(n + 9)"
   );
   const button = document.getElementById("showMoreBtn");
 
