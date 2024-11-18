@@ -188,7 +188,7 @@ header {
 
 #home > .container {
   margin-top: 1rem;
-  background-color: green;
+  background-color: var(--white);
 }
 /*.slider-banner*/
 
@@ -332,7 +332,6 @@ header {
 .margin-filter-sort {
   margin: 10px;
   margin-bottom: 10px;
-  border-bottom: 1px solid var(--black1);
 }
 
 /* FILTER */
@@ -385,7 +384,8 @@ header {
   overflow: auto;
 }
 .sort{
-  margin-top: 15px;
+  margin-top: 20px;
+  font-size: 1.2em;
 }
 
 .dong-san-pham,
