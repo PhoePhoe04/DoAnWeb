@@ -80,69 +80,6 @@ function togglePopup(idBtn) {
   });
 }
 
-// ============================================================ Cart ============================================================
-
-// su kien gio hang
-document.querySelector(".cart").addEventListener("click", () => {
-  document.querySelector(".container.slider-banner").style.display = "none";
-  document.querySelectorAll(".container.suggestion").forEach((div) => {
-    div.style.display = "none";
-  });
-  document.querySelector("#iphone-page").style.display = "none";
-    //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm 
-/*   document.querySelectorAll(".change_number").forEach(button => {
-    button.addEventListener("click",() => {
-      var i = parseInt(document.querySelector("#quantity").textContent);
-      if( button.textContent == "-")
-        i -=1;
-      if( button.textContent == "+")
-        i +=1;
-      if(i >= 0)
-        document.querySelector("#quantity").textContent = i;
-      else
-        alert("Số sản phẩm phải lớn hơn hoặc bằng 0");
-    });
-  });  */
-  //Khi giỏ hàng không có sản phẩm nào.
-  document.querySelector("#shopping_cart_page").style.display="block";
-});
-returnToMainPage = () =>{
-  document.querySelector("#shopping_cart_page").style.display="none";
-  document.querySelector(".container.slider-banner").style.display = "block";
-  document.querySelectorAll(".container.suggestion").forEach((div) => {
-    div.style.display = "block";
-  });
-  document.querySelector("#iphone-page").style.display = "block";
-  document.querySelector("#sc_top").style.display="none";
-};
-document.querySelector("#return_main_page").onclick = returnToMainPage;
-// Lưu toàn bộ thông tin điện thoại vào localStorage
-const productImg = document.querySelectorAll(".productImg img");
-const productName = document.querySelectorAll(".productName");
-const productDetail = document.querySelectorAll(".productDetail");
-const productPrice = document.querySelectorAll(".productPrice");
-getInfor = (mangA, a, i) => {
-  var thongtin;
-  if(a == "img"){
-    thongtin = 1;
-  } else{
-    thongtin = (a == "detail")? 2:3;
-  }
-  mangA.forEach(A => {
-    if (thongtin == 3) {
-      localStorage.setItem(`${a}${i}`, A.textContent);
-    }else if (thongtin == 1) {
-      localStorage.setItem(`${a}${i}`, A.src);
-    } else {
-      
-    }
-    i++;
-  });
-};
-themGioHang = () => {
-  
-};
-
 // +++++++++++++++++++++++++++++++++++ OOP +++++++++++++++++++++++++++++++++++
 class Product {
   constructor(type, id, img, name, price, quantity) {
@@ -293,3 +230,72 @@ productManager.loadFromLocalStorage();
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
 
+// ============================================================ Cart ============================================================
+
+// su kien gio hang
+document.querySelector(".cart").addEventListener("click", () => {
+  document.querySelector(".container.slider-banner").style.display = "none";
+  document.querySelectorAll(".container.suggestion").forEach((div) => {
+    div.style.display = "none";
+  });
+  document.querySelector("#iphone-page").style.display = "none";
+  document.querySelector("#shopping_cart_page").style.display="block";
+  if(this.productList.length > 0)
+  {
+    document.querySelector("#empty").style.display = "none";
+    document.querySelector("#non_empty").style.display = "block";
+  }
+  
+});
+returnToMainPage = () =>{
+  document.querySelector("#shopping_cart_page").style.display="none";
+  document.querySelector(".container.slider-banner").style.display = "block";
+  document.querySelectorAll(".container.suggestion").forEach((div) => {
+    div.style.display = "block";
+  });
+  document.querySelector("#iphone-page").style.display = "block";
+  document.querySelector("#sc_top").style.display="none";
+};
+document.querySelector("#return_main_page").onclick = returnToMainPage;
+getInforProduct = (productDiv) => {
+  productDiv.querySelector("button").addEventListener("click", () => {
+    productManager.loadFromLocalStorage();
+    this.productList.forEach(element => {
+      if (element.name == productDiv.querySelector(".productName").textContent) {
+        const table = document.querySelector(".cart");
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        cell1.innerHTML = `${element.name}`;
+        var cell2 = row.insertCell(1);
+        cell2.innerHTML = `${element.img}`;
+        var cell3 = row.insertCell(2);
+        cell3.innerHTML = `${element.price}`;
+        var cell4 = row.insertCell(3);
+        cell4.innerHTML = `<div id="control_quantity">
+                    <button class="change_number">-</button>
+                    <div id="quantity">1</div>
+                    </div>
+                    <button class="change_number">+</button>`;
+        document.querySelectorAll(".change_number").forEach(button => {
+        button.addEventListener("click",() => {
+          var i = parseInt(document.querySelector("#quantity").textContent);
+          if( button.textContent == "-")
+            i -=1;
+          if( button.textContent == "+")
+            i +=1;
+          if(i >= 0)
+            document.querySelector("#quantity").textContent = i;
+          else
+            alert("Số sản phẩm phải lớn hơn hoặc bằng 0");
+        });
+      });
+      var quantity = parseInt(document.querySelector("#quantity").textContent);
+      var chu = (document.querySelector("#productPrice").textContent).toString();
+      var price = parseInt(chu.split(/.\VNĐ/));
+      var cell5 = row.insertCell(4);
+      totalPrice = price*quantity;
+      cell5.innerHTML = totalPrice.toLocaleString('vi-VN') +` VNĐ`;
+    }
+ });
+});
+};
