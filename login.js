@@ -36,7 +36,6 @@ phoneInput.addEventListener("input", function (event) {
 // Lắng nghe sự kiện đăng ký
 document.querySelector(".register .btn").addEventListener("click", function (event) {
     event.preventDefault(); // Dừng hành động mặc định của form
-
     // Lấy dữ liệu từ các input
     const username = document.querySelector("#username").value.trim();
     const email = document.querySelector("#email").value.trim();
@@ -44,30 +43,25 @@ document.querySelector(".register .btn").addEventListener("click", function (eve
     const repassword = document.querySelector("#repassword").value;
     const address = document.querySelector("#address").value.trim();
     const phone = document.querySelector("#phone").value.trim();
-
     // Kiểm tra định dạng email
     const emailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
     if (!emailRegex.test(email)) {
         alert("Email phải có định dạng xxx@gmail.com.");
         return;
     }
-
     // Kiểm tra mật khẩu
     if (password !== repassword) {
         alert("Mật khẩu và xác nhận mật khẩu không khớp.");
         return;
     }
-
     // Kiểm tra xem email đã tồn tại chưa
     const customers = JSON.parse(localStorage.getItem("customers")) || [];
     if (customers.some((customer) => customer.email === email)) {
         alert("Email đã tồn tại.");
         return;
     }
-
     // Mã hóa mật khẩu
     const encryptedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64);
-
     // Lưu thông tin khách hàng
     customers.push({
         username,
@@ -75,70 +69,60 @@ document.querySelector(".register .btn").addEventListener("click", function (eve
         password: encryptedPassword,
         address,
         phone,
+        locked: false
     });
     localStorage.setItem("customers", JSON.stringify(customers));
-
     // Hiển thị thông báo thành công
     alert("Đăng ký thành công!");
-
     // Chuyển về form đăng nhập sau 2 giây
     setTimeout(() => {
         document.querySelector(".register form").reset(); // Xóa dữ liệu trong form đăng ký
         document.querySelector(".wrapper").classList.remove("active"); // Chuyển về form login
     }, 500);
 });
-
-// Xử lý đăng nhập
 loginButton.addEventListener("click", function (event) {
     event.preventDefault(); // Ngừng hành động mặc định của form
-
     const email = document.getElementById("loginEmail").value.trim();
     const password = document.getElementById("loginPassword").value.trim();
-
     // Kiểm tra dữ liệu đầu vào
     if (!email || !password) {
         loginMessage.innerText = "Vui lòng điền đầy đủ thông tin.";
         loginMessage.style.color = "red";
         return;
     }
-    
-    if (email === "admin" && password === "123456") {
-        // Nếu tài khoản là admin, chuyển hướng đến trang ADMIN.html
-        window.location.href = "indexADMIN.html"; 
+    // Kiểm tra định dạng email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+        loginMessage.innerText = "Định dạng email không hợp lệ.";
+        loginMessage.style.color = "red";
         return;
     }
-
-     // Kiểm tra định dạng email
-     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-     if (!emailRegex.test(email)) {
-         loginMessage.innerText = "Định dạng email không hợp lệ.";
-         loginMessage.style.color = "red";
-         return;
-     }
-
+    // Kiểm tra tài khoản trong localStorage
     const customers = JSON.parse(localStorage.getItem("customers")) || [];
     const user = customers.find(customer => customer.email === email);
-
     if (user) {
         const encryptedPassword = CryptoJS.SHA256(password).toString(CryptoJS.enc.Base64);
+        // Kiểm tra mật khẩu
         if (encryptedPassword === user.password) {
+            if (user.locked) { // Kiểm tra nếu tài khoản bị khóa
+                loginMessage.innerText = "Tài khoản của bạn đã bị khóa.";
+                loginMessage.style.color = "red";
+                setTimeout(() => {
+                    // Tự động đăng xuất nếu tài khoản đang login và bị khóa
+                    logout();
+                }, 1000);
+                return;
+            }
             // Đăng nhập thành công
             loginMessage.innerText = "Đăng nhập thành công!";
-            loginMessage.style.color = "green";
-            
-            // Lưu thông tin người dùng vào sessionStorage
+            loginMessage.style.color = "green";           
             sessionStorage.setItem("loggedInUser", JSON.stringify(user));
-
             // Cập nhật menu người dùng
             usernameDisplay.textContent = user.username;
             userMenu.style.display = "inline-flex"; // Hiển thị menu người dùng
-
-            // Ẩn nút Login và hiện thị thông tin người dùng
-            btnPopup.style.display = "none";
-
-            // Đợi 2 giây trước khi đóng form login
+            btnPopup.style.display = "none"; // Ẩn nút Login
             setTimeout(() => {
-                wrapper.classList.remove("active-popup"); // Đóng form login
+                wrapper.classList.remove("active-popup");
             }, 500); 
         } else {
             loginMessage.innerText = "Mật khẩu không chính xác.";
@@ -147,8 +131,6 @@ loginButton.addEventListener("click", function (event) {
     } else {
         loginMessage.innerText = "Email không tồn tại.";
         loginMessage.style.color = "red";
-
-        // Xóa các trường đã nhập trong form login nếu email không tồn tại
         document.getElementById("loginEmail").value = '';
         document.getElementById("loginPassword").value = '';
     }
@@ -158,58 +140,40 @@ loginButton.addEventListener("click", function (event) {
 logoutButton.addEventListener("click", function () {
     // Xóa thông tin người dùng khỏi sessionStorage
     sessionStorage.removeItem("loggedInUser");
-
     // Ẩn menu người dùng
     userMenu.style.display = "none";
-
     // Hiển thị lại nút Login
     btnPopup.style.display = "inline-block";
-
     // Làm sạch form đăng nhập
     document.getElementById("loginEmail").value = '';
     document.getElementById("loginPassword").value = '';
-
     // Ẩn thông báo "Đăng nhập thành công"
     loginMessage.innerText = '';
     loginMessage.style.color = '';
-
     // Cập nhật lại giao diện sau khi đăng xuất
     alert("Đã đăng xuất thành công.");
 });
+
 window.onload = function() {
     const loggedInUser = sessionStorage.getItem("loggedInUser");
-
     if (loggedInUser) {
         const user = JSON.parse(loggedInUser);
-        
         // Kiểm tra nếu tài khoản trong sessionStorage vẫn còn trong localStorage
         const customers = JSON.parse(localStorage.getItem("customers")) || [];
         const userInLocalStorage = customers.find(customer => customer.email === user.email);
-
         if (userInLocalStorage) {
-            // Nếu tài khoản vẫn còn trong localStorage, hiển thị thông tin người dùng
-            usernameDisplay.textContent = user.username;
-
-            // Hiển thị menu người dùng
-            userMenu.style.display = "inline-flex";
-
-            // Ẩn nút Login
-            btnPopup.style.display = "none";
+            if (userInLocalStorage.locked) {
+                // Nếu tài khoản bị khóa, tự động đăng xuất
+                logout();
+            } else {
+                // Nếu tài khoản vẫn hoạt động, hiển thị thông tin người dùng
+                usernameDisplay.textContent = user.username;
+                userMenu.style.display = "inline-flex"; // Hiển thị menu người dùng
+                btnPopup.style.display = "none"; // Ẩn nút Login
+            }
         } else {
             // Nếu tài khoản không còn trong localStorage, đăng xuất người dùng
-            sessionStorage.removeItem("loggedInUser");
-            userMenu.style.display = "none";
-            btnPopup.style.display = "inline-block";
-
-            // Làm sạch form đăng nhập
-            document.getElementById("loginEmail").value = '';
-            document.getElementById("loginPassword").value = '';
-
-            // Ẩn thông báo đăng nhập
-            loginMessage.innerText = '';
-            loginMessage.style.color = '';
-
-            alert("Tài khoản của bạn đã bị xóa. Vui lòng đăng nhập lại.");
+            logout();
         }
     } else {
         // Nếu không có tài khoản trong sessionStorage, quay về form đăng nhập

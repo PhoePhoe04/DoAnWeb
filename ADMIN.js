@@ -181,6 +181,10 @@ function displayProducts() {
     });
 }
 
+function generateUniqueId() {
+    return "P" + Date.now();
+}
+
 // Thêm sản phẩm mới
 function addNewProduct() {
     let productId = document.getElementById("Add-id_product").value || generateUniqueId(); // Tạo ID nếu rỗng

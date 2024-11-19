@@ -10,19 +10,29 @@ function displayCustomers() {
         <td>${customer.address}</td>
         <td>${customer.phone}</td>
         <td>
-            <button onclick="deleteCustomer(${index})" class="delete-btn">Xóa</button>
+            <button onclick="lockCustomer(${index})" class="lock-btn">${customer.locked ? "Mở khóa" : "Khóa"}</button>
         </td>
         `;
         customerTableBody.appendChild(newRow);
     });
 }
 
-// Hàm xóa khách hàng
-function deleteCustomer(index) {
-    if (confirm("Bạn có chắc chắn muốn xóa khách hàng này?")) {
-        let customers = JSON.parse(localStorage.getItem("customers")) || [];
-        customers.splice(index, 1); // Xóa khách hàng tại vị trí index
-        localStorage.setItem("customers", JSON.stringify(customers));
-        displayCustomers(); // Cập nhật lại bảng sau khi xóa
+
+function lockCustomer(index) {
+    let customers = JSON.parse(localStorage.getItem("customers")) || [];
+    // Lấy khách hàng đã chọn
+    let customer = customers[index];
+    // Thay đổi trạng thái khóa của tài khoản
+    customer.locked = !customer.locked;
+    // Lưu lại thông tin khách hàng vào localStorage
+    localStorage.setItem("customers", JSON.stringify(customers));
+    // Cập nhật lại giao diện
+    displayCustomers();
+    // Hiển thị thông báo
+    if (customer.locked) {
+        alert(`Tài khoản ${customer.username} đã bị khóa.`);
+    } else {
+        alert(`Tài khoản ${customer.username} đã được mở khóa.`);
     }
 }
+
