@@ -496,6 +496,7 @@ header {
 #gio_hang {
   font-size: 3rem;
   font-weight: bold;
+  color: red;
   display: flex;
   justify-content: center;
 }
@@ -530,7 +531,7 @@ header {
   font-size: 2rem;
   cursor: pointer;
 }
-#thanh_toan {
+#dat_hang {
   background-color: purple;
   color: white;
   border-radius: 20px;
@@ -539,6 +540,11 @@ header {
   padding: 8px;
   font-size: 2rem;
   cursor: pointer;
+}
+#center_button{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
 }
 #shopping_cart_page {
   display: none;
@@ -553,6 +559,9 @@ header {
   inset: 0;
   margin: auto;
   font-size: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 #empty h1 {
   margin-bottom: 4px;
@@ -562,18 +571,70 @@ header {
 }
 
 #cart {
-  width: 100%;
+  width: 90%;
   border-collapse: collapse;
   margin-bottom: 10px;
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 #cart th,
 #cart td {
   padding: 4px;
-  border: 2px solid green;
+  border-bottom: 2px solid blueviolet;
   font-size: 2.8rem;
 }
+#cart th{
+  color: orange;
+}
 .deleteRow{
-  width: 80%;
-  height: 2rem;
+  color: brown;
+}
+#khung_dat_hang{
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+#khung_dat_hang img{
+  position: absolute;
+  top: 100px;
+  left: 10px;
+  width: 70px;
+  height: 70px;
+}
+#frmdathang{
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 54%;
+  width: 40%;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(6,25px);
+  font-size: 2rem;
+  background-color: yellow;
+  row-gap: 40px;
+}
+#frmdathang input[type = submit]{
+  grid-area: 6 / 1/ span 1/span 2;
+}
+#frmdathang h1{
+  grid-area: 1/ 1/span 1/ span 2;
+}
+#sotientongcong{
+  width: 90%;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 2rem;
+  padding: 4px;
+}
+#sotientongcong div{
+  border: 2px solid black;
 }

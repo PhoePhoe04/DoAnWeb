@@ -338,7 +338,7 @@ function getInforProduct(productDiv) {
     const cellDelete = newRow.insertCell(5);
 
     cellName.textContent = product.name;
-    cellImg.textContent = product.img;
+    cellImg.innerHTML = `<img src=${product.img} alt="" width="80" height="80"/>`
     cellPrice.textContent = product.price;
     cellQuantity.innerHTML = `<div class="control_quantity">
       <button>-</button>
@@ -346,7 +346,7 @@ function getInforProduct(productDiv) {
       <button>+</button>
     </div>`
     cellTotalPrice.textContent = product.price;
-    cellDelete.innerHTML = `<input type="radio" class="deleteRow"/>`;
+    cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`;
   }
 }
 document.addEventListener("click", function (event) {
@@ -378,13 +378,16 @@ document.addEventListener("click", function (event) {
     }
   }
 });
-// Call getInforProduct for each product
-document.querySelectorAll(".product").forEach((productDiv) => {
-  getInforProduct(productDiv);
-});
 
 // ============================================================ Cart ============================================================
 
+document.addEventListener("click", function (event) {
+  if (event.target.matches(".product button")) {
+    const productDiv = event.target.closest(".product");
+    getInforProduct(productDiv);
+    alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
+  }
+});
 // su kien gio hang
 returnToMainPage = () => {
   document.querySelector("#shopping_cart_page").style.display = "none";
@@ -397,6 +400,15 @@ returnToMainPage = () => {
 document.querySelectorAll("#return_main_page").forEach(button => {
   button.onclick = returnToMainPage;
 });
+deleteRow = (r) => {
+  i = r.parentNode.parentNode.rowIndex;
+  document.querySelector("#cart").deleteRow(i);
+}
+document.querySelector("#cart").addEventListener("click", function(event) {
+  if (event.target.matches(".deleteRow")) {
+    deleteRow(event.target);
+  }
+});
 document.querySelector(".cart").addEventListener("click", function() {
   document.querySelector(".container.slider-banner").style.display = "none";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
@@ -404,11 +416,14 @@ document.querySelector(".cart").addEventListener("click", function() {
   });
   document.querySelector("#iphone-page").style.display = "none";
   document.querySelector("#shopping_cart_page").style.display = "block";
-  document.querySelectorAll("#productIPhone .product").forEach((productDiv) => {
-    getInforProduct(productDiv);
-  });
-  if (productManager.productList.length > 0) {
+  if (document.querySelector("#cart").rows.length > 1) {
     document.querySelector("#empty").style.display = "none";
     document.querySelector("#non_empty").style.display = "block";
   }
+});
+document.querySelector("#dat_hang").addEventListener("click", () => {
+  document.querySelector("#khung_dat_hang").style.display = "block";
+});
+document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
+  document.querySelector("#khung_dat_hang").style.display = "none";
 });
