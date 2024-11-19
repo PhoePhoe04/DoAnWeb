@@ -45,99 +45,459 @@ function changePage(pageId) {
   const pages = document.querySelectorAll(".page");
   pages.forEach((page) => {
     // Gỡ bỏ class 'active' và thêm class 'section' cho tất cả các trang
-    page.classList.remove("active");
-    page.classList.add("section");
+    page.classList.replace("active", "section");
   });
 
   // Tìm phần tử có id trùng với pageId và thêm class 'active'
   const targetPage = document.getElementById(pageId);
   if (targetPage) {
-    targetPage.classList.add("active");
-    targetPage.classList.remove("section");
+    targetPage.classList.replace("section", "active");
   }
 }
 
 // FILTER BUTTON
-const filterBtn = document.querySelector(".filterBtn");
-const triangle = document.querySelector(".triangle");
-const filterPopup = document.querySelector(".filter-popup");
+function togglePopup(idBtn) {
+  const filterBtn = document.querySelector(idBtn);
+  const triangle = filterBtn.querySelector(".triangle");
+  const filterPopup = filterBtn.querySelector(".filter-popup");
 
-filterBtn.addEventListener("click", (event) => {
   const isActive = triangle.classList.contains("active");
 
   // Chuyển đổi giữa 'active' và 'section'
   if (isActive) {
-    triangle.classList.remove("active");
-    triangle.classList.add("section");
-    filterPopup.classList.remove("active");
-    filterPopup.classList.add("section");
+    triangle.classList.replace("active", "section");
+    filterPopup.classList.replace("active", "section");
   } else {
-    triangle.classList.remove("section");
-    triangle.classList.add("active");
-    filterPopup.classList.remove("section");
-    filterPopup.classList.add("active");
+    triangle.classList.replace("section", "active");
+    filterPopup.classList.replace("section", "active");
   }
+  document.addEventListener("click", function handleClickOutside(event) {
+    if (!filterBtn.contains(event.target)) {
+      triangle.classList.replace("active", "section");
+      filterPopup.classList.replace("active", "section");
+      document.removeEventListener("click", handleClickOutside);
+    }
+  });
+}
+
+// DETAIL POPUP
+function toggleDetailPopup() {
+  const detailPopup = document.getElementById("productPopup");
+
+  const isActive = detailPopup.classList.contains("active");
+
+  if (isActive) {
+    detailPopup.classList.replace("active", "section");
+  } else {
+    detailPopup.classList.replace("section", "active");
+  }
+}
+
+// +++++++++++++++++++++++++++++++++++ OOP +++++++++++++++++++++++++++++++++++
+class Product {
+  constructor(type, id, img, name, price, quantity, ram, storage) {
+    this.type = type;
+    this.id = id;
+    this.img = img;
+    this.name = name;
+    this.price = price;
+    this.quantity = quantity;
+    this.ram = ram;
+    this.storage = storage;
+  }
+}
+
+class ProductManager {
+  constructor() {
+    this.productList = [];
+  }
+
+  getProductById(id) {
+    return this.productList.find((product) => product.id === id) || null;
+  }
+
+  addProduct(product) {
+    if (product instanceof Product) {
+      this.productList.push(product);
+      thís.saveToLocalStorage();
+      console.log(`Đã thêm sản phẩm:`, product);
+    } else {
+      console.log("Đối tượng không phải là sản phẩm hợp lệ.");
+    }
+  }
+
+  updateProductByID(productID, updateFields) {
+    // Tìm sản phẩm cần thay đổi
+    const productIndex = this.productList.findIndex(
+      (product) => product.id === productID
+    );
+
+    if (productIndex === -1) {
+      console.error(`Không tìm thấy sản phẩm với ID: ${productID}`);
+      return;
+    }
+    // Cập nhật các thuộc tính được truyền vào
+    Object.assign(this.productList[productIndex], updateFields);
+
+    // Lưu lại vào localStorage
+    this.saveToLocalStorage();
+
+    console.log(
+      `Đã cập nhật sản phẩm với ID: ${productID}`,
+      this.productList[productIndex]
+    );
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem("productList", JSON.stringify(this.productList));
+    console.log("Danh sách sản phẩm đã được lưu vào localStorage.");
+  }
+
+  loadFromLocalStorage() {
+    const storedData = localStorage.getItem("productList");
+    if (storedData) {
+      this.productList = JSON.parse(storedData).map(
+        (product) =>
+          new Product(
+            product.type,
+            product.id,
+            product.img,
+            product.name,
+            product.price,
+            product.quantity,
+            product.ram,
+            product.storage
+          )
+      );
+      console.log("Danh sách sản phẩm đã được tải từ localStorage.");
+    }
+  }
+
+  // Cấu trúc của 1 sản phẩm
+  displayProduct(productDiv, product) {
+    productDiv.innerHTML = `
+      <div class="productImg">
+        <image src="${product.img}" alt="${product.name}"/>
+      </div>
+      <div class="productName">${product.name}</div>
+      <div class="productDetail"></div>
+      <div class="productPrice">${product.price}</div>
+      <div class="btnProduct">
+        <button class="viewDetailBtn">Xem chi tiết</button>
+        <button>Mua ngay</button>
+      </div>
+      `;
+  }
+
+  // Trình bày sản phẩm ra màn hình
+  displayProductsToUI(containerID) {
+    const container = document.getElementById(containerID);
+    // container.innerHTML = ""; // Xóa các sản phẩm cũ
+
+    this.productList.forEach((product) => {
+      if (product.quantity > 0) {
+        const productDiv = document.createElement("div");
+
+        // Thêm id và class product
+        productDiv.id = product.id;
+        productDiv.classList.add("product");
+
+        this.displayProduct(productDiv, product);
+        container.appendChild(productDiv);
+      }
+    });
+  }
+
+  // Trình bày sản phẩm ra màn hình theo Type
+  displayProductsWithType(containerID, type) {
+    const container = document.getElementById(containerID);
+    container.innerHTML = ""; // Xóa các sản phẩm cũ
+
+    this.productList.forEach((product) => {
+      if (String(product.type) === String(type) && product.quantity > 0) {
+        const productDiv = document.createElement("div");
+
+        productDiv.classList.add("product");
+        this.displayProduct(productDiv, product);
+        container.appendChild(productDiv);
+      }
+    });
+  }
+}
+
+// ==================================================== Products Manager ====================================================
+const productManager = new ProductManager();
+
+const product1 = new Product(
+  "iphone",
+  "ipX",
+  "",
+  "iPhone X",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product2 = new Product(
+  "iphone",
+  "ip11",
+  "",
+  "iPhone 11",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product3 = new Product(
+  "iphone",
+  "ip12",
+  "",
+  "iPhone 12",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product4 = new Product(
+  "iphone",
+  "ip13",
+  "",
+  "iPhone 13",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product5 = new Product(
+  "iphone",
+  "ip14",
+  "",
+  "iPhone 14",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product6 = new Product(
+  "iphone",
+  "ip15",
+  "",
+  "iPhone 15",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+// const product7 = new Product(
+//   "samsung",
+//   "",
+//   "ssS24",
+//   "SAMSUNG S24",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+// const product8 = new Product(
+//   "samsung",
+//   "",
+//   "ssS21",
+//   "SAMSUNG S21",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+// const product9 = new Product(
+//   "samsung",
+//   "",
+//   "ssS20",
+//   "SAMSUNG S20",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+// const product10 = new Product(
+//   "samsung",
+//   "",
+//   "ssS22",
+//   "SAMSUNG S22",
+//   20000000,
+//   20,
+//   "8 GB",
+//   "256 GB"
+// );
+
+// productManager.addProduct(product1);
+// productManager.addProduct(product2);
+// productManager.addProduct(product3);
+// productManager.addProduct(product4);
+// productManager.addProduct(product5);
+// productManager.addProduct(product6);
+
+productManager.loadFromLocalStorage();
+
+productManager.displayProductsToUI("productsSuggestion");
+productManager.displayProductsWithType("productIPhone", "iphone");
+
+function getInforProduct(productDiv) {
+  const productName = productDiv.querySelector(".productName").textContent;
+  const product = productManager.productList.find(
+    (p) => p.name === productName
+  );
+
+  if (product) {
+    const table = document.querySelector("#cart");
+    const newRow = table.insertRow();
+
+    const cellName = newRow.insertCell(0);
+    const cellImg = newRow.insertCell(1);
+    const cellPrice = newRow.insertCell(2);
+    const cellQuantity = newRow.insertCell(3);
+    const cellTotalPrice = newRow.insertCell(4);
+    const cellDelete = newRow.insertCell(5);
+
+    cellName.textContent = product.name;
+    cellImg.textContent = product.img;
+    cellPrice.textContent = product.price;
+    cellQuantity.innerHTML = `<div class="control_quantity">
+      <button>-</button>
+      <div class="quantity">1</div>
+      <button>+</button>
+    </div>`;
+    cellTotalPrice.textContent = product.price;
+    cellDelete.innerHTML = `<input type="radio" class="deleteRow"/>`;
+  }
+}
+document.addEventListener("click", function (event) {
+  if (event.target.matches(".control_quantity button")) {
+    const button = event.target;
+    const quantityDiv = button.parentElement.querySelector("div");
+    const row = button.closest("tr");
+    const productName = row.cells[0].textContent;
+    const product = productManager.productList.find(
+      (p) => p.name === productName
+    );
+
+    if (product) {
+      let quantity = parseInt(quantityDiv.textContent);
+
+      if (button.textContent === "+") {
+        if (quantity < product.quantity) {
+          quantity++;
+        }
+      } else if (button.textContent === "-") {
+        if (quantity > 0) {
+          quantity--;
+        }
+      }
+
+      quantityDiv.textContent = quantity;
+      var price = parseInt(product.price);
+      row.cells[4].textContent = parseInt(price * quantity);
+    }
+  }
+});
+// Call getInforProduct for each product
+document.querySelectorAll(".product").forEach((productDiv) => {
+  getInforProduct(productDiv);
+});
+
+// Popup detail
+function createPopup(product) {
+  // Kiểm tra nếu popup đã tồn tại thì không tạo mới
+  if (document.getElementById("productPopup")) return;
+
+  // Tạo div popup
+  const popup = document.createElement("div");
+  popup.classList.add("overlay");
+  popup.classList.add("active");
+  popup.id = "productPopup";
+
+  popup.innerHTML = `
+    <div class="popup-content">
+      <div class="detail-content">
+        <div class="img-product">
+          <img src="${product.img}" alt="${product.name}">
+        </div>
+        <div class="detail-product">
+          <div class="detailName">${product.name}</div>
+          <div class="detailRam">RAM: ${product.ram}</div>
+          <div class="detailStorage">Storage: ${product.storage}</div>
+          <div class="detailCash">${product.price} VND</div>
+        </div> 
+      </div>
+      <div id="btnPopup">
+        <button class="closePopup">Đóng</button>
+        <button class="btnAddtoCart">Thêm vào giỏ hàng</button>
+      </div>
+    </div>
+  `;
+
+  // Thêm popup vào body
+  document.body.appendChild(popup);
+
+  // Thêm sự kiện xóa popup khi bấm nút Đóng
+  popup.querySelector(".closePopup").addEventListener("click", () => {
+    popup.remove();
+  });
+
+  // Đóng popup khi click ra ngoài .popup-content
+  popup.addEventListener("click", (event) => {
+    if (event.target === popup) {
+      popup.remove();
+    }
+  });
+}
+
+// Gán sự kiện cho từng nút "Xem chi tiết"
+document.querySelectorAll(".viewDetailBtn").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    // Ngăn chặn sự kiện click lan sang div.product
+    event.stopPropagation();
+
+    // Lấy ID sản phẩm từ phần tử cha (div.product)
+    const productDiv = button.closest(".product");
+    const productId = productDiv.id;
+
+    // Lấy thông tin sản phẩm từ ProductManager
+    const product = productManager.getProductById(productId);
+
+    if (product) {
+      createPopup(product);
+    } else {
+      console.error("Không tìm thấy sản phẩm với ID:", productId);
+    }
+  });
 });
 
 // ============================================================ Cart ============================================================
 
 // su kien gio hang
-document.querySelector(".cart").addEventListener("click", () => {
-  document.querySelector(".container.slider-banner").style.display = "none";
-  document.querySelectorAll(".container.suggestion").forEach((div) => {
-    div.style.display = "none";
-  });
-  document.querySelector("#iphone-page").style.display = "none";
-    //khi giỏ hàng có nhiều hơn hoặc bằng một sản phẩm 
-/*   document.querySelectorAll(".change_number").forEach(button => {
-    button.addEventListener("click",() => {
-      var i = parseInt(document.querySelector("#quantity").textContent);
-      if( button.textContent == "-")
-        i -=1;
-      if( button.textContent == "+")
-        i +=1;
-      if(i >= 0)
-        document.querySelector("#quantity").textContent = i;
-      else
-        alert("Số sản phẩm phải lớn hơn hoặc bằng 0");
-    });
-  });  */
-  //Khi giỏ hàng không có sản phẩm nào.
-  document.querySelector("#shopping_cart_page").style.display="block";
-});
-returnToMainPage = () =>{
-  document.querySelector("#shopping_cart_page").style.display="none";
+returnToMainPage = () => {
+  document.querySelector("#shopping_cart_page").style.display = "none";
   document.querySelector(".container.slider-banner").style.display = "block";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "block";
   });
   document.querySelector("#iphone-page").style.display = "block";
-  document.querySelector("#sc_top").style.display="none";
 };
-document.querySelector("#return_main_page").onclick = returnToMainPage;
-// Lưu toàn bộ thông tin điện thoại vào localStorage
-const productImg = document.querySelectorAll(".productImg img");
-const productName = document.querySelectorAll(".productName");
-const productDetail = document.querySelectorAll(".productDetail");
-const productPrice = document.querySelectorAll(".productPrice");
-getInfor = (mangA, a, i) => {
-  var thongtin;
-  if(a == "img"){
-    thongtin = 1;
-  } else{
-    thongtin = (a == "detail")? 2:3;
-  }
-  mangA.forEach(A => {
-    if (thongtin == 3) {
-      localStorage.setItem(`${a}${i}`, A.textContent);
-    }else if (thongtin == 1) {
-      localStorage.setItem(`${a}${i}`, A.src);
-    } else {
-      
-    }
-    i++;
+document.querySelectorAll("#return_main_page").forEach((button) => {
+  button.onclick = returnToMainPage;
+});
+document.querySelector(".cart").addEventListener("click", function () {
+  document.querySelector(".container.slider-banner").style.display = "none";
+  document.querySelectorAll(".container.suggestion").forEach((div) => {
+    div.style.display = "none";
   });
-};
-themGioHang = () => {
-  
-};
+  document.querySelector("#iphone-page").style.display = "none";
+  document.querySelector("#shopping_cart_page").style.display = "block";
+  document.querySelectorAll("#productIPhone .product").forEach((productDiv) => {
+    getInforProduct(productDiv);
+  });
+  if (productManager.productList.length > 0) {
+    document.querySelector("#empty").style.display = "none";
+    document.querySelector("#non_empty").style.display = "block";
+  }
+});

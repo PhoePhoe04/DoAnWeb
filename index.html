@@ -7,7 +7,7 @@
       src="https://kit.fontawesome.com/a4434c7b27.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="./style.css" />
     <title>Document</title>
   </head>
   <body>
@@ -61,7 +61,7 @@
       <!-- MAIN -->
       <main>
         <!-- Trang chủ -->
-        <div id="home" class="page section">
+        <div id="home" class="page active">
           <!-- Slider -->
           <div class="container slider-banner">
             <div class="slider">
@@ -75,93 +75,21 @@
           <!-- Suggestion -->
           <div class="container suggestion">
             <div>Gợi ý cho bạn</div>
-            <div class="products">
-              <div class="product">
+
+            <div id="productsSuggestion" class="products">
+              <div id="ip14" class="product">
                 <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
+                  <img src="./assets/item/ip14.jpg" alt="">
                 </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
+                <div class="productName">
+                  iPhone 14
                 </div>
-              </div>
-              <div class="product">
-                <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
+                <div class="productPrice">
+                  14.000.000 VND
                 </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
-                </div>
-              </div>
-              <div class="product">
-                <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
-                </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
-                </div>
-              </div>
-              <div class="product">
-                <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
-                </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
-                </div>
-              </div>
-              <div class="product">
-                <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
-                </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
-                </div>
-              </div>
-              <div class="product">
-                <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
-                </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
-                </div>
-              </div>
-              <div class="product">
-                <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
-                </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
-                </div>
-              </div>
-              <div class="product">
-                <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
-                </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
+                <div class="btnProduct">
+                  <button class="viewDetailBtn">Xem chi tiết</button>
+                  <button>Mua ngay</button>
                 </div>
               </div>
             </div>
@@ -173,7 +101,7 @@
           </div>
         </div>
         <!-- iPhone -->
-        <div id="iphone-page" class="page active">
+        <div id="iphone-page" class="page section">
           <div class="container">
             <!-- Link chuyển hướng -->
             <nav>
@@ -185,19 +113,10 @@
             <div class="margin-filter-sort">
               <!-- Nút Filter -->
               <div class="filter">
-                <button id="iphone-filterBtn" class="filterBtn">
+                <button id="iphone-filterBtn" class="filterBtn" onclick="togglePopup('#iphone-filterBtn')">
                   <i class="fa-solid fa-filter"></i>Lọc
-                  <div class="triangle active"></div>
-                  <div class="filter-popup active">
-                    <div class="dong-san-pham">
-                      <h3>Dòng sản phẩm</h3>
-                      <div>
-                        <div>S</div>
-                        <div>Z</div>
-                        <div>A</div>
-                        <div>M</div>
-                      </div>
-                    </div>
+                  <div class="triangle section"></div>
+                  <div class="filter-popup section"  onclick="event.stopPropagation()">
                     <div class="gia-san-pham">
                       <h3>Giá sản phẩm</h3>
                       <div>
@@ -213,7 +132,6 @@
                       <div class="option">
                         <h3>RAM</h3>
                         <div>
-                          <div>3 GB</div>
                           <div>4 GB</div>
                           <div>6 GB</div>
                           <div>8 GB</div>
@@ -223,7 +141,6 @@
                       <div class="option">
                         <h3>Dung lượng</h3>
                         <div>
-                          <div>32 GB</div>
                           <div>64 GB</div>
                           <div>128 GB</div>
                           <div>256 GB</div>
@@ -231,18 +148,11 @@
                           <div>1 TB</div>
                         </div>
                       </div>
-                      <div class="option">
-                        <h3>Tần số quét</h3>
-                        <div>
-                          <div>60 Hz</div>
-                          <div>90 Hz</div>
-                          <div>120 Hz</div>
-                          <div>144 Hz</div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                 </button>
+                
               </div>
               <!-- Button sort -->
               <div class="sort">
@@ -254,31 +164,9 @@
             </div>
 
             <!-- Phần sản phẩm của iPhone -->
-            <div class="products">
-              <div class="product">
-                <div class="productImg">
-                  <img src="./assets/item/ip13.jpg" alt="" />
-                </div>
-                <div class="productName">iPhone 13 PROMAX</div>
-                <div class="productDetail"></div>
-                <div class="productPrice">200.000 VND</div>
-                <div class="btn-them-gio-hang">
-                  <button class="them_gio_hang">Mua ngay</button>
-                </div>
-              </div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">SAMSUNG</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-              <div class="product">iPhone</div>
-            </div>
 
+            <div id="productIPhone" class="iphone products">
+            </div>
             <div class="showMore">
               <button id="showMoreBtn" onclick="showMoreProducts()">
                 Hiển thị thêm
@@ -286,9 +174,10 @@
             </div>
           </div>
         </div>
+        <!-- Cart -->
         <div id="shopping_cart_page">
           <div id="empty">
-            <img src="./assets/img/logo-img/empty_cart.png" width="340" height="300"></img>
+            <img src="./assets/img/logo-img/empty_cart.png" alt="" width="340" height="300"/>
             <h1>Bạn chưa mua sản phẩm của cửa hàng chúng tôi</h1>
             <p>Bạn hãy tiếp tục mua sắm.</p>
             <p>Bạn sẽ tìm được chiếc điện thoại yêu thích của mình.</p>
@@ -296,36 +185,64 @@
           </div>
           <div id="non_empty">
             <h1 id="gio_hang">Giỏ hàng của bạn</h1>
-            <div id="bang_gh">
-              <div>
-                <div class="th">Điện thoại</div>
-                <hr>
-                <div>
-                  Khong co dien thoai
-                </div>
+            <table id = "cart">
+              <tr>
+                <th>Tên sản phẩm</th>
+                <th>Hình Ảnh</th>
+                <th>Giá tiền</th>
+                <th>Số lượng</th>
+                <th>Tổng số tiền</th>
+                <th>Xoá</th>
+              </tr>
+            </table>
+            <button id="return_main_page">Bắt Đầu Mua Sắm</button>
+            <button id="dat_hang">Đặt hàng</button>
+            <div id="sotientongcong">
+              <div>Số tiền tổng cộng</div>
+              <div id="totalCost"></div>
+            </div>
+            <div id="khung_dat_hang">
+              <img src="./assets/img/icon/close.png" alt="" width="100" height="100">
+                <form id="frmdathang">
+                  <h1>Thông tin giao hàng</h1>
+                  <label for="customerName">Họ tên:</label>
+                  <input id="customerName" type="text"/>
+                  <label for="customerAddress">Địa chỉ:</label>
+                  <input id="customerAddress" type="text"/>
+                  <label for="cusPhoneNumber">Số điện thoại:</label>
+                  <input for="cusPhoneNumber" type="text"/>
+                  <label>Hình thức thanh toán:</label>
+                  <div>
+                    <input type = "checkbox" id="cash"/>
+                    <label for="cash">Tiền mặt</label>
+                    <input type = "checkbox" id="card"/>
+                    <label for="card">Thẻ tín dụng</label>
+                  </div>
+                  <input type="submit" value="Thanh toán"/>
+                </form>
+            </div>
+          </div>    
+        </div>
+        <!-- <div class="overlay active" id="productPopup">
+          <div class="popup-content">
+            <div class="detail-content">
+              <div class="img-product">
+                <img src="./assets/item/ip14.jpg" alt="">
               </div>
-              <div>
-                <div class="th">Đơn giá</div>
-                <hr>
-                <div>0VNĐ</div>
+              <div class="detail-product">
+                <div class="detailName">iPhone 14</div>
+                <div class="detailRam">RAM: 64 GB</div>
+                <div class="detailStorage">Storage: 128 GB</div>
+                <div class="detailCash">20.000.000 VND</div>
               </div> 
-              <div>
-                <div class="th">Số lượng</div>
-                <hr>
-                <div id="control_quantity">
-                  <button class="change_number">-</button>
-                  <div id="quantity">0</div>
-                  <button class="change_number">+</button>
-                </div>
-              </div>
-              <div>
-                <div class="th">Tổng tiền</div>
-                <hr>
-                <div>0VNĐ</div>
-              </div>
+            </div>
+            <div id="btnPopup">
+              <button class="closePopup" onclick="toggleDetailPopup()">Đóng</button>
+              <button class="btnAddtoCart">Thêm vào giỏ hàng</button>
             </div>
           </div>
-        </div>
+        </div> -->
+        
       </main>
 
       <footer></footer>
