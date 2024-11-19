@@ -320,6 +320,7 @@ productManager.loadFromLocalStorage();
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
 
+var totalPrice = 0 ;
 function getInforProduct(productDiv) {
   const productName = productDiv.querySelector(".productName").textContent;
   const product = productManager.productList.find(
@@ -346,7 +347,8 @@ function getInforProduct(productDiv) {
       <button>+</button>
     </div>`
     cellTotalPrice.textContent = product.price;
-    cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`;
+    cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`
+    totalPrice+= product.price;
   }
 }
 document.addEventListener("click", function (event) {
@@ -361,20 +363,23 @@ document.addEventListener("click", function (event) {
 
     if (product) {
       let quantity = parseInt(quantityDiv.textContent);
+      var price =parseInt(product.price);
 
       if (button.textContent === "+") {
         if (quantity < product.quantity) {
           quantity++;
+          totalPrice += price;
         }
       } else if (button.textContent === "-") {
         if (quantity > 0) {
           quantity--;
+          totalPrice -= price;
         }
       }
 
       quantityDiv.textContent = quantity;
-      var price =parseInt(product.price);
-      row.cells[4].textContent = parseInt(price * quantity);
+      row.cells[4].textContent = (price * quantity);
+      document.querySelector("#totalCost").textContent = totalPrice;
     }
   }
 });
@@ -386,6 +391,7 @@ document.addEventListener("click", function (event) {
     const productDiv = event.target.closest(".product");
     getInforProduct(productDiv);
     alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
+    document.querySelector("#totalCost").textContent = totalPrice;
   }
 });
 // su kien gio hang

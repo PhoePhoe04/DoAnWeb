@@ -530,21 +530,16 @@ header {
   padding: 8px;
   font-size: 2rem;
   cursor: pointer;
+  margin-left: 100rem;
 }
 #dat_hang {
   background-color: purple;
   color: white;
   border-radius: 20px;
-  margin-left: 10px;
   border: none;
   padding: 8px;
   font-size: 2rem;
   cursor: pointer;
-}
-#center_button{
-  display: flex;
-  justify-content: center;
-  margin-top: 10px;
 }
 #shopping_cart_page {
   display: none;
@@ -628,13 +623,19 @@ header {
 }
 #sotientongcong{
   width: 90%;
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 2rem;
+  display: inline;
   padding: 4px;
+  font-size: 2rem;
 }
 #sotientongcong div{
   border: 2px solid black;
+  display: inline-block;
+  margin-right: -2px;
+  padding: 4px;
+}
+#sotientongcong #totalCost{
+  min-width: 300px;
+  display: inline-block;
+  margin-left: -5px;
+  width: 186px;
 }
