@@ -14,7 +14,7 @@
                 <li>
                     <a href="#">
                         <div class="logo">
-                            <img src="assets/img/logo-img/logophone.png">
+                            <img src="assets/img/logo-img/Bắc.png">
                             <h2>BiDiEO</h2>
                         </div>
                     </a>
@@ -56,8 +56,38 @@
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </label>
                 </div>
-                <div class="userImg">
-                    <img src="/assets/img/logo-img/HutaoPF.png">
+                <div class="header-item user">
+                    <a href="#!" class="circle-avatar">
+                        <img src="/assets/img/logo-img/HutaoPF.png" alt=""
+                        width="50px" height="50px" style="border-radius: 50%; margin-right: 100px;">
+                    </a>
+                    <div class="user-dropdown">
+                        <div class="block-gia" style="width: 80px; height: 15px; position: absolute; right: 0; top: -15px;"></div>
+                        <div class="header-drop">
+                            <h4>Your Name</h4>
+                            <span>Web Designer</span>
+                        </div>
+                        <a href="" class="dropdown-item">
+                            <i class="fa-solid fa-users"></i>
+                            My Profile
+                        </a>
+                        <a href="" class="dropdown-item">
+                            <i class="fa-regular fa-pen-to-square"></i>
+                            Edit
+                        </a>
+                        <a href="" class="dropdown-item">
+                            <i class="fa-solid fa-circle-info"></i>
+                            Information
+                        </a>
+                        <a href="" class="dropdown-item">
+                            <i class="fa-solid fa-gear"></i>
+                            Setting
+                        </a>
+                        <a href="./index.html" class="dropdown-item">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Sign out
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="details">
@@ -74,7 +104,8 @@
                                 <tr>
                                     <th>Tên sản phẩm</th>
                                     <th>Hình ảnh</th>
-                                    <th>Cấu hình</th>
+                                    <th>RAM</th>
+                                    <th>Dung lượng</th>
                                     <th>Giá cả</th>
                                     <th></th>
                                 </tr>
@@ -186,6 +217,11 @@
                 <div class="form-container" id="containerTable" style="display: none;">
                     <form class="card">
                         <div class="row-card">
+                            <label for="">ID sản phẩm</label>
+                            <br>
+                            <input type="text" id="Add-id_product">
+                        </div>
+                        <div class="row-card">
                             <label for="">Tên sản phẩm</label>
                             <br>
                             <input type="text" id="Add-name_product">
@@ -204,13 +240,32 @@
                         </div>
                         <span id="span_CategoryPro"></span>
                         <div class="row-card">
-                            <label for="">Cấu hình</label>
+                            <label for="">RAM</label>
                             <br>
-                            <input type="text" id="Add-configuration_product">
+                            <select name="" id="select_ram">
+                                <option value="" disabled selected>Chọn RAM</option>
+                                <option value="4GB">4GB</option>
+                                <option value="6GB">6GB</option>
+                                <option value="8GB">8GB</option>
+                                <option value="12GB">12GB</option>
+                            </select>
                         </div>
-                        <span id="span_configurationPro"></span>                        
+                        <span id="span_RamPro"></span>  
                         <div class="row-card">
-                            <label for="">Giá</label>
+                            <label for="">Dung lượng</label>
+                            <br>
+                            <select name="" id="select_storage">
+                                <option value="" disabled selected>Chọn dung lượng</option>
+                                <option value="64GB">64GB</option>
+                                <option value="128GB">128GB</option>
+                                <option value="256GB">256GB</option>
+                                <option value="512GB">512GB</option>
+                                <option value="1TB">1TB</option>
+                            </select>
+                        </div>                        
+                        <span id="span_StroragePro"></span>                        
+                        <div class="row-card">
+                            <label for="">Giá</label> 
                             <br>
                             <input type="number" id="Add-price">
                         </div>
@@ -220,16 +275,16 @@
                             <br>
                             <textarea id="Add-detail_Product" ></textarea>
                         </div>
-                        <span id="span_detailPro"></span>
+                        <div class="row-card">
+                            <label for="">Số lượng</label>
+                            <br>
+                            <input type="number" value="0" class="product-quantity" id="add-quantity">
+                        </div>
+                        <span id="span_quantityPro"></span>
                         <div class="row-card">
                             <label for="">Chọn ảnh mới</label>
                             <input type="file" id="fileInput" accept="image/*"> 
                         </div>
-                        <!-- <div class="row-card rowDeleteImg">
-                            <label for="">Hoặc xóa ảnh</label>
-                            <input type="checkbox" id="deleteImg">
-                        </div> -->
-
                         <span id="span_imagePro"></span>
                         </form>
                         <br>
