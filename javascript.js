@@ -205,66 +205,66 @@ class ProductManager {
 // ==================================================== Products Manager ====================================================
 const productManager = new ProductManager();
 
-// const product1 = new Product(
-//   "iphone",
-//   "ipX",
-//   "",
-//   "iPhone X",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product2 = new Product(
-//   "iphone",
-//   "ip11",
-//   "",
-//   "iPhone 11",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product3 = new Product(
-//   "iphone",
-//   "ip12",
-//   "",
-//   "iPhone 12",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product4 = new Product(
-//   "iphone",
-//   "ip13",
-//   "",
-//   "iPhone 13",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product5 = new Product(
-//   "iphone",
-//   "ip14",
-//   "",
-//   "iPhone 14",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product6 = new Product(
-//   "iphone",
-//   "ip15",
-//   "",
-//   "iPhone 15",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
+const product1 = new Product(
+  "iphone",
+  "ipX",
+  "",
+  "iPhone X",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product2 = new Product(
+  "iphone",
+  "ip11",
+  "",
+  "iPhone 11",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product3 = new Product(
+  "iphone",
+  "ip12",
+  "",
+  "iPhone 12",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product4 = new Product(
+  "iphone",
+  "ip13",
+  "",
+  "iPhone 13",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product5 = new Product(
+  "iphone",
+  "ip14",
+  "",
+  "iPhone 14",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
+const product6 = new Product(
+  "iphone",
+  "ip15",
+  "",
+  "iPhone 15",
+  20000000,
+  20,
+  "8 GB",
+  "256 GB"
+);
 // const product7 = new Product(
 //   "samsung",
 //   "",
@@ -306,39 +306,86 @@ const productManager = new ProductManager();
 //   "256 GB"
 // );
 
-// productManager.addProduct(product1);
-// productManager.addProduct(product2);
-// productManager.addProduct(product3);
-// productManager.addProduct(product4);
-// productManager.addProduct(product5);
-// productManager.addProduct(product6);
-// productManager.addProduct(product7);
-// productManager.addProduct(product8);
-// productManager.addProduct(product9);
-// productManager.addProduct(product10);
+productManager.addProduct(product1);
+productManager.addProduct(product2);
+productManager.addProduct(product3);
+productManager.addProduct(product4);
+productManager.addProduct(product5);
+productManager.addProduct(product6);
 
-// productManager.saveToLocalStorage();
+productManager.saveToLocalStorage();
 
 productManager.loadFromLocalStorage();
 
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
 
+function getInforProduct(productDiv) {
+  const productName = productDiv.querySelector(".productName").textContent;
+  const product = productManager.productList.find(
+    (p) => p.name === productName
+  );
+
+  if (product) {
+    const table = document.querySelector("#cart");
+    const newRow = table.insertRow();
+
+    const cellName = newRow.insertCell(0);
+    const cellImg = newRow.insertCell(1);
+    const cellPrice = newRow.insertCell(2);
+    const cellQuantity = newRow.insertCell(3);
+    const cellTotalPrice = newRow.insertCell(4);
+    const cellDelete = newRow.insertCell(5);
+
+    cellName.textContent = product.name;
+    cellImg.textContent = product.img;
+    cellPrice.textContent = product.price;
+    cellQuantity.innerHTML = `<div class="control_quantity">
+      <button>-</button>
+      <div class="quantity">1</div>
+      <button>+</button>
+    </div>`
+    cellTotalPrice.textContent = product.price;
+    cellDelete.innerHTML = `<input type="radio" class="deleteRow"/>`;
+  }
+}
+document.addEventListener("click", function (event) {
+  if (event.target.matches(".control_quantity button")) {
+    const button = event.target;
+    const quantityDiv = button.parentElement.querySelector("div");
+    const row = button.closest("tr");
+    const productName = row.cells[0].textContent;
+    const product = productManager.productList.find(
+      (p) => p.name === productName
+    );
+
+    if (product) {
+      let quantity = parseInt(quantityDiv.textContent);
+
+      if (button.textContent === "+") {
+        if (quantity < product.quantity) {
+          quantity++;
+        }
+      } else if (button.textContent === "-") {
+        if (quantity > 0) {
+          quantity--;
+        }
+      }
+
+      quantityDiv.textContent = quantity;
+      var price =parseInt(product.price);
+      row.cells[4].textContent = parseInt(price * quantity);
+    }
+  }
+});
+// Call getInforProduct for each product
+document.querySelectorAll(".product").forEach((productDiv) => {
+  getInforProduct(productDiv);
+});
+
 // ============================================================ Cart ============================================================
 
 // su kien gio hang
-document.querySelector(".cart").addEventListener("click", () => {
-  document.querySelector(".container.slider-banner").style.display = "none";
-  document.querySelectorAll(".container.suggestion").forEach((div) => {
-    div.style.display = "none";
-  });
-  document.querySelector("#iphone-page").style.display = "none";
-  document.querySelector("#shopping_cart_page").style.display = "block";
-  if (this.productList.length > 0) {
-    document.querySelector("#empty").style.display = "none";
-    document.querySelector("#non_empty").style.display = "block";
-  }
-});
 returnToMainPage = () => {
   document.querySelector("#shopping_cart_page").style.display = "none";
   document.querySelector(".container.slider-banner").style.display = "block";
@@ -346,50 +393,22 @@ returnToMainPage = () => {
     div.style.display = "block";
   });
   document.querySelector("#iphone-page").style.display = "block";
-  document.querySelector("#sc_top").style.display = "none";
 };
-document.querySelector("#return_main_page").onclick = returnToMainPage;
-getInforProduct = (productDiv) => {
-  productDiv.querySelector("button").addEventListener("click", () => {
-    productManager.loadFromLocalStorage();
-    this.productList.forEach((element) => {
-      if (
-        element.name == productDiv.querySelector(".productName").textContent
-      ) {
-        const table = document.querySelector(".cart");
-        var row = table.insertRow();
-        var cell1 = row.insertCell(0);
-        cell1.innerHTML = `${element.name}`;
-        var cell2 = row.insertCell(1);
-        cell2.innerHTML = `${element.img}`;
-        var cell3 = row.insertCell(2);
-        cell3.innerHTML = `${element.price}`;
-        var cell4 = row.insertCell(3);
-        cell4.innerHTML = `<div id="control_quantity">
-                    <button class="change_number">-</button>
-                    <div id="quantity">1</div>
-                    </div>
-                    <button class="change_number">+</button>`;
-        document.querySelectorAll(".change_number").forEach((button) => {
-          button.addEventListener("click", () => {
-            var i = parseInt(document.querySelector("#quantity").textContent);
-            if (button.textContent == "-") i -= 1;
-            if (button.textContent == "+") i += 1;
-            if (i >= 0) document.querySelector("#quantity").textContent = i;
-            else alert("Số sản phẩm phải lớn hơn hoặc bằng 0");
-          });
-        });
-        var quantity = parseInt(
-          document.querySelector("#quantity").textContent
-        );
-        var chu = document
-          .querySelector("#productPrice")
-          .textContent.toString();
-        var price = parseInt(chu.split(/.\VNĐ/));
-        var cell5 = row.insertCell(4);
-        totalPrice = price * quantity;
-        cell5.innerHTML = totalPrice.toLocaleString("vi-VN") + ` VNĐ`;
-      }
-    });
+document.querySelectorAll("#return_main_page").forEach(button => {
+  button.onclick = returnToMainPage;
+});
+document.querySelector(".cart").addEventListener("click", function() {
+  document.querySelector(".container.slider-banner").style.display = "none";
+  document.querySelectorAll(".container.suggestion").forEach((div) => {
+    div.style.display = "none";
   });
-};
+  document.querySelector("#iphone-page").style.display = "none";
+  document.querySelector("#shopping_cart_page").style.display = "block";
+  document.querySelectorAll("#productIPhone .product").forEach((productDiv) => {
+    getInforProduct(productDiv);
+  });
+  if (productManager.productList.length > 0) {
+    document.querySelector("#empty").style.display = "none";
+    document.querySelector("#non_empty").style.display = "block";
+  }
+});
