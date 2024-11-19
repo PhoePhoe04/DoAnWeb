@@ -80,6 +80,19 @@ function togglePopup(idBtn) {
   });
 }
 
+// DETAIL POPUP
+function toggleDetailPopup() {
+  const detailPopup = document.getElementById("productPopup");
+
+  const isActive = detailPopup.classList.contains("active");
+
+  if (isActive) {
+    detailPopup.classList.replace("active", "section");
+  } else {
+    detailPopup.classList.replace("section", "active");
+  }
+}
+
 // +++++++++++++++++++++++++++++++++++ OOP +++++++++++++++++++++++++++++++++++
 class Product {
   constructor(type, id, img, name, price, quantity, ram, storage) {
@@ -99,9 +112,14 @@ class ProductManager {
     this.productList = [];
   }
 
+  getProductById(id) {
+    return this.productList.find((product) => product.id === id) || null;
+  }
+
   addProduct(product) {
     if (product instanceof Product) {
       this.productList.push(product);
+      thís.saveToLocalStorage();
       console.log(`Đã thêm sản phẩm:`, product);
     } else {
       console.log("Đối tượng không phải là sản phẩm hợp lệ.");
@@ -164,26 +182,33 @@ class ProductManager {
       <div class="productName">${product.name}</div>
       <div class="productDetail"></div>
       <div class="productPrice">${product.price}</div>
-      <button>Mua ngay</button>
+      <div class="btnProduct">
+        <button class="viewDetailBtn">Xem chi tiết</button>
+        <button>Mua ngay</button>
+      </div>
       `;
   }
 
   // Trình bày sản phẩm ra màn hình
   displayProductsToUI(containerID) {
     const container = document.getElementById(containerID);
-    container.innerHTML = ""; // Xóa các sản phẩm cũ
+    // container.innerHTML = ""; // Xóa các sản phẩm cũ
 
     this.productList.forEach((product) => {
       if (product.quantity > 0) {
         const productDiv = document.createElement("div");
 
+        // Thêm id và class product
+        productDiv.id = product.id;
         productDiv.classList.add("product");
+
         this.displayProduct(productDiv, product);
         container.appendChild(productDiv);
       }
     });
   }
 
+  // Trình bày sản phẩm ra màn hình theo Type
   displayProductsWithType(containerID, type) {
     const container = document.getElementById(containerID);
     container.innerHTML = ""; // Xóa các sản phẩm cũ
@@ -198,8 +223,6 @@ class ProductManager {
       }
     });
   }
-
-  // Trình bài option filter
 }
 
 // ==================================================== Products Manager ====================================================
@@ -306,14 +329,12 @@ const product6 = new Product(
 //   "256 GB"
 // );
 
-productManager.addProduct(product1);
-productManager.addProduct(product2);
-productManager.addProduct(product3);
-productManager.addProduct(product4);
-productManager.addProduct(product5);
-productManager.addProduct(product6);
-
-productManager.saveToLocalStorage();
+// productManager.addProduct(product1);
+// productManager.addProduct(product2);
+// productManager.addProduct(product3);
+// productManager.addProduct(product4);
+// productManager.addProduct(product5);
+// productManager.addProduct(product6);
 
 productManager.loadFromLocalStorage();
 
@@ -344,7 +365,7 @@ function getInforProduct(productDiv) {
       <button>-</button>
       <div class="quantity">1</div>
       <button>+</button>
-    </div>`
+    </div>`;
     cellTotalPrice.textContent = product.price;
     cellDelete.innerHTML = `<input type="radio" class="deleteRow"/>`;
   }
@@ -373,7 +394,7 @@ document.addEventListener("click", function (event) {
       }
 
       quantityDiv.textContent = quantity;
-      var price =parseInt(product.price);
+      var price = parseInt(product.price);
       row.cells[4].textContent = parseInt(price * quantity);
     }
   }
@@ -381,6 +402,74 @@ document.addEventListener("click", function (event) {
 // Call getInforProduct for each product
 document.querySelectorAll(".product").forEach((productDiv) => {
   getInforProduct(productDiv);
+});
+
+// Popup detail
+function createPopup(product) {
+  // Kiểm tra nếu popup đã tồn tại thì không tạo mới
+  if (document.getElementById("productPopup")) return;
+
+  // Tạo div popup
+  const popup = document.createElement("div");
+  popup.classList.add("overlay");
+  popup.classList.add("active");
+  popup.id = "productPopup";
+
+  popup.innerHTML = `
+    <div class="popup-content">
+      <div class="detail-content">
+        <div class="img-product">
+          <img src="${product.img}" alt="${product.name}">
+        </div>
+        <div class="detail-product">
+          <div class="detailName">${product.name}</div>
+          <div class="detailRam">RAM: ${product.ram}</div>
+          <div class="detailStorage">Storage: ${product.storage}</div>
+          <div class="detailCash">${product.price} VND</div>
+        </div> 
+      </div>
+      <div id="btnPopup">
+        <button class="closePopup">Đóng</button>
+        <button class="btnAddtoCart">Thêm vào giỏ hàng</button>
+      </div>
+    </div>
+  `;
+
+  // Thêm popup vào body
+  document.body.appendChild(popup);
+
+  // Thêm sự kiện xóa popup khi bấm nút Đóng
+  popup.querySelector(".closePopup").addEventListener("click", () => {
+    popup.remove();
+  });
+
+  // Đóng popup khi click ra ngoài .popup-content
+  popup.addEventListener("click", (event) => {
+    if (event.target === popup) {
+      popup.remove();
+    }
+  });
+}
+
+// Gán sự kiện cho từng nút "Xem chi tiết"
+document.querySelectorAll(".viewDetailBtn").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    // Ngăn chặn sự kiện click lan sang div.product
+    event.stopPropagation();
+
+    // Lấy ID sản phẩm từ phần tử cha (div.product)
+    const productDiv = button.closest(".product");
+    const productId = productDiv.id;
+
+    // Lấy thông tin sản phẩm từ ProductManager
+    const product = productManager.getProductById(productId);
+
+    if (product) {
+      createPopup(product);
+    } else {
+      console.error("Không tìm thấy sản phẩm với ID:", productId);
+    }
+  });
 });
 
 // ============================================================ Cart ============================================================
@@ -394,10 +483,10 @@ returnToMainPage = () => {
   });
   document.querySelector("#iphone-page").style.display = "block";
 };
-document.querySelectorAll("#return_main_page").forEach(button => {
+document.querySelectorAll("#return_main_page").forEach((button) => {
   button.onclick = returnToMainPage;
 });
-document.querySelector(".cart").addEventListener("click", function() {
+document.querySelector(".cart").addEventListener("click", function () {
   document.querySelector(".container.slider-banner").style.display = "none";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "none";

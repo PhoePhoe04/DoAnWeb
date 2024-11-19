@@ -77,7 +77,20 @@
             <div>Gợi ý cho bạn</div>
 
             <div id="productsSuggestion" class="products">
-            <div class="products">
+              <div id="ip14" class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip14.jpg" alt="">
+                </div>
+                <div class="productName">
+                  iPhone 14
+                </div>
+                <div class="productPrice">
+                  14.000.000 VND
+                </div>
+                <div class="btnProduct">
+                  <button class="viewDetailBtn">Xem chi tiết</button>
+                  <button>Mua ngay</button>
+                </div>
               </div>
             </div>
             <div class="showMore">
@@ -102,8 +115,8 @@
               <div class="filter">
                 <button id="iphone-filterBtn" class="filterBtn" onclick="togglePopup('#iphone-filterBtn')">
                   <i class="fa-solid fa-filter"></i>Lọc
-                  <div class="triangle active"></div>
-                  <div class="filter-popup active"  onclick="event.stopPropagation()">
+                  <div class="triangle section"></div>
+                  <div class="filter-popup section"  onclick="event.stopPropagation()">
                     <div class="gia-san-pham">
                       <h3>Giá sản phẩm</h3>
                       <div>
@@ -186,6 +199,26 @@
             <button id="thanh_toan">Thanh Toán</button>
           </div>
         </div>
+        <!-- <div class="overlay active" id="productPopup">
+          <div class="popup-content">
+            <div class="detail-content">
+              <div class="img-product">
+                <img src="./assets/item/ip14.jpg" alt="">
+              </div>
+              <div class="detail-product">
+                <div class="detailName">iPhone 14</div>
+                <div class="detailRam">RAM: 64 GB</div>
+                <div class="detailStorage">Storage: 128 GB</div>
+                <div class="detailCash">20.000.000 VND</div>
+              </div> 
+            </div>
+            <div id="btnPopup">
+              <button class="closePopup" onclick="toggleDetailPopup()">Đóng</button>
+              <button class="btnAddtoCart">Thêm vào giỏ hàng</button>
+            </div>
+          </div>
+        </div> -->
+        
       </main>
 
       <footer></footer>

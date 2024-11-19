@@ -33,6 +33,11 @@ html {
   /* => 1rem = 10px */
 }
 
+html,
+body {
+  height: 100%;
+}
+
 /*====================================================  HEADER ==================================================== */
 header {
   position: fixed;
@@ -267,11 +272,6 @@ header {
   text-overflow: ellipsis; /* Nội dung bị ẩn sẽ hiển thị ...*/
 }
 
-.productDetail {
-  width: 100%;
-  height: 4em;
-}
-
 .productPrice {
   width: 100%;
   height: 2em;
@@ -279,6 +279,11 @@ header {
   font-size: 2em;
   color: var(--red);
 }
+
+.btnProduct {
+  display: flex;
+}
+
 .btn-them-gio-hang {
   display: flex;
   width: 100%;
@@ -453,6 +458,113 @@ header {
 
 /*---------<< FILTER-SORT  */
 
+/*--------->> DETAIL PRODUCT */
+
+/* Nền che mờ */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none; /* Ẩn popup mặc định */
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Hiển thị popup khi thêm lớp active */
+.overlay.active {
+  display: flex;
+}
+
+/* Hộp chi tiết sản phẩm */
+.popup-content {
+  background: #fff;
+  width: 600px;
+  height: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.detail-content {
+  display: flex;
+}
+
+.img-product {
+  width: 35%;
+}
+
+.img-product > img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.detail-product {
+  position: relative;
+  width: 65%;
+  height: auto;
+  padding: 10px;
+}
+
+.detail-product > .detailName {
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.detail-product > .detailRam {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.detail-product > .detailStorage {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.detail-product > .detailCash {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#btnPopup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btnAddtoCart {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #02c057;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.closePopup {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ff3333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* ---------<< DETAIL PRODUCT */
+
 /* NÚT XEM THÊM SẢN PHẨM */
 .showMore {
   display: flex;
@@ -573,7 +685,7 @@ header {
   border: 2px solid green;
   font-size: 2.8rem;
 }
-.deleteRow{
+.deleteRow {
   width: 80%;
   height: 2rem;
 }
