@@ -341,7 +341,6 @@ productManager.loadFromLocalStorage();
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
 
-var totalPrice = 0;
 function getInforProduct(productDiv) {
   const productName = productDiv.querySelector(".productName").textContent;
   const product = productManager.productList.find(
@@ -360,7 +359,7 @@ function getInforProduct(productDiv) {
     const cellDelete = newRow.insertCell(5);
 
     cellName.textContent = product.name;
-    cellImg.innerHTML = `<img src=${product.img} alt="" width="80" height="80"/>`;
+    cellImg.textContent = product.img;
     cellPrice.textContent = product.price;
     cellQuantity.innerHTML = `<div class="control_quantity">
       <button>-</button>
@@ -368,8 +367,7 @@ function getInforProduct(productDiv) {
       <button>+</button>
     </div>`;
     cellTotalPrice.textContent = product.price;
-    cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`;
-    totalPrice += product.price;
+    cellDelete.innerHTML = `<input type="radio" class="deleteRow"/>`;
   }
 }
 document.addEventListener("click", function (event) {
@@ -384,37 +382,98 @@ document.addEventListener("click", function (event) {
 
     if (product) {
       let quantity = parseInt(quantityDiv.textContent);
-      var price = parseInt(product.price);
 
       if (button.textContent === "+") {
         if (quantity < product.quantity) {
           quantity++;
-          totalPrice += price;
         }
       } else if (button.textContent === "-") {
         if (quantity > 0) {
           quantity--;
-          totalPrice -= price;
         }
       }
 
       quantityDiv.textContent = quantity;
-      row.cells[4].textContent = price * quantity;
-      document.querySelector("#totalCost").textContent = totalPrice;
+      var price = parseInt(product.price);
+      row.cells[4].textContent = parseInt(price * quantity);
     }
   }
+});
+// Call getInforProduct for each product
+document.querySelectorAll(".product").forEach((productDiv) => {
+  getInforProduct(productDiv);
+});
+
+// Popup detail
+function createPopup(product) {
+  // Kiểm tra nếu popup đã tồn tại thì không tạo mới
+  if (document.getElementById("productPopup")) return;
+
+  // Tạo div popup
+  const popup = document.createElement("div");
+  popup.classList.add("overlay");
+  popup.classList.add("active");
+  popup.id = "productPopup";
+
+  popup.innerHTML = `
+    <div class="popup-content">
+      <div class="detail-content">
+        <div class="img-product">
+          <img src="${product.img}" alt="${product.name}">
+        </div>
+        <div class="detail-product">
+          <div class="detailName">${product.name}</div>
+          <div class="detailRam">RAM: ${product.ram}</div>
+          <div class="detailStorage">Storage: ${product.storage}</div>
+          <div class="detailCash">${product.price} VND</div>
+        </div> 
+      </div>
+      <div id="btnPopup">
+        <button class="closePopup">Đóng</button>
+        <button class="btnAddtoCart">Thêm vào giỏ hàng</button>
+      </div>
+    </div>
+  `;
+
+  // Thêm popup vào body
+  document.body.appendChild(popup);
+
+  // Thêm sự kiện xóa popup khi bấm nút Đóng
+  popup.querySelector(".closePopup").addEventListener("click", () => {
+    popup.remove();
+  });
+
+  // Đóng popup khi click ra ngoài .popup-content
+  popup.addEventListener("click", (event) => {
+    if (event.target === popup) {
+      popup.remove();
+    }
+  });
+}
+
+// Gán sự kiện cho từng nút "Xem chi tiết"
+document.querySelectorAll(".viewDetailBtn").forEach((button) => {
+  button.addEventListener("click", (event) => {
+    // Ngăn chặn sự kiện click lan sang div.product
+    event.stopPropagation();
+
+    // Lấy ID sản phẩm từ phần tử cha (div.product)
+    const productDiv = button.closest(".product");
+    const productId = productDiv.id;
+
+    // Lấy thông tin sản phẩm từ ProductManager
+    const product = productManager.getProductById(productId);
+
+    if (product) {
+      createPopup(product);
+    } else {
+      console.error("Không tìm thấy sản phẩm với ID:", productId);
+    }
+  });
 });
 
 // ============================================================ Cart ============================================================
 
-document.addEventListener("click", function (event) {
-  if (event.target.matches(".product button")) {
-    const productDiv = event.target.closest(".product");
-    getInforProduct(productDiv);
-    alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
-    document.querySelector("#totalCost").textContent = totalPrice;
-  }
-});
 // su kien gio hang
 returnToMainPage = () => {
   document.querySelector("#shopping_cart_page").style.display = "none";
@@ -427,15 +486,6 @@ returnToMainPage = () => {
 document.querySelectorAll("#return_main_page").forEach((button) => {
   button.onclick = returnToMainPage;
 });
-deleteRow = (r) => {
-  i = r.parentNode.parentNode.rowIndex;
-  document.querySelector("#cart").deleteRow(i);
-};
-document.querySelector("#cart").addEventListener("click", function (event) {
-  if (event.target.matches(".deleteRow")) {
-    deleteRow(event.target);
-  }
-});
 document.querySelector(".cart").addEventListener("click", function () {
   document.querySelector(".container.slider-banner").style.display = "none";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
@@ -443,14 +493,11 @@ document.querySelector(".cart").addEventListener("click", function () {
   });
   document.querySelector("#iphone-page").style.display = "none";
   document.querySelector("#shopping_cart_page").style.display = "block";
-  if (document.querySelector("#cart").rows.length > 1) {
+  document.querySelectorAll("#productIPhone .product").forEach((productDiv) => {
+    getInforProduct(productDiv);
+  });
+  if (productManager.productList.length > 0) {
     document.querySelector("#empty").style.display = "none";
     document.querySelector("#non_empty").style.display = "block";
   }
-});
-document.querySelector("#dat_hang").addEventListener("click", () => {
-  document.querySelector("#khung_dat_hang").style.display = "block";
-});
-document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
-  document.querySelector("#khung_dat_hang").style.display = "none";
 });
