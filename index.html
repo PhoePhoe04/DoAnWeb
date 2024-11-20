@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/a4434c7b27.js" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <link rel="stylesheet" href="./style.css" />
   <title>Document</title>
 </head>
@@ -194,10 +195,10 @@
               <label for="customerAddress">Địa chỉ:</label>
               <input id="customerAddress" type="text" />
               <label for="cusPhoneNumber">Số điện thoại:</label>
-              <input for="cusPhoneNumber" type="text" />
+              <input id="cusPhoneNumber" type="text" />
               <label>Hình thức thanh toán:</label>
               <div>
-                <input type="checkbox" id="cash" />
+                <input type="checkbox" id="cash" checked />
                 <label for="cash">Tiền mặt</label>
                 <input type="checkbox" id="card" />
                 <label for="card">Thẻ tín dụng</label>
@@ -305,5 +306,6 @@
   </div>
   <script src="login.js"></script>
   <script src="javascript.js"></script>
+  <script src="shoppingCart.js"></script>
 </body>
 </html>
