@@ -642,7 +642,6 @@ header {
   padding: 8px;
   font-size: 2rem;
   cursor: pointer;
-  margin-left: 100rem;
 }
 #dat_hang {
   background-color: purple;
@@ -739,20 +738,25 @@ header {
   grid-area: 1/ 1 / span 1 / span 2;
 }
 #sotientongcong {
-  width: 90%;
   display: inline;
   padding: 4px;
   font-size: 2rem;
 }
 #sotientongcong div {
   border: 2px solid black;
-  display: inline-block;
-  margin-right: -2px;
+  display: inline;
   padding: 4px;
 }
-#sotientongcong #totalCost {
+#totalCost {
   min-width: 300px;
-  display: inline-block;
-  margin-left: -5px;
-  width: 186px;
+  padding: 4px;
+  margin-left: -1px;
+}
+.detailPhone{
+  display: grid;
+  grid-template-columns: 100px 100px;
+  column-gap: 4px;
+  width: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
