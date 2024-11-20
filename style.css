@@ -600,6 +600,7 @@ header {
 }
 #gio_hang {
   font-size: 3rem;
+  margin-top: 10px;
   font-weight: bold;
   color: red;
   display: flex;
@@ -663,9 +664,11 @@ header {
 }
 #empty h1 {
   margin-bottom: 4px;
+  font-size: 1.7rem;
 }
 #empty p {
   margin-bottom: 4px;
+  font-size: 1.4rem;
 }
 
 #cart {
