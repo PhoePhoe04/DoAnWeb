@@ -217,6 +217,8 @@ class ProductManager {
       if (String(product.type) === String(type) && product.quantity > 0) {
         const productDiv = document.createElement("div");
 
+        // Thêm id và class product
+        productDiv.id = product.id;
         productDiv.classList.add("product");
         this.displayProduct(productDiv, product);
         container.appendChild(productDiv);

@@ -1,213 +1,239 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://kit.fontawesome.com/a4434c7b27.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./style.css" />
-  <title>Document</title>
-</head>
-
-<body>
-  <div>
-    <!-- HEADER -->
-    <header>
-      <!-- Header -->
-      <div class="header">
-        <div class="container">
-          <div class="logo"></div>
-          <form class="searchBar">
-            <button></button>
-            <input type="text" class="search" placeholder="Bạn muốn tìm gì...." />
-          </form>
-          <div class="cart">
-            <button class="btn-cart">
-              <i class="fa-solid fa-cart-shopping"></i>
-              <p>Giỏ hàng</p>
-            </button>
-          </div>
-          <div class="loginbtn">
-            <button class="btnLogin-popup">
-              <p>Đăng nhập</p>
-            </button>
-            <div class="user-menu" style="display: none;">
-              <div class="user"><i class="fa-regular fa-user"></i><span class="username-display"></span></div>
-              <button class="btnLogout">
-                <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/a4434c7b27.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <!-- HEADER -->
+      <header>
+        <!-- Header -->
+        <div class="header">
+          <div class="container">
+            <div class="logo"></div>
+            <form class="searchBar">
+              <button></button>
+              <input
+                type="text"
+                class="search"
+                placeholder="Bạn muốn tìm gì...."
+              />
+            </form>
+            <div class="cart">
+              <button class="btn-cart">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <p>Giỏ hàng</p>
+              </button>
+            </div>
+            <div class="login">
+              <button class="btn-login">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                <p>Đăng nhập</p>
               </button>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Navigation -->
-      <div class="navigation">
-        <div>
-          <ul class="main-menu">
-            <li>
-              <a href="" onclick="changePage('iphone-page'); return false;">iPhone</a>
-            </li>
-            <li>SAMSUNG</li>
-            <li>XIAOMI</li>
-            <li>OPPO</li>
-          </ul>
-        </div>
-      </div>
-    </header>
-
-    <div class="header-mask"></div>
-    <!-- MAIN -->
-    <main>
-      <!-- Trang chủ -->
-      <div id="home" class="page active">
-        <!-- Slider -->
-        <div class="container slider-banner">
-          <div class="slider">
-            <div class="banner" style="background-color: #ff9999">Div 1</div>
-            <div class="banner" style="background-color: #99ccff">Div 2</div>
-            <div class="banner" style="background-color: #ffcc99">Div 3</div>
-            <div class="banner" style="background-color: #ccccff">Div 4</div>
-            <div class="banner" style="background-color: #99ff99">Div 5</div>
+        <!-- Navigation -->
+        <div class="navigation">
+          <div>
+            <ul class="main-menu">
+              <li>
+                <a href="" onclick="changePage('iphone-page'); return false;"
+                  >iPhone</a
+                >
+              </li>
+              <li>SAMSUNG</li>
+              <li>XIAOMI</li>
+              <li>OPPO</li>
+            </ul>
           </div>
         </div>
-        <!-- Suggestion -->
-        <div class="container suggestion">
-          <div>Gợi ý cho bạn</div>
+      </header>
 
-          <div id="productsSuggestion" class="products">
+      <div class="header-mask"></div>
+      <!-- MAIN -->
+      <main>
+        <!-- Trang chủ -->
+        <div id="home" class="page active">
+          <!-- Slider -->
+          <div class="container slider-banner">
+            <div class="slider">
+              <div class="banner" style="background-color: #ff9999">Div 1</div>
+              <div class="banner" style="background-color: #99ccff">Div 2</div>
+              <div class="banner" style="background-color: #ffcc99">Div 3</div>
+              <div class="banner" style="background-color: #ccccff">Div 4</div>
+              <div class="banner" style="background-color: #99ff99">Div 5</div>
+            </div>
           </div>
-          <div class="showMore">
-            <button id="showMoreBtn" onclick="showMoreProducts()">
-              Hiển thị thêm
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- iPhone -->
-      <div id="iphone-page" class="page section">
-        <div class="container">
-          <!-- Link chuyển hướng -->
-          <nav>
-            <a href="" onclick="changePage('home'); return false;">Home</a>
-            <div>></div>
-            <a href="">iPhone</a>
-          </nav>
+          <!-- Suggestion -->
+          <div class="container suggestion">
+            <div>Gợi ý cho bạn</div>
 
-          <div class="margin-filter-sort">
-            <!-- Nút Filter -->
-            <div class="filter">
-              <button id="iphone-filterBtn" class="filterBtn" onclick="togglePopup('#iphone-filterBtn')">
-                <i class="fa-solid fa-filter"></i>Lọc
-                <div class="triangle section"></div>
-                <div class="filter-popup section" onclick="event.stopPropagation()">
-                  <div class="gia-san-pham">
-                    <h3>Giá sản phẩm</h3>
-                    <div>
-                      <div>Dưới 2 triệu</div>
-                      <div>Từ 2 - 4 triệu</div>
-                      <div>Từ 4 - 7 triệu</div>
-                      <div>Từ 7 - 13 triệu</div>
-                      <div>Từ 13 - 20 triệu</div>
-                      <div>Trên 20 triệu</div>
-                    </div>
-                  </div>
-                  <div class="tuy-chon">
-                    <div class="option">
-                      <h3>RAM</h3>
-                      <div>
-                        <div>4 GB</div>
-                        <div>6 GB</div>
-                        <div>8 GB</div>
-                        <div>12 GB</div>
-                      </div>
-                    </div>
-                    <div class="option">
-                      <h3>Dung lượng</h3>
-                      <div>
-                        <div>64 GB</div>
-                        <div>128 GB</div>
-                        <div>256 GB</div>
-                        <div>512 GB</div>
-                        <div>1 TB</div>
-                      </div>
-                    </div>
-
-                  </div>
+            <div id="productsSuggestion" class="products">
+              <div id="ip14" class="product">
+                <div class="productImg">
+                  <img src="./assets/item/ip14.jpg" alt="" />
                 </div>
+                <div class="productName">iPhone 14</div>
+                <div class="productPrice">14.000.000 VND</div>
+                <div class="btnProduct">
+                  <button class="viewDetailBtn">Xem chi tiết</button>
+                  <button>Mua ngay</button>
+                </div>
+              </div>
+            </div>
+            <div class="showMore">
+              <button id="showMoreBtn" onclick="showMoreProducts()">
+                Hiển thị thêm
               </button>
-
-            </div>
-            <!-- Button sort -->
-            <div class="sort">
-              <p>Sắp xếp theo:</p>
-              <p>Nổi bật</p>
-              <p>Mới</p>
-              <p>Giá</p>
             </div>
           </div>
+        </div>
+        <!-- iPhone -->
+        <div id="iphone-page" class="page section">
+          <div class="container">
+            <!-- Link chuyển hướng -->
+            <nav>
+              <a href="" onclick="changePage('home'); return false;">Home</a>
+              <div>></div>
+              <a href="">iPhone</a>
+            </nav>
 
-          <!-- Phần sản phẩm của iPhone -->
+            <div class="margin-filter-sort">
+              <!-- Nút Filter -->
+              <div class="filter">
+                <button
+                  id="iphone-filterBtn"
+                  class="filterBtn"
+                  onclick="togglePopup('#iphone-filterBtn')"
+                >
+                  <i class="fa-solid fa-filter"></i>Lọc
+                  <div class="triangle section"></div>
+                  <div
+                    class="filter-popup section"
+                    onclick="event.stopPropagation()"
+                  >
+                    <div class="gia-san-pham">
+                      <h3>Giá sản phẩm</h3>
+                      <div>
+                        <div>Dưới 2 triệu</div>
+                        <div>Từ 2 - 4 triệu</div>
+                        <div>Từ 4 - 7 triệu</div>
+                        <div>Từ 7 - 13 triệu</div>
+                        <div>Từ 13 - 20 triệu</div>
+                        <div>Trên 20 triệu</div>
+                      </div>
+                    </div>
+                    <div class="tuy-chon">
+                      <div class="option">
+                        <h3>RAM</h3>
+                        <div>
+                          <div>4 GB</div>
+                          <div>6 GB</div>
+                          <div>8 GB</div>
+                          <div>12 GB</div>
+                        </div>
+                      </div>
+                      <div class="option">
+                        <h3>Dung lượng</h3>
+                        <div>
+                          <div>64 GB</div>
+                          <div>128 GB</div>
+                          <div>256 GB</div>
+                          <div>512 GB</div>
+                          <div>1 TB</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+              <!-- Button sort -->
+              <div class="sort">
+                <p>Sắp xếp theo:</p>
+                <p>Nổi bật</p>
+                <p>Mới</p>
+                <p>Giá</p>
+              </div>
+            </div>
 
-          <div id="productIPhone" class="iphone products">
-          </div>
-          <div class="showMore">
-            <button id="showMoreBtn" onclick="showMoreProducts()">
-              Hiển thị thêm
-            </button>
+            <!-- Phần sản phẩm của iPhone -->
+
+            <div id="productIPhone" class="iphone products"></div>
+            <div class="showMore">
+              <button id="showMoreBtn" onclick="showMoreProducts()">
+                Hiển thị thêm
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- Cart -->
-      <div id="shopping_cart_page">
-        <div id="empty">
-          <img src="./assets/img/logo-img/empty_cart.png" alt="" width="340" height="300" />
-          <h1>Bạn chưa mua sản phẩm của cửa hàng chúng tôi</h1>
-          <p>Bạn hãy tiếp tục mua sắm.</p>
-          <p>Bạn sẽ tìm được chiếc điện thoại yêu thích của mình.</p>
-          <button id="return_main_page">Bắt Đầu Mua Sắm</button>
-        </div>
-        <div id="non_empty">
-          <h1 id="gio_hang">Giỏ hàng của bạn</h1>
-          <table id="cart">
-            <tr>
-              <th>Thông tin điện thoại</th>
-              <th>Giá tiền</th>
-              <th>Số lượng</th>
-              <th>Tổng số tiền</th>
-              <th>Xoá</th>
-            </tr>
-          </table>
-          <div style="margin-left: 82rem;">
+        <!-- Cart -->
+        <div id="shopping_cart_page">
+          <div id="empty">
+            <img
+              src="./assets/img/logo-img/empty_cart.png"
+              alt=""
+              width="340"
+              height="300"
+            />
+            <h1>Bạn chưa mua sản phẩm của cửa hàng chúng tôi</h1>
+            <p>Bạn hãy tiếp tục mua sắm.</p>
+            <p>Bạn sẽ tìm được chiếc điện thoại yêu thích của mình.</p>
+            <button id="return_main_page">Bắt Đầu Mua Sắm</button>
+          </div>
+          <div id="non_empty">
+            <h1 id="gio_hang">Giỏ hàng của bạn</h1>
+            <table id="cart">
+              <tr>
+                <th>Tên sản phẩm</th>
+                <th>Hình Ảnh</th>
+                <th>Giá tiền</th>
+                <th>Số lượng</th>
+                <th>Tổng số tiền</th>
+                <th>Xoá</th>
+              </tr>
+            </table>
             <button id="return_main_page">Bắt Đầu Mua Sắm</button>
             <button id="dat_hang">Đặt hàng</button>
             <div id="sotientongcong">
               <div>Số tiền tổng cộng</div>
               <div id="totalCost"></div>
             </div>
-          </div>
-          <div id="khung_dat_hang">
-            <img src="./assets/img/icon/close.png" alt="" width="100" height="100">
-            <form id="frmdathang">
-              <h1>Thông tin giao hàng</h1>
-              <label for="customerName">Họ tên:</label>
-              <input id="customerName" type="text" />
-              <label for="customerAddress">Địa chỉ:</label>
-              <input id="customerAddress" type="text" />
-              <label for="cusPhoneNumber">Số điện thoại:</label>
-              <input for="cusPhoneNumber" type="text" />
-              <label>Hình thức thanh toán:</label>
-              <div>
-                <input type="checkbox" id="cash" />
-                <label for="cash">Tiền mặt</label>
-                <input type="checkbox" id="card" />
-                <label for="card">Thẻ tín dụng</label>
-              </div>
-              <input type="submit" value="Thanh toán" />
-            </form>
+            <div id="khung_dat_hang">
+              <img
+                src="./assets/img/icon/close.png"
+                alt=""
+                width="100"
+                height="100"
+              />
+              <form id="frmdathang">
+                <h1>Thông tin giao hàng</h1>
+                <label for="customerName">Họ tên:</label>
+                <input id="customerName" type="text" />
+                <label for="customerAddress">Địa chỉ:</label>
+                <input id="customerAddress" type="text" />
+                <label for="cusPhoneNumber">Số điện thoại:</label>
+                <input for="cusPhoneNumber" type="text" />
+                <label>Hình thức thanh toán:</label>
+                <div>
+                  <input type="checkbox" id="cash" />
+                  <label for="cash">Tiền mặt</label>
+                  <input type="checkbox" id="card" />
+                  <label for="card">Thẻ tín dụng</label>
+                </div>
+                <input type="submit" value="Thanh toán" />
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- <div class="overlay active" id="productPopup">
+        <!-- <div class="overlay active" id="productPopup">
           <div class="popup-content">
             <div class="detail-content">
               <div class="img-product">
@@ -226,84 +252,10 @@
             </div>
           </div>
         </div> -->
+      </main>
 
-    </main>
-    <div class="dangnhap">
-      <div class="wrapper">
-        <span class="icon-close"><i class="fa-solid fa-xmark"></i></span>
-        <div class="form-box login">
-          <h2>ĐĂNG NHẬP</h2>
-          <form id="loginForm">
-            <div class="input-box">
-              <span class="icon"><i class="fa-duotone fa-solid fa-envelope"></i></span>
-              <input type="text" id="loginEmail" required>
-              <label>Email</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="fa-duotone fa-solid fa-lock"></i></span>
-              <input type="password" id="loginPassword" required>
-              <label>Mật khẩu</label>
-            </div>
-            <div class="remember-forgot">
-              <label><input type="checkbox" id="rememberMe">Nhớ tôi</label>
-              <a href="#">Quên mật khẩu</a>
-            </div>
-            <button type="button" class="btn" id="loginButton">Đăng nhập</button>
-            <div class="login-register">
-              <p>Chưa có tài khoản?<a href="#" class="register-link"> Đăng ký</a></p>
-            </div>
-          </form>
-          <p id="loginMessage" style="color: red; font-weight: bold; text-align: center;"></p>
-        </div>
-        <div class="form-box register">
-          <h2>ĐĂNG KÝ</h2>
-          <form action="#">
-            <div class="input-box">
-              <span class="icon"><i class="fa-solid fa-user"></i></span>
-              <input type="text" id="username" required>
-              <label>Tên người dùng</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="fa-duotone fa-solid fa-envelope"></i></span>
-              <input type="email" id="email" required>
-              <label>Email</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="fa-duotone fa-solid fa-lock"></i></span>
-              <input type="password" id="password" required>
-              <label>Mật khẩu</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="fa-duotone fa-solid fa-lock"></i></span>
-              <input type="password" id="repassword" required>
-              <label>Nhập lại mật khẩu</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="fa-solid fa-house"></i></span>
-              <input type="text" id="address" required>
-              <label>Địa chỉ</label>
-            </div>
-            <div class="input-box">
-              <span class="icon"><i class="fa-solid fa-phone"></i></span>
-              <input id="phone" type="tel" maxlength="10" required>
-
-              <label>Số điện thoại</label>
-            </div>
-            <div class="remember-forgot">
-              <label><input type="checkbox">Tôi đồng ý với các điều khoản và điều kiện</label>
-            </div>
-            <button type="submit" class="btn">Đăng ký</button>
-            <div class="login-register">
-              <p>Bạn đã có tài khoản?<a href="#" class="login-link"> Đăng nhập</a></p>
-            </div>
-          </form>
-        </div>
-      </div>
+      <footer></footer>
     </div>
-
-    <footer></footer>
-  </div>
-  <script src="login.js"></script>
-  <script src="javascript.js"></script>
-</body>
+    <script src="./javascript.js"></script>
+  </body>
 </html>
