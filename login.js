@@ -16,8 +16,22 @@ registerLink.addEventListener('click', ()=>{
 loginLink.addEventListener('click', ()=>{
     wrapper.classList.remove('active');
 });
+function centerLoginModal() {
+    wrapper.style.position = 'fixed';  // Đặt vị trí cố định cho form để hiển thị ở trung tâm màn hình
+    wrapper.style.top = '50%';        // Căn giữa theo trục Y
+    wrapper.style.left = '50%';       // Căn giữa theo trục X
+    wrapper.style.transform = 'translate(-50%, -50%)'; // Dịch chuyển để chính giữa màn hình
+    wrapper.style.zIndex = '1000';    // Đảm bảo form nằm trên cùng
+    wrapper.style.visibility = 'visible'; // Hiển thị form
+    wrapper.style.opacity = '1';      // Đặt độ mờ thành hoàn toàn hiển thị
+}
+function hideLoginModal() {
+    wrapper.style.visibility = 'hidden'; // Ẩn form bằng cách thay đổi thuộc tính visibility
+    wrapper.style.opacity = '0';        // Làm cho form biến mất với opacity
+}
 btnPopup.addEventListener('click', ()=>{
     wrapper.classList.add('active-popup');
+    centerLoginModal();
 });
 iconClose.addEventListener('click', ()=>{
     loginMessage.innerText = "";
@@ -26,6 +40,7 @@ iconClose.addEventListener('click', ()=>{
     wrapper.classList.remove('active-popup');
     wrapper.classList.remove('active');  
     wrapper.classList.add('active-login');
+    hideLoginModal();
 });
 
 // Ngăn nhập ký tự không phải số
@@ -88,6 +103,11 @@ loginButton.addEventListener("click", function (event) {
     if (!email || !password) {
         loginMessage.innerText = "Vui lòng điền đầy đủ thông tin.";
         loginMessage.style.color = "red";
+        return;
+    }
+    if (email === "admin" && password === "123456") {
+        // Nếu tài khoản là admin, chuyển hướng đến trang ADMIN.html
+        window.location.href = "indexADMIN.html"; 
         return;
     }
     // Kiểm tra định dạng email
