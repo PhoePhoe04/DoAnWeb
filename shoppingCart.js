@@ -1,4 +1,6 @@
 var totalPrice = 0 ;
+order = [];
+user = {};
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
   const product = productManager.productList.find(
@@ -14,7 +16,10 @@ function getInforProduct(productDiv, a) {
     const cellQuantity = newRow.insertCell(2);
     const cellTotalPrice = newRow.insertCell(3);
     const cellDelete = newRow.insertCell(4);
-
+    user.img = product.img;
+    user.name = product.name;
+    user.storage = product.storage;
+    user.ram = product.ram;
     cellData.innerHTML = `<div>
       <img src="${product.img}" alt="${product.id}" width="80" height="80"/>
       <div>${product.name}</div>
@@ -32,30 +37,24 @@ function getInforProduct(productDiv, a) {
     cellTotalPrice.textContent = product.price;
     cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`
     totalPrice+= product.price;
+    user.totalPrice = totalPrice;
   }
-}
-deleteRow = (r) => {
-  var i = r.parentNode.parentNode.rowIndex;
-  const row = document.querySelector("#cart").rows[i];
-  const quantity = parseInt(row.cells[2].querySelector(".quantity").textContent);
-  const price = parseInt(row.cells[1].textContent);
-  totalPrice -= price * quantity;
-  document.querySelector("#totalCost").textContent = totalPrice;
-  document.querySelector("#cart").deleteRow(i);
 }
 document.addEventListener("click", function (event) {
   if (event.target.matches(".deleteRow")) {
     const row = event.target.closest("tr");
-    const productName = row.cells[0].textContent;
+    const productData = row.cells[0].querySelector("div");
+    const productName = productData.querySelector("div").textContent;
     const product = productManager.productList.find(
       (p) => p.name === productName
     );
 
     if (product) {
-      const quantity = parseInt(row.cells[3].querySelector(".quantity").textContent);
+      const quantity = parseInt(row.cells[2].querySelector(".quantity").textContent);
       const price = parseInt(product.price);
       totalPrice -= price * quantity;
       document.querySelector("#totalCost").textContent = totalPrice;
+      user.totalPrice = totalPrice;
     }
 
     row.remove();
@@ -82,6 +81,7 @@ document.addEventListener("click", function (event) {
     }
 
     quantityDiv.textContent = quantity;
+    user.quanity = quantity;
     row.cells[3].textContent = price * quantity;
 
     totalPrice = Array.from(document.querySelectorAll("#cart tr"))
@@ -93,6 +93,7 @@ document.addEventListener("click", function (event) {
       }, 0);
 
     document.querySelector("#totalCost").textContent = totalPrice;
+    user.totalPrice = totalPrice;
   }
 });
 document.addEventListener("click", function (event) {
@@ -136,6 +137,7 @@ document.querySelector("#dat_hang").addEventListener("click", () => {
   document.querySelector("#khung_dat_hang").style.display = "block";
   const dataUser = sessionStorage.getItem("loggedInUser");
   if (dataUser) {
+
     var khachHang = JSON.parse(dataUser);
     document.querySelector("#frmdathang #customerName").value = khachHang.username;
     document.querySelector("#customerName").readOnly = true;
@@ -150,8 +152,6 @@ document.querySelector("#dat_hang").addEventListener("click", () => {
     const userAddress = document.querySelector("#customerAddress");
     const userPhone = document.querySelector("#cusPhoneNumber");
     const day = new Date();
-    order = [];
-    user = {};
     user.name = userName.value;
     user.address = userAddress.value;
     user.phone = userPhone.value;
@@ -160,6 +160,19 @@ document.querySelector("#dat_hang").addEventListener("click", () => {
     document.querySelector("#frmdathang div").style.display ="none";
     document.querySelector("#transferPayment").style.display = "none";
     document.querySelector("#frmdathang fieldset").style.display = "block";
+    document.querySelector("#card").addEventListener("change", () => {
+      if(document.querySelector("#card").checked)
+      {
+        document.querySelector("#cash").checked = false;
+        document.querySelector("#inputBankCard").style.display = "block";
+        document.querySelector("#cardNumber").required;
+        document.querySelector("#nameOnCard").required;
+        document.querySelector("#dateCreated").required;        
+      }
+    });
+    document.querySelector("#frmdathang").onsubmit = () => {
+      
+    };
   });
   document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
     document.querySelector("#khung_dat_hang").style.display = "none";
