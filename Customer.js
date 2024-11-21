@@ -20,7 +20,7 @@ function displayCustomers() {
 
 function lockCustomer(index) {
     let customers = JSON.parse(localStorage.getItem("customers")) || [];
-    // Lấy khách hàng đã chọn
+    // Lấy khách hàng đã chọna
     let customer = customers[index];
     // Thay đổi trạng thái khóa của tài khoản
     customer.locked = !customer.locked;
