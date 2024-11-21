@@ -204,7 +204,10 @@ header {
   color: #fff;
   text-align: center;
 }
-
+.banner>img{
+  width: 600px;
+  height: 300px;
+}
 /*.products*/
 
 .products {
