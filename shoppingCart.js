@@ -138,11 +138,26 @@ document.querySelector("#dat_hang").addEventListener("click", () => {
   if (dataUser) {
     var khachHang = JSON.parse(dataUser);
     document.querySelector("#frmdathang #customerName").value = khachHang.username;
+    document.querySelector("#customerName").readOnly = true;
     document.querySelector("#frmdathang #customerAddress").value = khachHang.address;
     document.querySelector("#frmdathang #customerAddress").select();
     document.querySelector("#frmdathang #cusPhoneNumber").value = khachHang.phone;
+    document.querySelector("#cusPhoneNumber").readOnly = true;
   }
-});
-document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
-  document.querySelector("#khung_dat_hang").style.display = "none";
+  document.querySelector("#transferPayment").addEventListener("click", (event) => {
+    const userName = document.querySelector("#customerName");
+    const userAddress = document.querySelector("#customerAddress");
+    const userPhone = document.querySelector("#cusPhoneNumber");
+    order = [];
+    user = {};
+    user.name = userName.textContent;
+    user.address = userAddress.textContent;
+    user.phone = userAddress.userPhone;
+    
+    document.querySelector("#frmdathang h1").style.display = "none";
+    document.querySelector("#frmdathang div").style.display ="none";
+  });
+  document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
+    document.querySelector("#khung_dat_hang").style.display = "none";
+  })
 });

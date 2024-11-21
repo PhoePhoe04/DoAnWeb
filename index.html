@@ -192,13 +192,15 @@
               <h1>Thông tin giao hàng</h1>
               <div>
                 <label for="customerName">Họ tên:</label>
-                <input id="customerName" type="text" />
+                <input id="customerName" type="text">
                 <label for="customerAddress">Địa chỉ:</label>
-                <input id="customerAddress" type="text" />
+                <input id="customerAddress" type="text" required />
                 <label for="cusPhoneNumber">Số điện thoại:</label>
-                <input id="cusPhoneNumber" type="text" />
+                <input id="cusPhoneNumber" type="text" required/>
               </div>
-              <button id="transferPayment">Phương thức thanh toán</button>
+              <div id="center">
+                <button id="transferPayment">Phương thức thanh toán</button>
+              </div>
               <fieldset>
                 <legend>Phương thức thanh toán</legend>
                 <input type="submit" value="Thanh toán" />
