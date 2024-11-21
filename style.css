@@ -782,6 +782,7 @@ header {
 .user-menu {
   display: inline-flex;
   align-items: center;
+  margin-top: 8px;
 }
 
 .user-info {
@@ -795,6 +796,8 @@ header {
 }
 .user{
   margin-right: 20px;
+  width: 80px;
+  font-size: 1.5em;
 }
 .username-display:hover{
   color: var(--blue1,--blue2);
@@ -811,10 +814,11 @@ header {
   border: none;
   color: #000;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.5em;
   display: flex;
   align-items: center;
   gap: 5px;
+  width: 100px;
 }
 
 .btnLogout:hover {
