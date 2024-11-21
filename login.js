@@ -139,10 +139,8 @@ loginButton.addEventListener("click", function (event) {
             userMenu.style.display = "inline-flex";  // Hiển thị menu người dùng
             btnPopup.style.display = "none";  // Ẩn nút Login
 
-            // Đóng form và reset thông tin sau 1 giây
             // Tự động đóng form và reload lại trang
             setTimeout(() => {
-                wrapper.classList.remove("active-popup"); // Đóng form
                 location.reload(); // Reload lại trang để chuyển về giao diện người dùng
             }, 500); // Thực hiện sau 1 giây (1000ms)
         } else {
