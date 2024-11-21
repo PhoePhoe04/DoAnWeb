@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins',sans-serif;
 }
 
 :root {
@@ -476,7 +476,7 @@ header {
 .popup-content {
   background: #fff;
   width: 600px;
-  height: auto;
+  height: 300px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -600,7 +600,6 @@ header {
 }
 #gio_hang {
   font-size: 3rem;
-  margin-top: 10px;
   font-weight: bold;
   color: red;
   display: flex;
@@ -658,17 +657,16 @@ header {
   width: 50%;
   inset: 0;
   margin: auto;
+  font-size: 1.8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 #empty h1 {
   margin-bottom: 4px;
-  font-size: 1.7rem;
 }
 #empty p {
   margin-bottom: 4px;
-  font-size: 1.4rem;
 }
 
 #cart {
@@ -712,6 +710,26 @@ header {
   width: 70px;
   height: 70px;
 }
+#frmdathang {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: 54%;
+  width: 40%;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(6, 25px);
+  font-size: 2rem;
+  background-color: yellow;
+  row-gap: 40px;
+}
+#frmdathang input[type="submit"] {
+  grid-area: 6 / 1 / span 1 / span 2;
+}
+#frmdathang h1 {
+  grid-area: 1/ 1 / span 1 / span 2;
+}
 #sotientongcong {
   display: inline;
   padding: 4px;
@@ -727,7 +745,7 @@ header {
   padding: 4px;
   margin-left: -1px;
 }
-.detailPhone {
+.detailPhone{
   display: grid;
   grid-template-columns: 100px 100px;
   column-gap: 4px;
@@ -758,7 +776,7 @@ header {
   cursor: pointer;
   background-color: var(--black1);
 }
-.btnLogin-popup > i {
+.btnLogin-popup>i{
   margin-right: 5px;
 }
 .user-menu {
@@ -776,13 +794,13 @@ header {
 .user-info i {
   margin-right: 5px;
 }
-.user {
+.user{
   margin-right: 20px;
   width: 120px;
   font-size: 1.5em;
 }
-.username-display:hover {
-  color: var(--blue1, --blue2);
+.username-display:hover{
+  color: var(--blue1,--blue2);
 }
 .logout-container {
   margin-left: 10px;
@@ -817,50 +835,51 @@ header {
   display: none;
 }
 
-.wrapper {
+
+.wrapper{
   position: relative;
   width: 400px;
   height: 440px;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.5);
+  border: 2px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   transform: scale(0);
-  transition: transform 0.5s ease, height 0.2s ease;
+  transition: transform .5s ease, height .2s ease;
 }
-.wrapper.active-popup {
+.wrapper.active-popup{
   transform: scale(1);
 }
-.wrapper.active {
+.wrapper.active{
   height: 760px;
 }
-.wrapper .form-box {
+.wrapper .form-box{
   width: 100%;
   padding: 40px;
 }
-.wrapper .form-box.login {
-  transition: transform 0.18s ease;
+.wrapper .form-box.login{
+  transition: transform .18s ease;
   transform: translateX(0);
 }
-.wrapper.active .form-box.login {
+.wrapper.active .form-box.login{
   transition: none;
   transform: translateX(-400px);
 }
-.wrapper .form-box.register {
+.wrapper .form-box.register{
   position: absolute;
   transition: none;
   transform: translateX(400px);
 }
-.wrapper.active .form-box.register {
-  transition: transform 0.18s ease;
+.wrapper.active .form-box.register{
+  transition: transform .18s ease;
   transform: translateX(0);
 }
-.wrapper .icon-close {
+.wrapper .icon-close{
   position: absolute;
   top: 0;
   right: 0;
@@ -876,19 +895,19 @@ header {
   cursor: pointer;
   z-index: 1;
 }
-.form-box h2 {
+.form-box h2{
   font-size: 2em;
   color: #162938;
   text-align: center;
 }
-.input-box {
+.input-box{
   position: relative;
   width: 100%;
   height: 50px;
   border-bottom: 2px solid #162938;
   margin: 30px 0;
 }
-.input-box label {
+.input-box label{
   position: absolute;
   top: 50%;
   left: 5px;
@@ -897,17 +916,18 @@ header {
   color: #162938;
   font-weight: 500;
   pointer-events: none;
-  transition: 0.5s;
+  transition: .5s;
+
 }
-.input-box input:focus ~ label,
-.input-box input:valid ~ label {
+.input-box input:focus~label,
+.input-box input:valid~label{
   top: -5px;
 }
 .input-box input#loginEmail[value="admin"]:focus ~ label,
-.input-box input#loginEmail[value="admin"]:valid ~ label {
+.input-box input#loginEmail[value="admin"]:valid ~ label{
   top: -5px;
 }
-.input-box input {
+.input-box input{
   width: 100%;
   height: 100%;
   background: transparent;
@@ -917,15 +937,16 @@ header {
   color: #162938;
   font-weight: 600;
   padding: 0 35px 0 5px;
+
 }
-.input-box .icon {
+.input-box .icon{
   position: absolute;
   right: 8px;
   font-size: 1.2em;
   color: #162938;
   line-height: 57px;
 }
-.remember-forgot {
+.remember-forgot{
   font-size: 1.2em;
   color: #162938;
   font-weight: 500;
@@ -933,18 +954,18 @@ header {
   display: flex;
   justify-content: space-between;
 }
-.remember-forgot label input {
+.remember-forgot label input{
   accent-color: #162938;
   margin-right: 3px;
 }
-.remember-forgot a {
+.remember-forgot a{
   color: #162938;
   text-decoration: none;
 }
-.remember-forgot a:hover {
+.remember-forgot a:hover{
   text-decoration: underline;
 }
-.btn {
+.btn{
   width: 100%;
   height: 45px;
   background: #162938;
@@ -956,19 +977,19 @@ header {
   color: #fff;
   font-size: 500;
 }
-.login-register {
+.login-register{
   font-size: 1.2em;
   color: #162938;
   text-align: center;
   font-weight: 500;
   margin: 25px 0 10px;
 }
-.login-register p a {
+.login-register p a{
   color: #162938;
   text-decoration: none;
   font-weight: 600;
 }
-.login-register p a:hover {
+.login-register p a:hover{
   text-decoration: underline;
 }
 .username-display {
@@ -976,20 +997,4 @@ header {
   color: var(--black1);
   margin-left: 20px;
   cursor: pointer;
-}
-#customerName, #customerAddress, #cusPhoneNumber{
-  background-color: inherit;
-  border-bottom: 1px solid black;
-}
-#frmdathang div{
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  grid-template-rows:repeat(3, 30px) ;
-}
-#transferPayment{
-  background-color: black;
-  color: goldenrod;
-  border-radius: 15px;
-  display: flex;
-  justify-content: center;
 }

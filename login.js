@@ -138,14 +138,13 @@ loginButton.addEventListener("click", function (event) {
             usernameDisplay.textContent = user.username;
             userMenu.style.display = "inline-flex";  // Hiển thị menu người dùng
             btnPopup.style.display = "none";  // Ẩn nút Login
-    
+
             // Đóng form và reset thông tin sau 1 giây
+            // Tự động đóng form và reload lại trang
             setTimeout(() => {
-                wrapper.classList.remove("active-popup");  // Đóng form
-                loginMessage.innerText = "";  // Xóa thông báo
-                document.getElementById("loginEmail").value = '';  // Xóa email
-                document.getElementById("loginPassword").value = '';  // Xóa mật khẩu
-            }, 1000);  // Thực hiện sau 1 giây (1000ms)
+                wrapper.classList.remove("active-popup"); // Đóng form
+                location.reload(); // Reload lại trang để chuyển về giao diện người dùng
+            }, 500); // Thực hiện sau 1 giây (1000ms)
         } else {
             loginMessage.innerText = "Mật khẩu không chính xác.";
             loginMessage.style.color = "red";
