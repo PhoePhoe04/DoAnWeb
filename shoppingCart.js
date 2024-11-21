@@ -102,7 +102,7 @@ document.addEventListener("click", function (event) {
       alert("Bạn phải đăng nhập vô Website mới được mua hàng");
     }else{
       const productDiv = event.target.closest(".product");
-      getInforProduct(productDiv, ".productName");
+      getInforProduct(productDiv,".productName");
       alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
       document.querySelector("#totalCost").textContent = totalPrice;
     }

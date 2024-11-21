@@ -353,6 +353,43 @@ productManager.loadFromLocalStorage();
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
 
+var totalPrice = 0 ;
+function getInforProduct(productDiv, a) {
+  const productName = productDiv.querySelector(a).textContent;
+  const product = productManager.productList.find(
+    (p) => p.name === productName
+  );
+
+  if (product) {
+    const table = document.querySelector("#cart");
+    const newRow = table.insertRow();
+
+    const cellData = newRow.insertCell(0);
+    const cellPrice = newRow.insertCell(1);
+    const cellQuantity = newRow.insertCell(2);
+    const cellTotalPrice = newRow.insertCell(3);
+    const cellDelete = newRow.insertCell(4);
+
+    cellData.innerHTML = `<div>
+      <img src="${product.img}" alt="${product.id}" width="80" height="80"/>
+      <div>${product.name}</div>
+      <div class="detailPhone">
+        <div>${product.storage}</div>
+        <div>${product.ram}</div>
+      </div>
+    </div>`
+    cellPrice.textContent = product.price;
+    cellQuantity.innerHTML = `<div class="control_quantity">
+      <button>-</button>
+      <div class="quantity">1</div>
+      <button>+</button>
+    </div>`
+    cellTotalPrice.textContent = product.price;
+    cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`
+    totalPrice+= product.price;
+  }
+}
+
 // Popup detail
 function createPopup(product) {
   // Kiểm tra nếu popup đã tồn tại thì không tạo mới
@@ -399,13 +436,12 @@ function createPopup(product) {
     }
   });
   //Thêm vào giỏ hàng
-  popup.querySelector(".btnAddtoCart").addEventListener("click", (event) => {
+  popup.querySelector(".btnAddtoCart").addEventListener("click", () => {
     if(sessionStorage.getItem("loggedInUser") == null)
       {
         alert("Bạn phải đăng nhập vô Website mới được mua hàng");
       }else{
-        const productDiv = event.target.closest(".detail-product");
-        getInforProduct(productDiv, ".productName");
+        getInforProduct(document.querySelector(".detail-product"), ".detailName");
         alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
         document.querySelector("#totalCost").textContent = totalPrice;
       }
