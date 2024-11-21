@@ -15,8 +15,15 @@
   }
   #frmdathang fieldset{
     display: none;
+    border: 1px solid black;
+    padding: 4px;
   }
-  #frmdathang div{
+  legend{
+    background-color: black;
+    color: white;
+    padding: 4px;
+  }
+  #frmdathang #div{
     display: grid;
     grid-template-columns: 200px 1fr;
     grid-template-rows:repeat(3, 30px) ;
@@ -27,8 +34,20 @@
     border-radius: 15px;
     padding: 4px;
   }
-  #frmdathang #center{
+  .center{
     margin-top: 10px;
     display: flex;
     justify-content: center;
   }
+  #cardNumber{
+    width: 100%;
+  }
+ #nameOnCard{
+  width: 69%;
+ }
+ #dateCreated{
+  width: 30%;
+ }
+ #inputBankCard label, fieldset label{
+  display: inline-block;
+ }

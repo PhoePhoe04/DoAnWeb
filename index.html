@@ -190,20 +190,34 @@
             <img src="./assets/img/icon/close.png" alt="" width="100" height="100">
             <form id="frmdathang">
               <h1>Thông tin giao hàng</h1>
-              <div>
+              <div id="div">
                 <label for="customerName">Họ tên:</label>
                 <input id="customerName" type="text">
                 <label for="customerAddress">Địa chỉ:</label>
                 <input id="customerAddress" type="text" required />
                 <label for="cusPhoneNumber">Số điện thoại:</label>
-                <input id="cusPhoneNumber" type="text" required/>
+                <input id="cusPhoneNumber" type="text"/>
               </div>
-              <div id="center">
+              <div class="center">
                 <button id="transferPayment">Phương thức thanh toán</button>
               </div>
               <fieldset>
                 <legend>Phương thức thanh toán</legend>
-                <input type="submit" value="Thanh toán" />
+                 <input type="checkbox"  id="cash" checked>
+                 <label for="cash" style="width: 60%;">Thanh toán bằng tiền mặt khi nhận hàng</label>
+                 <input type="checkbox" id="card">
+                 <label for="card">Thẻ ngân hàng</label><br>
+                  <div id="inputBankCard">
+                    <label for="cardNumber">Số thẻ:</label><br>
+                    <input id="cardNumber" placeholder="Nhập số thẻ" type="text" readonly /><br>
+                    <label for="nameOnCard" style="width: 69%;">Tên in trên thẻ:</label>
+                    <label for="dateCreated">Ngày phát hành:</label><br>
+                    <input id="nameOnCard" placeholder="Nhập tên in trên thẻ" type="text" readonly/>
+                    <input id="dateCreated" placeholder="mm/yy" type="text" readonly/>
+                  </div>
+                  <div class="center">
+                    <input type="submit" value="Thanh toán" />
+                  </div>
               </fieldset>
             </form>
           </div>

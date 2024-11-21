@@ -145,17 +145,21 @@ document.querySelector("#dat_hang").addEventListener("click", () => {
     document.querySelector("#cusPhoneNumber").readOnly = true;
   }
   document.querySelector("#transferPayment").addEventListener("click", (event) => {
+    event.preventDefault();
     const userName = document.querySelector("#customerName");
     const userAddress = document.querySelector("#customerAddress");
     const userPhone = document.querySelector("#cusPhoneNumber");
+    const day = new Date();
     order = [];
     user = {};
-    user.name = userName.textContent;
-    user.address = userAddress.textContent;
-    user.phone = userAddress.userPhone;
-    
+    user.name = userName.value;
+    user.address = userAddress.value;
+    user.phone = userPhone.value;
+    user.boughtDate = day;
     document.querySelector("#frmdathang h1").style.display = "none";
     document.querySelector("#frmdathang div").style.display ="none";
+    document.querySelector("#transferPayment").style.display = "none";
+    document.querySelector("#frmdathang fieldset").style.display = "block";
   });
   document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
     document.querySelector("#khung_dat_hang").style.display = "none";
