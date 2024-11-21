@@ -398,6 +398,18 @@ function createPopup(product) {
       popup.remove();
     }
   });
+  //Thêm vào giỏ hàng
+  popup.querySelector(".btnAddtoCart").addEventListener("click", (event) => {
+    if(sessionStorage.getItem("loggedInUser") == null)
+      {
+        alert("Bạn phải đăng nhập vô Website mới được mua hàng");
+      }else{
+        const productDiv = event.target.closest(".detail-product");
+        getInforProduct(productDiv, ".productName");
+        alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
+        document.querySelector("#totalCost").textContent = totalPrice;
+      }
+  });
 }
 
 // Gán sự kiện cho từng nút "Xem chi tiết"
