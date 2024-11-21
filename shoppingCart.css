@@ -1,0 +1,29 @@
+#customerName, #customerAddress, #cusPhoneNumber{
+    background-color: inherit;
+    border: none;
+    border-bottom: 1px solid black;
+  }
+  #frmdathang{
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    height: 30%;
+    width: 40%;
+    padding: 8px;
+    background-color: yellow;
+  }
+  #frmdathang fieldset{
+    display: none;
+  }
+  #frmdathang div{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows:repeat(3, 30px) ;
+  }
+  #transferPayment{
+    background-color: black;
+    color: rgb(13, 255, 0);
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+  }

@@ -657,16 +657,17 @@ header {
   width: 50%;
   inset: 0;
   margin: auto;
-  font-size: 1.8rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 #empty h1 {
   margin-bottom: 4px;
+  font-size: 1.8rem;
 }
 #empty p {
   margin-bottom: 4px;
+  font-size: 1.4rem;
 }
 
 #cart {
@@ -709,26 +710,6 @@ header {
   left: 10px;
   width: 70px;
   height: 70px;
-}
-#frmdathang {
-  position: absolute;
-  inset: 0;
-  margin: auto;
-  height: 54%;
-  width: 40%;
-  padding: 8px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(6, 25px);
-  font-size: 2rem;
-  background-color: yellow;
-  row-gap: 40px;
-}
-#frmdathang input[type="submit"] {
-  grid-area: 6 / 1 / span 1 / span 2;
-}
-#frmdathang h1 {
-  grid-area: 1/ 1 / span 1 / span 2;
 }
 #sotientongcong {
   display: inline;

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script src="https://kit.fontawesome.com/a4434c7b27.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="./style.css" />
+  <link rel="stylesheet" href="./shoppingCart.css"/>
   <title>Document</title>
 </head>
 
@@ -189,20 +190,19 @@
             <img src="./assets/img/icon/close.png" alt="" width="100" height="100">
             <form id="frmdathang">
               <h1>Thông tin giao hàng</h1>
-              <label for="customerName">Họ tên:</label>
-              <input id="customerName" type="text" />
-              <label for="customerAddress">Địa chỉ:</label>
-              <input id="customerAddress" type="text" />
-              <label for="cusPhoneNumber">Số điện thoại:</label>
-              <input for="cusPhoneNumber" type="text" />
-              <label>Hình thức thanh toán:</label>
               <div>
-                <input type="checkbox" id="cash" />
-                <label for="cash">Tiền mặt</label>
-                <input type="checkbox" id="card" />
-                <label for="card">Thẻ tín dụng</label>
+                <label for="customerName">Họ tên:</label>
+                <input id="customerName" type="text" />
+                <label for="customerAddress">Địa chỉ:</label>
+                <input id="customerAddress" type="text" />
+                <label for="cusPhoneNumber">Số điện thoại:</label>
+                <input id="cusPhoneNumber" type="text" />
               </div>
-              <input type="submit" value="Thanh toán" />
+              <button id="transferPayment">Phương thức thanh toán</button>
+              <fieldset>
+                <legend>Phương thức thanh toán</legend>
+                <input type="submit" value="Thanh toán" />
+              </fieldset>
             </form>
           </div>
         </div>
@@ -305,5 +305,6 @@
   </div>
   <script src="login.js"></script>
   <script src="javascript.js"></script>
+  <script src="shoppingCart.js"></script>
 </body>
 </html>
