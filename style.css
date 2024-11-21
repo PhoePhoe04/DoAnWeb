@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Poppins',sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 :root {
@@ -204,7 +204,7 @@ header {
   color: #fff;
   text-align: center;
 }
-.banner>img{
+.banner > img {
   width: 600px;
   height: 300px;
 }
@@ -334,7 +334,7 @@ header {
   margin-bottom: 10px;
 }
 
-/* FILTER */
+/*++++++++++>> FILTER */
 .filter {
   position: relative;
 }
@@ -383,6 +383,9 @@ header {
   padding: 0 10px;
   overflow: auto;
 }
+
+/* Phần content popup */
+
 .gia-san-pham,
 .tuy-chon {
   margin-top: 4px;
@@ -393,20 +396,20 @@ header {
   text-align: left;
 }
 
-.gia-san-pham > div {
+.filter-options {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
   padding: 10px;
 }
 
-.gia-san-pham > div > div {
+.option {
   border-radius: 5px;
   border: 1px solid green;
   padding: 10px;
 }
 
-.gia-san-pham > div > div:hover {
+.option:hover {
   background-color: yellow;
 }
 
@@ -415,35 +418,19 @@ header {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.tuy-chon > .option > h3 {
+.tuy-chon > div > h3 {
   text-align: left;
 }
 
-.tuy-chon > .option > div {
-  display: flex;
-  gap: 10px;
-  padding: 10px;
-  flex-wrap: wrap;
+.option.selected {
+  background-color: #007bff;
 }
 
-.tuy-chon > .option > div > div {
-  border: 1px solid green;
-  padding: 4px;
-  border-radius: 5px;
-}
+/*++++++++++<< FILTER */
 
-.tuy-chon > .option > div > div:hover {
-  background-color: yellow;
-}
-
-.confirm-cancel {
-  display: flex;
-  position: absolute;
-  bottom: 0;
-}
-
-/* SORT */
+/*++++++++++>> SORT */
 .sort {
+  margin-top: 10px;
   display: flex;
   gap: 10px;
 }
@@ -451,6 +438,7 @@ header {
 .sort > p {
   font-size: 1.6em;
 }
+/*++++++++++<< SORT */
 
 /*---------<< FILTER-SORT  */
 
@@ -729,7 +717,7 @@ header {
   padding: 4px;
   margin-left: -1px;
 }
-.detailPhone{
+.detailPhone {
   display: grid;
   grid-template-columns: 100px 100px;
   column-gap: 4px;
@@ -760,7 +748,7 @@ header {
   cursor: pointer;
   background-color: var(--black1);
 }
-.btnLogin-popup>i{
+.btnLogin-popup > i {
   margin-right: 5px;
 }
 .user-menu {
@@ -778,13 +766,13 @@ header {
 .user-info i {
   margin-right: 5px;
 }
-.user{
+.user {
   margin-right: 20px;
   width: 120px;
   font-size: 1.5em;
 }
-.username-display:hover{
-  color: var(--blue1,--blue2);
+.username-display:hover {
+  color: var(--blue1, --blue2);
 }
 .logout-container {
   margin-left: 10px;
@@ -819,51 +807,50 @@ header {
   display: none;
 }
 
-
-.wrapper{
+.wrapper {
   position: relative;
   width: 400px;
   height: 440px;
   background: transparent;
-  border: 2px solid rgba(255, 255, 255, .5);
+  border: 2px solid rgba(255, 255, 255, 0.5);
   border-radius: 20px;
   backdrop-filter: blur(20px);
-  box-shadow: 0 0 30px rgba(0, 0, 0, .5);
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   transform: scale(0);
-  transition: transform .5s ease, height .2s ease;
+  transition: transform 0.5s ease, height 0.2s ease;
 }
-.wrapper.active-popup{
+.wrapper.active-popup {
   transform: scale(1);
 }
-.wrapper.active{
+.wrapper.active {
   height: 760px;
 }
-.wrapper .form-box{
+.wrapper .form-box {
   width: 100%;
   padding: 40px;
 }
-.wrapper .form-box.login{
-  transition: transform .18s ease;
+.wrapper .form-box.login {
+  transition: transform 0.18s ease;
   transform: translateX(0);
 }
-.wrapper.active .form-box.login{
+.wrapper.active .form-box.login {
   transition: none;
   transform: translateX(-400px);
 }
-.wrapper .form-box.register{
+.wrapper .form-box.register {
   position: absolute;
   transition: none;
   transform: translateX(400px);
 }
-.wrapper.active .form-box.register{
-  transition: transform .18s ease;
+.wrapper.active .form-box.register {
+  transition: transform 0.18s ease;
   transform: translateX(0);
 }
-.wrapper .icon-close{
+.wrapper .icon-close {
   position: absolute;
   top: 0;
   right: 0;
@@ -879,19 +866,19 @@ header {
   cursor: pointer;
   z-index: 1;
 }
-.form-box h2{
+.form-box h2 {
   font-size: 2em;
   color: #162938;
   text-align: center;
 }
-.input-box{
+.input-box {
   position: relative;
   width: 100%;
   height: 50px;
   border-bottom: 2px solid #162938;
   margin: 30px 0;
 }
-.input-box label{
+.input-box label {
   position: absolute;
   top: 50%;
   left: 5px;
@@ -900,18 +887,17 @@ header {
   color: #162938;
   font-weight: 500;
   pointer-events: none;
-  transition: .5s;
-
+  transition: 0.5s;
 }
-.input-box input:focus~label,
-.input-box input:valid~label{
+.input-box input:focus ~ label,
+.input-box input:valid ~ label {
   top: -5px;
 }
 .input-box input#loginEmail[value="admin"]:focus ~ label,
-.input-box input#loginEmail[value="admin"]:valid ~ label{
+.input-box input#loginEmail[value="admin"]:valid ~ label {
   top: -5px;
 }
-.input-box input{
+.input-box input {
   width: 100%;
   height: 100%;
   background: transparent;
@@ -921,16 +907,15 @@ header {
   color: #162938;
   font-weight: 600;
   padding: 0 35px 0 5px;
-
 }
-.input-box .icon{
+.input-box .icon {
   position: absolute;
   right: 8px;
   font-size: 1.2em;
   color: #162938;
   line-height: 57px;
 }
-.remember-forgot{
+.remember-forgot {
   font-size: 1.2em;
   color: #162938;
   font-weight: 500;
@@ -938,18 +923,18 @@ header {
   display: flex;
   justify-content: space-between;
 }
-.remember-forgot label input{
+.remember-forgot label input {
   accent-color: #162938;
   margin-right: 3px;
 }
-.remember-forgot a{
+.remember-forgot a {
   color: #162938;
   text-decoration: none;
 }
-.remember-forgot a:hover{
+.remember-forgot a:hover {
   text-decoration: underline;
 }
-.btn{
+.btn {
   width: 100%;
   height: 45px;
   background: #162938;
@@ -961,19 +946,19 @@ header {
   color: #fff;
   font-size: 500;
 }
-.login-register{
+.login-register {
   font-size: 1.2em;
   color: #162938;
   text-align: center;
   font-weight: 500;
   margin: 25px 0 10px;
 }
-.login-register p a{
+.login-register p a {
   color: #162938;
   text-decoration: none;
   font-weight: 600;
 }
-.login-register p a:hover{
+.login-register p a:hover {
   text-decoration: underline;
 }
 .username-display {

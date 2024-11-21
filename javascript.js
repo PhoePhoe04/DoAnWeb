@@ -225,6 +225,63 @@ class ProductManager {
       }
     });
   }
+
+  filterProducts(containerID) {
+    // Lấy các tùy chọn được chọn
+    const costSelected = document.querySelector(".cost-options .selected");
+    const ramSelected = document.querySelector(".ram-options .selected");
+    const storageSelected = document.querySelector(
+      ".storage-options .selected"
+    );
+
+    // Lấy khoảng giá từ tùy chọn
+    const { min: costMin, max: costMax } = costSelected
+      ? this.getCostRange(costSelected.textContent)
+      : { min: 0, max: Infinity };
+
+    // Lọc sản phẩm
+    const filteredProducts = this.productList.filter((product) => {
+      const isPriceMatch = product.price >= costMin && product.price <= costMax;
+      const isRamMatch = ramSelected
+        ? product.ram === ramSelected.textContent.trim()
+        : true;
+      const isStorageMatch = storageSelected
+        ? product.storage === storageSelected.textContent.trim()
+        : true;
+      return (
+        isPriceMatch && isRamMatch && isStorageMatch && product.quantity > 0
+      );
+    });
+
+    // Hiển thị sản phẩm được lọc
+    const container = document.getElementById(containerID);
+    container.innerHTML = ""; // Xóa danh sách cũ
+    filteredProducts.forEach((product) => {
+      const productDiv = document.createElement("div");
+      productDiv.id = product.id;
+      productDiv.classList.add("product");
+      this.displayProduct(productDiv, product); // Hiển thị sản phẩm
+      container.appendChild(productDiv);
+    });
+
+    console.log("Filtered Products:", filteredProducts); // Debug danh sách lọc
+  }
+
+  // Hàm hỗ trợ lấy khoảng giá từ chuỗi
+  getCostRange(costText) {
+    if (costText.includes("Dưới")) {
+      const max = parseInt(costText.match(/\d+/)[0]) * 1000000; // Ví dụ: "Dưới 2 triệu"
+      return { min: 0, max };
+    } else if (costText.includes("Trên")) {
+      const min = parseInt(costText.match(/\d+/)[0]) * 1000000; // Ví dụ: "Trên 4 triệu"
+      return { min, max: Infinity };
+    } else {
+      const [min, max] = costText
+        .match(/\d+/g)
+        .map((num) => parseInt(num) * 1000000); // "Từ 2 - 4 triệu"
+      return { min, max };
+    }
+  }
 }
 
 // ==================================================== Products Manager ====================================================
@@ -353,7 +410,7 @@ productManager.loadFromLocalStorage();
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
 
-var totalPrice = 0 ;
+var totalPrice = 0;
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
   const product = productManager.productList.find(
@@ -377,16 +434,16 @@ function getInforProduct(productDiv, a) {
         <div>${product.storage}</div>
         <div>${product.ram}</div>
       </div>
-    </div>`
+    </div>`;
     cellPrice.textContent = product.price;
     cellQuantity.innerHTML = `<div class="control_quantity">
       <button>-</button>
       <div class="quantity">1</div>
       <button>+</button>
-    </div>`
+    </div>`;
     cellTotalPrice.textContent = product.price;
-    cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`
-    totalPrice+= product.price;
+    cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`;
+    totalPrice += product.price;
   }
 }
 
@@ -437,14 +494,13 @@ function createPopup(product) {
   });
   //Thêm vào giỏ hàng
   popup.querySelector(".btnAddtoCart").addEventListener("click", () => {
-    if(sessionStorage.getItem("loggedInUser") == null)
-      {
-        alert("Bạn phải đăng nhập vô Website mới được mua hàng");
-      }else{
-        getInforProduct(document.querySelector(".detail-product"), ".detailName");
-        alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
-        document.querySelector("#totalCost").textContent = totalPrice;
-      }
+    if (sessionStorage.getItem("loggedInUser") == null) {
+      alert("Bạn phải đăng nhập vô Website mới được mua hàng");
+    } else {
+      getInforProduct(document.querySelector(".detail-product"), ".detailName");
+      alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
+      document.querySelector("#totalCost").textContent = totalPrice;
+    }
   });
 }
 
@@ -468,3 +524,37 @@ document.querySelectorAll(".viewDetailBtn").forEach((button) => {
     }
   });
 });
+
+// Gán sự kiện cho phần chọn lựa option filter
+function filterProductsToUI(idProducts) {
+  document.querySelectorAll(".option").forEach((option) => {
+    if (option.closest(".cost-options")) {
+      option.addEventListener("click", () => {
+        if (option.classList.contains("selected")) {
+          option.classList.remove("selected");
+        } else {
+          // Loại bỏ 'selected' khỏi các tùy chọn khác trong cùng nhóm
+          option
+            .closest(".cost-options")
+            .querySelectorAll(".option")
+            .forEach((opt) => opt.classList.remove("selected"));
+
+          // Thêm 'selected' vào option đang được click
+          option.classList.add("selected");
+        }
+        productManager.filterProducts(idProducts);
+      });
+    } else {
+      option.addEventListener("click", () => {
+        if (option.classList.contains("selected")) {
+          option.classList.remove("selected");
+        } else {
+          option.classList.add("selected");
+        }
+        productManager.filterProducts(idProducts);
+      });
+    }
+  });
+}
+
+filterProductsToUI("productIPhone");
