@@ -638,14 +638,17 @@ header {
 }
 #shopping_cart_page {
   display: none;
+  position: relative;
+  top: 2px;
+  width: 100%;
+  height: 420px;
+  overflow: auto;
 }
 #non_empty {
   display: none;
 }
 #empty {
   position: absolute;
-  height: 50%;
-  width: 50%;
   inset: 0;
   margin: auto;
   display: flex;
@@ -697,7 +700,7 @@ header {
 }
 #khung_dat_hang img {
   position: absolute;
-  top: 100px;
+  top: 0;
   left: 10px;
   width: 70px;
   height: 70px;

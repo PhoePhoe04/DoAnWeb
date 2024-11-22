@@ -1,5 +1,5 @@
 var totalPrice = 0 ;
-order = [];
+orders = [];
 user = {};
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
@@ -10,22 +10,17 @@ function getInforProduct(productDiv, a) {
   if (product) {
     const table = document.querySelector("#cart");
     const newRow = table.insertRow();
-
     const cellData = newRow.insertCell(0);
     const cellPrice = newRow.insertCell(1);
     const cellQuantity = newRow.insertCell(2);
     const cellTotalPrice = newRow.insertCell(3);
     const cellDelete = newRow.insertCell(4);
-    user.img = product.img;
-    user.name = product.name;
-    user.storage = product.storage;
-    user.ram = product.ram;
     cellData.innerHTML = `<div>
       <img src="${product.img}" alt="${product.id}" width="80" height="80"/>
       <div>${product.name}</div>
       <div class="detailPhone">
-        <div>${product.storage}</div>
-        <div>${product.ram}</div>
+        <div id="storage">${product.storage}</div>
+        <div id="ram">${product.ram}</div>
       </div>
     </div>`
     cellPrice.textContent = product.price;
@@ -131,13 +126,13 @@ document.querySelector(".cart").addEventListener("click", function () {
   if (document.querySelector("#cart").rows.length > 1) {
     document.querySelector("#empty").style.display = "none";
     document.querySelector("#non_empty").style.display = "block";
+    document.querySelector("#shopping_cart_page").style.overflow = "auto";
+  }else{
+    document.querySelector("#shopping_cart_page").style.overflow = "hidden";
   }
 });
-document.querySelector("#dat_hang").addEventListener("click", () => {
-  document.querySelector("#khung_dat_hang").style.display = "block";
-  const dataUser = sessionStorage.getItem("loggedInUser");
+handlePayment = (dataUser) => {
   if (dataUser) {
-
     var khachHang = JSON.parse(dataUser);
     document.querySelector("#frmdathang #customerName").value = khachHang.username;
     document.querySelector("#customerName").readOnly = true;
@@ -146,35 +141,96 @@ document.querySelector("#dat_hang").addEventListener("click", () => {
     document.querySelector("#frmdathang #cusPhoneNumber").value = khachHang.phone;
     document.querySelector("#cusPhoneNumber").readOnly = true;
   }
-  document.querySelector("#transferPayment").addEventListener("click", (event) => {
+};
+changeCheckbox = () => {
+  if(document.querySelector("#card").checked)
+  {
+    document.querySelector("#cash").checked = false;
+    document.querySelector("#inputBankCard").style.display = "block";
+    document.querySelector("#cardNumber").required;
+    document.querySelector("#nameOnCard").required;
+    document.querySelector("#dateCreated").required;        
+  }
+  if(document.querySelector("#cash").checked)
+    {
+      document.querySelector("#card").checked = false;
+      document.querySelector("#inputBankCard").style.display = "none";     
+    }
+};
+handleTransferPayment = (event) => {
+  event.preventDefault();
+  const userName = document.querySelector("#customerName");
+  const userAddress = document.querySelector("#customerAddress");
+  const userPhone = document.querySelector("#cusPhoneNumber");
+  const day = new Date();
+  user.name = userName.value;
+  user.address = userAddress.value;
+  user.phone = userPhone.value;
+  user.boughtDate = day;
+  document.querySelector("#frmdathang h1").style.display = "none";
+  document.querySelector("#frmdathang div").style.display ="none";
+  document.querySelector("#transferPayment").style.display = "none";
+  document.querySelector("#frmdathang fieldset").style.display = "block";
+  document.querySelector("#card").addEventListener("change",changeCheckbox );
+  document.querySelector("#frmdathang").onsubmit = (event) => {
     event.preventDefault();
-    const userName = document.querySelector("#customerName");
-    const userAddress = document.querySelector("#customerAddress");
-    const userPhone = document.querySelector("#cusPhoneNumber");
-    const day = new Date();
-    user.name = userName.value;
-    user.address = userAddress.value;
-    user.phone = userPhone.value;
-    user.boughtDate = day;
-    document.querySelector("#frmdathang h1").style.display = "none";
-    document.querySelector("#frmdathang div").style.display ="none";
-    document.querySelector("#transferPayment").style.display = "none";
-    document.querySelector("#frmdathang fieldset").style.display = "block";
-    document.querySelector("#card").addEventListener("change", () => {
-      if(document.querySelector("#card").checked)
-      {
-        document.querySelector("#cash").checked = false;
-        document.querySelector("#inputBankCard").style.display = "block";
-        document.querySelector("#cardNumber").required;
-        document.querySelector("#nameOnCard").required;
-        document.querySelector("#dateCreated").required;        
-      }
-    });
-    document.querySelector("#frmdathang").onsubmit = () => {
-      
-    };
+    const table = document.querySelector("#cart");
+    getUserBoughtPhones(table);
+    document.querySelector("#khung_dat_hang").style.display = "none";
+    document.querySelector("#cart").clear();
+    document.querySelector("#non_empty").style.display = "none";
+    document.querySelector("#empty").style.display = "block";
+    alert("Đơn hàng của bạn đã được gửi lên Admin");
+  };
+}
+
+getUserBoughtPhones = (table) => {
+  const boughProductList = [];
+  const rows = table.querySelectorAll("tr"); // Select all rows in the table
+
+  rows.forEach((row, index) => {
+    if (index === 0) return; // Skip the header row
+    const cells = row.querySelectorAll("td");
+    const boughProduct = {};
+
+    const imgElement = cells[0].querySelector("div > img");
+    const nameElement = cells[0].querySelector("div > div");
+    const storageElement = cells[0].querySelector("div > .detailPhone > #storage");
+    const ramElement = cells[0].querySelector("div > .detailPhone > #ram");
+    boughProduct.img = imgElement ? imgElement.src : "";
+    boughProduct.name = nameElement ? nameElement.textContent : "";
+    boughProduct.storage = storageElement ? storageElement.textContent : "";
+    boughProduct.ram = ramElement ? ramElement.textContent : "";
+
+    const quantityElement = cells[2].querySelector(".control_quantity > .quantity");
+    boughProduct.productQuantity = quantityElement ? quantityElement.textContent : "0";
+
+    boughProduct.totalPrice = cells[3].textContent;
+    boughProductList.push(boughProduct);
   });
+
+  user.boughtProducts = boughProductList;
+  orders.push(user);
+  localStorage.setItem("orders", JSON.stringify(orders));
+};
+document.querySelector("#dat_hang").addEventListener("click", () => {
+  document.querySelector("#khung_dat_hang").style.display = "block";
+  const shoppingCartPage = document.querySelector("#shopping_cart_page");
+  shoppingCartPage.scrollTo(shoppingCartPage.scrollHeight,0);
+  document.querySelector("#shopping_cart_page").style.overflow = "hidden";
+  const dataUser = sessionStorage.getItem("loggedInUser");
+  handlePayment(dataUser);
+  document.querySelector("#transferPayment").addEventListener("click", handleTransferPayment(event));
   document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
     document.querySelector("#khung_dat_hang").style.display = "none";
+    document.querySelector("#shopping_cart_page").style.overflow = "auto";
   })
 });
+const cartObserver = new MutationObserver(function (mutationsList, observer) {
+  if (document.querySelector("#cart").rows.length == 1) {
+    document.querySelector("#non_empty").style.display = "none";
+    document.querySelector("#empty").style.display = "flex";
+  }
+});
+
+cartObserver.observe(document.querySelector("#cart"), { childList: true, subtree: true });

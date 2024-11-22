@@ -411,7 +411,6 @@ productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
 
 var totalPrice = 0;
-user = {};
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
   const product = productManager.productList.find(
@@ -427,16 +426,12 @@ function getInforProduct(productDiv, a) {
     const cellQuantity = newRow.insertCell(2);
     const cellTotalPrice = newRow.insertCell(3);
     const cellDelete = newRow.insertCell(4);
-    user.img = product.img;
-    user.name = product.name;
-    user.storage = product.storage;
-    user.ram = product.ram;
     cellData.innerHTML = `<div>
       <img src="${product.img}" alt="${product.id}" width="80" height="80"/>
       <div>${product.name}</div>
       <div class="detailPhone">
-        <div>${product.storage}</div>
-        <div>${product.ram}</div>
+        <div id="storage">${product.storage}</div>
+        <div id="ram">${product.ram}</div>
       </div>
     </div>`;
     cellPrice.textContent = product.price;
