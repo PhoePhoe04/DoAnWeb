@@ -185,6 +185,8 @@ handleTransferPayment = (event) => {
     document.querySelector("#non_empty").style.display = "none";
     document.querySelector("#empty").style.display = "block";
     alert("Đơn hàng của bạn đã được gửi lên Admin");
+    document.querySelector("#empty h1").textContent = "Chào mừng bạn trở lại cửa hàng của chúng tui";
+    document.querySelector("#readOrderHistory").style.display = "block";
     document.querySelector("#shopping_cart_page").style.overflow = "auto";
     createOrderHistoryButton();
   };
@@ -209,7 +211,7 @@ createOrderHistoryButton = () => {
   button.addEventListener("click", () => {
     document.querySelector("#readOrderHistory").style.display = "none";
     document.querySelector("#empty img").style.display = "none";
-    document.querySelector("#empty h1").style.display = "none";
+    document.querySelector("#empty h1").textContent = "Xem Lịch Sử Mua Hàng"
     document.querySelectorAll("#empty p").forEach(div => {
       div.style.display = "none";
     })
@@ -239,6 +241,10 @@ createOrderHistoryButton = () => {
       document.querySelector("#readOrderHistory").style.display = "block";
     });
     emptyContainer.appendChild(closeButton);
+    const infor = document.createElement("div");
+    infor.textContent = `${user.name} đã thanh toán ${user.totalPrice}`;
+    infor.style.fontSize = "2rem";
+    emptyContainer.appendChild(infor);
   });
   emptyContainer.appendChild(button);
 };
@@ -264,6 +270,14 @@ getUserBoughtPhones = (table) => {
     boughtProductList.push(boughtProduct);
 
   user.boughtProducts = boughtProductList;
+  // productManager.forEach(product => {
+  //   if(product.name === boughtProduct.name)
+  //   {
+  //     var a = parseInt(product.quanity);
+  //     var b = parseInt(boughtProduct.quantity);
+  //     product.quanity = (a-b);
+  //   }
+  // });
   orders.push(user);
   localStorage.setItem("orders", JSON.stringify(orders));
 });}
