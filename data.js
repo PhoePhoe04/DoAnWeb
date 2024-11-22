@@ -398,7 +398,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P037",
             name: "Samsung Galaxy Z Fold6",
-            category: "samsung",
+            category: "sam_sung",
             ram: "12GB",
             storage: "512GB",
             price: "45990000",
@@ -409,7 +409,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P038",
             name: "Samsung Galaxy Z Flip6",
-            category: "samsung",
+            category: "sam_sung",
             ram: "8GB",
             storage: "256GB",
             price: "24990000",
@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P039",
             name: "Samsung Galaxy S24 Ultra",
-            category: "samsung",
+            category: "sam_sung",
             ram: "12GB",
             storage: "1TB",
             price: "36990000",
@@ -431,7 +431,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P040",
             name: "Samsung Galaxy S24+",
-            category: "samsung",
+            category: "sam_sung",
             ram: "8GB",
             storage: "512GB",
             price: "29990000",
@@ -442,7 +442,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P041",
             name: "Samsung Galaxy S23 Ultra",
-            category: "samsung",
+            category: "sam_sung",
             ram: "12GB",
             storage: "1TB",
             price: "31990000",
@@ -453,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P042",
             name: "Samsung Galaxy S23 FE",
-            category: "samsung",
+            category: "sam_sung",
             ram: "8GB",
             storage: "256GB",
             price: "13990000",
@@ -464,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P043",
             name: "Samsung Galaxy M55",
-            category: "samsung",
+            category: "sam_sung",
             ram: "8GB",
             storage: "128GB",
             price: "10990000",
@@ -475,7 +475,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P044",
             name: "Samsung Galaxy M15",
-            category: "samsung",
+            category: "sam_sung",
             ram: "4GB",
             storage: "64GB",
             price: "3490000",
@@ -486,7 +486,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P045",
             name: "Samsung Galaxy M35",
-            category: "samsung",
+            category: "sam_sung",
             ram: "6GB",
             storage: "128GB",
             price: "7490000",
@@ -497,7 +497,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P046",
             name: "Samsung Galaxy M54",
-            category: "samsung",
+            category: "sam_sung",
             ram: "8GB",
             storage: "256GB",
             price: "8990000",
@@ -508,7 +508,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P047",
             name: "Samsung Galaxy A06",
-            category: "Smartphone",
+            category: "sam_sung",
             ram: "3GB",
             storage: "32GB",
             price: "2490000",
@@ -519,7 +519,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P048",
             name: "Samsung Galaxy A15",
-            category: "Smartphone",
+            category: "sam_sung",
             ram: "4GB",
             storage: "64GB",
             price: "4490000",
@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P049",
             name: "Samsung Galaxy A25",
-            category: "Smartphone",
+            category: "sam_sung",
             ram: "6GB",
             storage: "128GB",
             price: "7490000",
@@ -541,7 +541,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P050",
             name: "Samsung Galaxy A35",
-            category: "Smartphone",
+            category: "sam_sung",
             ram: "8GB",
             storage: "128GB",
             price: "9490000",
@@ -552,7 +552,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: "P051",
             name: "Samsung Galaxy A55",
-            category: "Smartphone",
+            category: "sam_sung",
             ram: "8GB",
             storage: "256GB",
             price: "11990000",
