@@ -59,8 +59,13 @@
                   >iPhone</a
                 >
               </li>
-              <li>SAMSUNG</li>
-              <li>XIAOMI</li>
+              <li><a href="" onclick="changePage('samsung-page'); return false;"
+                >SamSung</a
+              ></li>
+              <li><a href="" onclick="changePage('xiaomi-page'); return false;"
+                >Xiaomi</a
+              ></li>
+              
               <li>OPPO</li>
             </ul>
           </div>
@@ -121,12 +126,10 @@
                     <div class="gia-san-pham">
                       <h3>Giá sản phẩm</h3>
                       <div class="filter-options cost-options">
-                        <div class="option">Dưới 2 triệu</div>
-                        <div class="option">Từ 2 - 4 triệu</div>
-                        <div class="option">Từ 4 - 7 triệu</div>
-                        <div class="option">Từ 7 - 13 triệu</div>
-                        <div class="option">Từ 13 - 20 triệu</div>
-                        <div class="option">Trên 20 triệu</div>
+                        <div class="option">Dưới 10 triệu</div>
+                        <div class="option">Từ 10 - 20 triệu</div>
+                        <div class="option">Từ 20 - 30 triệu</div>
+                        <div class="option">Trên 30 triệu</div>
                       </div>
                     </div>
                     <div class="tuy-chon">
@@ -136,8 +139,6 @@
                           <div class="option">4 GB</div>
                           <div class="option">6 GB</div>
                           <div class="option">8 GB</div>
-                          <div class="option">12 GB</div>
-                          <div class="option">16 GB</div>
                         </div>
                       </div>
                       <div>
@@ -165,6 +166,154 @@
 
             <!-- Phần sản phẩm của iPhone -->
             <div id="productIPhone" class="iphone products"></div>
+            <div class="showMore">
+              <button id="showMoreBtn" onclick="showMoreProducts()">
+                Hiển thị thêm
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- SamSung -->
+        <div id="samsung-page" class="page section">
+          <div class="container">
+            <!-- Link chuyển hướng -->
+            <nav>
+              <a href="" onclick="changePage('home'); return false;">Home</a>
+              <div>></div>
+              <a href="">SamSung</a>
+            </nav>
+
+            <div class="margin-filter-sort">
+              <!-- Nút Filter -->
+              <div class="filter">
+                <button
+                  id="samsung-filterBtn"
+                  class="filterBtn"
+                  onclick="togglePopup('#samsung-filterBtn')"
+                >
+                  <i class="fa-solid fa-filter"></i>Lọc
+                  <div class="triangle section"></div>
+                  <div
+                    class="filter-popup section"
+                    onclick="event.stopPropagation()"
+                  >
+                    <div class="gia-san-pham">
+                      <h3>Giá sản phẩm</h3>
+                      <div class="filter-options cost-options">
+                        <div class="option">Dưới 10 triệu</div>
+                        <div class="option">Từ 10 - 20 triệu</div>
+                        <div class="option">Từ 20 - 30 triệu</div>
+                        <div class="option">Trên 30 triệu</div>
+                      </div>
+                    </div>
+                    <div class="tuy-chon">
+                      <div>
+                        <h3>RAM</h3>
+                        <div class="filter-options ram-options">
+                          <div class="option">4 GB</div>
+                          <div class="option">6 GB</div>
+                          <div class="option">8 GB</div>
+                        </div>
+                      </div>
+                      <div>
+                        <h3>Dung lượng</h3>
+                        <div class="filter-options storage-options">
+                          <div class="option">64 GB</div>
+                          <div class="option">128 GB</div>
+                          <div class="option">256 GB</div>
+                          <div class="option">512 GB</div>
+                          <div class="option">1 TB</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+              <!-- Button sort -->
+              <div class="sort">
+                <p>Sắp xếp theo:</p>
+                <p>Nổi bật</p>
+                <p>Mới</p>
+                <p>Giá</p>
+              </div>
+            </div>
+
+            <!-- Phần sản phẩm của SamSung -->
+            <div id="productSamSung" class="samsung products"></div>
+            <div class="showMore">
+              <button id="showMoreBtn" onclick="showMoreProducts()">
+                Hiển thị thêm
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- Xiaomi -->
+        <div id="xiaomi-page" class="page section">
+          <div class="container">
+            <!-- Link chuyển hướng -->
+            <nav>
+              <a href="" onclick="changePage('home'); return false;">Home</a>
+              <div>></div>
+              <a href="">SamSung</a>
+            </nav>
+
+            <div class="margin-filter-sort">
+              <!-- Nút Filter -->
+              <div class="filter">
+                <button
+                  id="xiaomi-filterBtn"
+                  class="filterBtn"
+                  onclick="togglePopup('#xiaomi-filterBtn')"
+                >
+                  <i class="fa-solid fa-filter"></i>Lọc
+                  <div class="triangle section"></div>
+                  <div
+                    class="filter-popup section"
+                    onclick="event.stopPropagation()"
+                  >
+                    <div class="gia-san-pham">
+                      <h3>Giá sản phẩm</h3>
+                      <div class="filter-options cost-options">
+                        <div class="option">Dưới 10 triệu</div>
+                        <div class="option">Từ 10 - 20 triệu</div>
+                        <div class="option">Từ 20 - 30 triệu</div>
+                        <div class="option">Trên 30 triệu</div>
+                      </div>
+                    </div>
+                    <div class="tuy-chon">
+                      <div>
+                        <h3>RAM</h3>
+                        <div class="filter-options ram-options">
+                          <div class="option">4 GB</div>
+                          <div class="option">6 GB</div>
+                          <div class="option">8 GB</div>
+                        </div>
+                      </div>
+                      <div>
+                        <h3>Dung lượng</h3>
+                        <div class="filter-options storage-options">
+                          <div class="option">64 GB</div>
+                          <div class="option">128 GB</div>
+                          <div class="option">256 GB</div>
+                          <div class="option">512 GB</div>
+                          <div class="option">1 TB</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+              <!-- Button sort -->
+              <div class="sort">
+                <p>Sắp xếp theo:</p>
+                <p>Nổi bật</p>
+                <p>Mới</p>
+                <p>Giá</p>
+              </div>
+            </div>
+
+            <!-- Phần sản phẩm của Xiaomi -->
+            <div id="productXiaomi" class="xiaomi products"></div>
             <div class="showMore">
               <button id="showMoreBtn" onclick="showMoreProducts()">
                 Hiển thị thêm

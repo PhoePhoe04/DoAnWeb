@@ -246,7 +246,7 @@ header {
 .productName {
   margin-top: 10px;
   width: 100%;
-  height: 30px;
+  height: 50px;
   text-align: left;
   font-weight: bold;
   font-size: 1.8em;
@@ -304,13 +304,13 @@ header {
 }
 
 /* --------------------------------------------- IPHONE --------------------------------------------- */
-#iphone-page {
+.page{
   width: 100%;
   height: 400px;
   padding-top: 10px;
 }
 
-#iphone-page > .container {
+.page> .container {
   width: 100%;
   background: var(--white);
   border-radius: 10px;
@@ -325,7 +325,20 @@ header {
 }
 
 .container > nav > a:hover {
-  text-decoration: underline;
+  text-decoration: underline;.option {
+    cursor: pointer;
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .option.selected {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  
 }
 
 /* FILTER-SORT >>---------  */
@@ -389,7 +402,6 @@ header {
 .gia-san-pham,
 .tuy-chon {
   margin-top: 4px;
-  border: 1px solid red;
 }
 
 .gia-san-pham > h3 {
@@ -422,7 +434,7 @@ header {
   text-align: left;
 }
 
-.option.selected {
+.option.filted {
   background-color: #007bff;
 }
 

@@ -181,7 +181,7 @@ class ProductManager {
       </div>
       <div class="productName">${product.name}</div>
       <div class="productDetail"></div>
-      <div class="productPrice">${product.price}</div>
+      <div class="productPrice">${product.price.toLocaleString("vi-VN")} VNĐ</div>
       <div class="btnProduct">
         <button class="viewDetailBtn">Xem chi tiết</button>
         <button>Mua ngay</button>
@@ -226,31 +226,36 @@ class ProductManager {
     });
   }
 
-  filterProducts(containerID) {
+  filterProducts(pageId, containerID, type) {
+    // Lấy container của page
+    const pageContainer = document.getElementById(pageId);
+
     // Lấy các tùy chọn được chọn
-    const costSelected = document.querySelector(".cost-options .selected");
-    const ramSelected = document.querySelector(".ram-options .selected");
-    const storageSelected = document.querySelector(
-      ".storage-options .selected"
-    );
+    const costFilted = pageContainer.querySelector(".cost-options .filted");
+    const ramFilted = pageContainer.querySelector(".ram-options .filted");
+    const storageFilted = pageContainer.querySelector(".storage-options .filted");
 
     // Lấy khoảng giá từ tùy chọn
-    const { min: costMin, max: costMax } = costSelected
-      ? this.getCostRange(costSelected.textContent)
+    const { min: costMin, max: costMax } = costFilted
+      ? this.getCostRange(costFilted.textContent)
       : { min: 0, max: Infinity };
 
     // Lọc sản phẩm
     const filteredProducts = this.productList.filter((product) => {
-      const isPriceMatch = product.price >= costMin && product.price <= costMax;
-      const isRamMatch = ramSelected
-        ? product.ram === ramSelected.textContent.trim()
-        : true;
-      const isStorageMatch = storageSelected
-        ? product.storage === storageSelected.textContent.trim()
-        : true;
-      return (
-        isPriceMatch && isRamMatch && isStorageMatch && product.quantity > 0
-      );
+      if(String(product.type) === type){
+        const isPriceMatch = product.price >= costMin && product.price <= costMax;
+        const isRamMatch = ramFilted
+          ? product.ram === ramFilted.textContent.trim()
+          : true;
+        const isStorageMatch = storageFilted
+          ? product.storage === storageFilted.textContent.trim()
+          : true;
+        return (
+          isPriceMatch && isRamMatch && isStorageMatch && product.quantity > 0
+        );
+      }else{
+        return false;
+      }
     });
 
     // Hiển thị sản phẩm được lọc
@@ -287,128 +292,66 @@ class ProductManager {
 // ==================================================== Products Manager ====================================================
 const productManager = new ProductManager();
 
-// const product1 = new Product(
-//   "iphone",
-//   "ipX",
-//   "",
-//   "iPhone X",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product2 = new Product(
-//   "iphone",
-//   "ip11",
-//   "",
-//   "iPhone 11",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product3 = new Product(
-//   "iphone",
-//   "ip12",
-//   "",
-//   "iPhone 12",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-const product1 = new Product(
-  "iphone",
-  "ip13",
-  "./assets/item/ip13.jpg",
-  "iPhone 13",
-  20000000,
-  20,
-  "8 GB",
-  "256 GB"
-);
-const product2 = new Product(
-  "iphone",
-  "ip14",
-  "./assets/item/ip14.jpg",
-  "iPhone 14",
-  20000000,
-  20,
-  "8 GB",
-  "256 GB"
-);
-const product3 = new Product(
-  "iphone",
-  "ip15",
-  "./assets/item/ip15.jpg",
-  "iPhone 15",
-  20000000,
-  20,
-  "8 GB",
-  "256 GB"
-);
-const product4 = new Product(
-  "iphone",
-  "ip16",
-  "./assets/item/ip16.jpg",
-  "iPhone 16",
-  30000000,
-  20,
-  "16 GB",
-  "256 GB"
-);
-// const product7 = new Product(
-//   "samsung",
-//   "",
-//   "ssS24",
-//   "SAMSUNG S24",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product8 = new Product(
-//   "samsung",
-//   "",
-//   "ssS21",
-//   "SAMSUNG S21",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product9 = new Product(
-//   "samsung",
-//   "",
-//   "ssS20",
-//   "SAMSUNG S20",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
-// const product10 = new Product(
-//   "samsung",
-//   "",
-//   "ssS22",
-//   "SAMSUNG S22",
-//   20000000,
-//   20,
-//   "8 GB",
-//   "256 GB"
-// );
+productManager.addProduct(new Product("iphone","ip11_64","./assets/item/ip11_64.jpg", "iPhone 11 64GB", 8999000, 10, "4 GB", "64 GB"));
+productManager.addProduct(new Product("iphone","ip11_128","./assets/item/ip11_128.jpg", "iPhone 11 128GB", 10190000, 10, "4 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip12_64","./assets/item/ip12_64.jpg", "iPhone 12 64GB", 11590000, 10, "4 GB", "64 GB"));
+productManager.addProduct(new Product("iphone","ip12_128","./assets/item/ip11_128.jpg", "iPhone 12 128GB", 13590000, 10, "4 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip13_128","./assets/item/ip13_128.jpg", "iPhone 13 128GB", 13490000, 10, "4 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip13_256","./assets/item/ip13_256.jpg", "iPhone 13 256GB", 17390000, 10, "4 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip14_128","./assets/item/ip14_128.jpg", "iPhone 14 128GB", 17490000, 10, "6 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip14+_128","./assets/item/ip14+_128.jpg", "iPhone 14 PLUS 128GB", 20090000, 10, "6 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip14_256","./assets/item/ip14_256.jpg", "iPhone 14 256GB", 20590000, 10, "6 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip14+_256","./assets/item/ip14+_256.jpg", "iPhone 14 PLUS 256GB", 23590000, 10, "6 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip14prm_128","./assets/item/ip14prm_128.jpg", "iPhone 14 PRO MAX 128GB", 26990000, 10, "6 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip14prm_256","./assets/item/ip14prm_256.jpg", "iPhone 14 PRO MAX 256GB", 28590000, 10, "6 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip14prm_512","./assets/item/ip14prm_512.jpg", "iPhone 14 PRO MAX 512GB", 35990000, 10, "6 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip15_128","./assets/item/ip15_128.jpg", "iPhone 15 128GB", 19890000, 10, "6 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip15+_128","./assets/item/ip15+_128.jpg", "iPhone 15 PLUS 128GB", 22890000, 10, "6 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip15prm_256","./assets/item/ip15prm_256.jpg", "iPhone 15 PRO MAX 256GB", 29590000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip15_256","./assets/item/ip15_256.jpg", "iPhone 15 256GB", 22990000, 10, "6 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip15+_256","./assets/item/ip15+_256.jpg", "iPhone 15 PLUS 256GB", 25990000, 10, "6 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip15prm_512","./assets/item/ip15prm_512.jpg", "iPhone 15 PRO MAX 512GB", 34990000, 10, "8 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip15pr_256","./assets/item/ip15pr_256.jpg", "iPhone 15 PRO 256GB", 28490000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip15prm_1TB","./assets/item/ip15prm_1TB.jpg", "iPhone 15 PRO MAX 1TB", 40290000, 10, "8 GB", "1 TB"));
+productManager.addProduct(new Product("iphone","ip15pr_128","./assets/item/ip15pr_128.jpg", "iPhone 15 PRO 128GB", 25590000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip15pr_512","./assets/item/ip15pr_512.jpg", "iPhone 15 PRO 512GB", 33490000, 10, "8 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip15+_512","./assets/item/ip15+_512.jpg", "iPhone 15 PLUS 512GB", 29990000, 10, "8 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip15_512","./assets/item/ip15_512.jpg", "iPhone 15 512GB", 27990000, 10, "8 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip16prm_256","./assets/item/ip16prm_256.jpg", "iPhone 16 PRO MAX 256GB", 34990000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip16prm_512","./assets/item/ip16prm_512.jpg", "iPhone 16 PRO MAX 512GB", 40890000, 10, "8 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip16prm_1TB","./assets/item/ip16prm_1TB.png", "iPhone 16 PRO MAX 1TB", 46790000, 10, "8 GB", "1 TB"));
+productManager.addProduct(new Product("iphone","ip16pr_128","./assets/item/ip16pr_128.png", "iPhone 16 PRO 128 GB", 28890000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip16pr_256","./assets/item/ip16pr_256.png", "iPhone 16 PRO 256 GB", 31990000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip16pr_512","./assets/item/ip16pr_512.png", "iPhone 16 PRO 512 GB", 37990000, 10, "8 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip16pr_1TB","./assets/item/ip16pr_1TB.png", "iPhone 16 PRO 1 TB", 43990000, 10, "8 GB", "1 TB"));
+productManager.addProduct(new Product("iphone","ip16+_128","./assets/item/ip16+_128.jpg", "iPhone 16 PLUS 128 GB", 26990000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip16+_256","./assets/item/ip16+_256.png", "iPhone 16 PLUS 256 GB", 27990000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip16+_512","./assets/item/ip16+_512.png", "iPhone 16 PLUS 512 GB", 32990000, 10, "8 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip16_128","./assets/item/ip16_128.png", "iPhone 16 PLUS 128 GB", 22290000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("iphone","ip16_256","./assets/item/ip16_256.png", "iPhone 16 PLUS 256 GB", 25490000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("iphone","ip16_512","./assets/item/ip16_512.png", "iPhone 16 PLUS 512 GB", 29890000, 10, "8 GB", "512 GB"));
 
-productManager.addProduct(product1);
-productManager.addProduct(product2);
-productManager.addProduct(product3);
-productManager.addProduct(product4);
-// productManager.addProduct(product5);
-// productManager.addProduct(product6);
+productManager.addProduct(new Product("samsung","ssgS24_Ultra_5G_256","./assets/item/ssgS24_Ultra_5G_256.jpg", "SamSung Galaxy S24 Ultra 5G 256 GB", 29990000, 10, "12 GB", "256 GB"));
+productManager.addProduct(new Product("samsung","ssgS24_Ultra_5G_512","./assets/item/ssgS24_Ultra_5G_512.jpg", "SamSung Galaxy S24 Ultra 5G 512 GB", 33490000, 10, "12 GB", "512 GB"));
+productManager.addProduct(new Product("samsung","ssgA16_128","./assets/item/ssgA16_128.jpg", "SamSung Galaxy A16 128 GB", 5890000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("samsung","ssgA16_256","./assets/item/ssgA16_256.jpg", "SamSung Galaxy A16 256 GB", 6690000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("samsung","ssgA16_5G_128","./assets/item/ssgA16_5G_128.jpg", "SamSung Galaxy A16 5G 128 GB", 6090000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("samsung","ssgA16_5G_256","./assets/item/ssgA16_5G.jpg", "SamSung Galaxy A16 5G 256 GB", 6990000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("samsung","ssgA55_5G_256","./assets/item/ssgA55_5G_256.jpg", "SamSung Galaxy A55 5G 12GB-256 GB", 10990000, 10, "12 GB", "256 GB"));
+productManager.addProduct(new Product("samsung","ssgA55_5G_128","./assets/item/ssgA55_5G_128.jpg", "SamSung Galaxy A55 5G 12GB/128 GB", 10990000, 10, "12 GB", "128 GB"));
+productManager.addProduct(new Product("samsung","ssgA55_5G_256_8gb","./assets/item/ssgA55_5G_256_8gb.jpg", "SamSung Galaxy A55 5G 8GB/256 GB", 10990000, 10, "8 GB", "256 GB"));
+
+productManager.addProduct(new Product("xiaomi","xiaomi_rn13_8-128","./assets/item/xiaomi_rn13_8-128.jpg", "Xiaomi Redmi Note 13 8GB/128 GB", 4390000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("xiaomi","xiaomi_rn13pr_8-128","./assets/item/xiaomi_rn13pr_8-128.jpg", "Xiaomi Redmi Note 13 PRO 8GB/128 GB", 5990000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128 GB", 4090000, 10, "8 GB", "128 GB"));
+
 
 productManager.loadFromLocalStorage();
 
 productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
+productManager.displayProductsWithType("productSamSung", "samsung");
+productManager.displayProductsWithType("productXiaomi", "xiaomi");
 
 var totalPrice = 0;
 function getInforProduct(productDiv, a) {
@@ -468,7 +411,7 @@ function createPopup(product) {
           <div class="detailName">${product.name}</div>
           <div class="detailRam">RAM: ${product.ram}</div>
           <div class="detailStorage">Storage: ${product.storage}</div>
-          <div class="detailCash">${product.price} VND</div>
+          <div class="detailCash">${product.price.toLocaleString("vi-VN")} VND</div>
         </div> 
       </div>
       <div id="btnPopup">
@@ -525,36 +468,36 @@ document.querySelectorAll(".viewDetailBtn").forEach((button) => {
   });
 });
 
-// Gán sự kiện cho phần chọn lựa option filter
-function filterProductsToUI(idProducts) {
-  document.querySelectorAll(".option").forEach((option) => {
-    if (option.closest(".cost-options")) {
-      option.addEventListener("click", () => {
-        if (option.classList.contains("selected")) {
-          option.classList.remove("selected");
-        } else {
-          // Loại bỏ 'selected' khỏi các tùy chọn khác trong cùng nhóm
-          option
-            .closest(".cost-options")
-            .querySelectorAll(".option")
-            .forEach((opt) => opt.classList.remove("selected"));
+function filterProductsToUI(pageId, containerID, type) {
+  const pageContainer = document.getElementById(pageId);
 
-          // Thêm 'selected' vào option đang được click
-          option.classList.add("selected");
-        }
-        productManager.filterProducts(idProducts);
-      });
-    } else {
-      option.addEventListener("click", () => {
-        if (option.classList.contains("selected")) {
-          option.classList.remove("selected");
+  pageContainer.querySelectorAll(".option").forEach((option) => {
+    option.addEventListener("click", () => {
+      // Lấy nhóm chứa tùy chọn hiện tại (cost-options, ram-options, storage-options)
+      const group = option.closest(".filter-options");
+
+      if (group) {
+        if (option.classList.contains("filted")) {
+          // Nếu tùy chọn hiện tại đã được chọn, bỏ chọn
+          option.classList.remove("filted");
         } else {
-          option.classList.add("selected");
+          // Xóa 'filted' khỏi tất cả các tùy chọn trong nhóm
+          group.querySelectorAll(".option").forEach((opt) => {
+            opt.classList.remove("filted");
+          });
+
+          // Thêm 'filted' vào option đang được click
+          option.classList.add("filted");
         }
-        productManager.filterProducts(idProducts);
-      });
-    }
+
+        // Gọi hàm filterProducts để cập nhật sản phẩm hiển thị
+        productManager.filterProducts(pageId,containerID, type);
+      }
+    });
   });
 }
 
-filterProductsToUI("productIPhone");
+
+filterProductsToUI("iphone-page","productIPhone", "iphone");
+filterProductsToUI("samsung-page","productSamSung", "samsung");
+filterProductsToUI("xiaomi-page","productXiaomi", "xiaomi");
