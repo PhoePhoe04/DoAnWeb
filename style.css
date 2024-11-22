@@ -637,6 +637,7 @@ header {
   border: none;
   padding: 8px;
   font-size: 2rem;
+  margin-bottom: 10px;
   cursor: pointer;
 }
 #dat_hang {
@@ -653,6 +654,7 @@ header {
   position: relative;
   top: 2px;
   width: 100%;
+  padding: 8px;
   height: 420px;
   overflow: auto;
 }
