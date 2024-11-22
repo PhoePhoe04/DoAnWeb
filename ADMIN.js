@@ -171,7 +171,7 @@ function displayProducts() {
             <td><img src="${product.image}" width="50"></td>
             <td>${product.ram}</td>
             <td>${product.storage}</td>
-            <td>${product.price}đ</td>
+            <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td> 
             <td class="details-action">
                 <button onclick="editProduct(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button onclick="confirmDeleteProduct(${index})"><i class="fa-solid fa-trash"></i></button>
@@ -223,8 +223,8 @@ function addNewProduct() {
             ram,
             storage,
             price,
-            quantity,
             detail,
+            quantity,
             image: event.target.result
         });
         // Lưu sản phẩm vào LocalStorage và hiển thị lại danh sách sản phẩm
@@ -282,6 +282,7 @@ function updateProduct() {
     product.category = category;
     product.ram = ram;
     product.storage = storage;
+    product.detail = detail;
     product.quantity = quantity;
     // Kiểm tra nếu có hình ảnh mới
     if (imageFile) {
@@ -320,6 +321,7 @@ function editProduct(index) {
     document.getElementById("select_category").value = product.category || "";
     document.getElementById("select_ram").value = product.ram || "";
     document.getElementById("select_storage").value = product.storage || "";
+    document.getElementById("Add-detail_Product").value = product.detail;
     document.getElementById("add-quantity").value = product.quantity || 0;
     // Thay đổi nút từ "Add" thành "Update"
     document.getElementById("btn-submit").innerText = "Update";
@@ -376,7 +378,7 @@ function displayPaginatedProducts() {
             <td><img src="${product.image}" width="50"></td>
             <td>${product.ram}</td>
             <td>${product.storage}</td>
-            <td>${product.price}đ</td>
+            <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td> 
             <td class="details-action">
                 <button onclick="editProduct(${start + index})"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button onclick="confirmDeleteProduct(${start + index})"><i class="fa-solid fa-trash"></i></button>
