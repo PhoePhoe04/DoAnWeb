@@ -54,3 +54,27 @@
  #inputBankCard label, fieldset label{
   display: inline-block;
  }
+ #readOrderHistory{
+  color: white;
+  background-color: darkcyan;
+  padding: 8px;
+  border-radius: 20px;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+ }
+ #orderHistory{
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 60%;
+  font-size: 3rem;
+ }
+ #orderHistory th
+ {
+  color: orangered;
+ }
+ #orderHistory th, #orderHistory td{
+  border: 1px solid black;
+  text-align: center;
+ }

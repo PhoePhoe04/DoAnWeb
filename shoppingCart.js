@@ -1,6 +1,7 @@
 var totalPrice = 0 ;
 orders = [];
 user = {};
+const boughtProductList = [];
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
   const product = productManager.productList.find(
@@ -177,42 +178,95 @@ handleTransferPayment = (event) => {
     const table = document.querySelector("#cart");
     getUserBoughtPhones(table);
     document.querySelector("#khung_dat_hang").style.display = "none";
-    document.querySelector("#cart").clear();
+    const cartTable = document.querySelector("#cart");
+    while (cartTable.rows.length > 1) {
+      cartTable.deleteRow(1);
+    }
     document.querySelector("#non_empty").style.display = "none";
     document.querySelector("#empty").style.display = "block";
     alert("Đơn hàng của bạn đã được gửi lên Admin");
+    document.querySelector("#shopping_cart_page").style.overflow = "auto";
+    createOrderHistoryButton();
   };
 }
-
+createNewRowOH = (sp, data) => {
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `<td>
+    <img src="${sp.img}" alt="${sp.id}" width="80" height="80"/>
+    <div>${sp.name}</div>
+      <div class="detailPhone">
+        <div id="storage">${sp.storage}</div>
+        <div id="ram">${sp.ram}</div>
+      </div>
+  </td>
+  <td>${sp.quantity}</td>
+  <td>${sp.totalPrice}</td>`;
+  data.appendChild(newRow);
+};
+createOrderHistoryButton = () => {
+  const emptyContainer = document.querySelector("#empty");
+  const button = document.querySelector("#readOrderHistory");
+  button.addEventListener("click", () => {
+    document.querySelector("#readOrderHistory").style.display = "none";
+    document.querySelector("#empty img").style.display = "none";
+    document.querySelector("#empty h1").style.display = "none";
+    document.querySelectorAll("#empty p").forEach(div => {
+      div.style.display = "none";
+    })
+    document.querySelector("#return_main_page").style.display = "none";
+    const orderHistory = document.createElement("table");
+    orderHistory.id = "orderHistory";
+    orderHistory.innerHTML = `<tr>
+      <th>Thông tin điện thoại</th>
+      <th>Số lượng</th>
+      <th>Giá tiền</th>
+    </tr>`;
+    boughtProductList.forEach(bought => {
+      createNewRowOH(bought, orderHistory);
+    });
+    emptyContainer.appendChild(orderHistory);
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Đóng";
+    closeButton.addEventListener("click", () => {
+      orderHistory.remove();
+      closeButton.remove();
+      document.querySelector("#empty img").style.display = "block";
+      document.querySelector("#empty h1").style.display = "block";
+      document.querySelectorAll("#empty p").forEach(div => {
+        div.style.display = "block";
+      })
+      document.querySelector("#return_main_page").style.display = "block";
+      document.querySelector("#readOrderHistory").style.display = "block";
+    });
+    emptyContainer.appendChild(closeButton);
+  });
+  emptyContainer.appendChild(button);
+};
 getUserBoughtPhones = (table) => {
-  const boughProductList = [];
   const rows = table.querySelectorAll("tr"); // Select all rows in the table
 
   rows.forEach((row, index) => {
     if (index === 0) return; // Skip the header row
     const cells = row.querySelectorAll("td");
-    const boughProduct = {};
-
     const imgElement = cells[0].querySelector("div > img");
     const nameElement = cells[0].querySelector("div > div");
     const storageElement = cells[0].querySelector("div > .detailPhone > #storage");
     const ramElement = cells[0].querySelector("div > .detailPhone > #ram");
-    boughProduct.img = imgElement ? imgElement.src : "";
-    boughProduct.name = nameElement ? nameElement.textContent : "";
-    boughProduct.storage = storageElement ? storageElement.textContent : "";
-    boughProduct.ram = ramElement ? ramElement.textContent : "";
+    const boughtProduct = {
+      img: imgElement ? imgElement.src : "",
+      id: imgElement ? imgElement.alt : "",
+      name: nameElement ? nameElement.textContent : "",
+      storage: storageElement ? storageElement.textContent : "",
+      ram: ramElement ? ramElement.textContent : "",
+      quantity: cells[2].querySelector(".control_quantity > .quantity") ? cells[2].querySelector(".control_quantity > .quantity").textContent : "0",
+      totalPrice: cells[3].textContent
+    };
+    boughtProductList.push(boughtProduct);
 
-    const quantityElement = cells[2].querySelector(".control_quantity > .quantity");
-    boughProduct.productQuantity = quantityElement ? quantityElement.textContent : "0";
-
-    boughProduct.totalPrice = cells[3].textContent;
-    boughProductList.push(boughProduct);
-  });
-
-  user.boughtProducts = boughProductList;
+  user.boughtProducts = boughtProductList;
   orders.push(user);
   localStorage.setItem("orders", JSON.stringify(orders));
-};
+});}
 document.querySelector("#dat_hang").addEventListener("click", () => {
   document.querySelector("#khung_dat_hang").style.display = "block";
   const shoppingCartPage = document.querySelector("#shopping_cart_page");
