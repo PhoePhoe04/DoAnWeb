@@ -78,7 +78,7 @@ document.querySelector(".register .btn").addEventListener("click", function (eve
     const newCustomer = {
         username,
         email,
-        password, // Có thể mã hóa mật khẩu nếu cần
+        password,
         address,
         phone,
         locked: false,

@@ -564,6 +564,39 @@ document.addEventListener('DOMContentLoaded', function() {
     localStorage.setItem('products', JSON.stringify(products));
 
     let customers = [
-
+        {
+            username: "Bạch Tướng",
+            email: "lac@gmail.com",
+            password: "123456",
+            address: "Quận 10,TP.HCM",
+            phone: "0912345678",
+        }
     ];
+    localStorage.setItem('customers', JSON.stringify(customers));
+
+    let orders = [
+        {
+            id: 1,
+            user: "Nguyễn Văn A",
+            date: "2024-11-23",
+            phone: "0123456789",
+            address: "Hà Nội, Việt Nam"
+        },
+        {
+            id: 2,
+            user: "Trần Thị B",
+            date: "2024-11-22",
+            phone: "0987654321",
+            address: "Hồ Chí Minh, Việt Nam"
+        },
+        {
+            id: 3,
+            user: "Lê Minh C",
+            date: "2024-11-21",
+            phone: "0912345678",
+            address: "Đà Nẵng, Việt Nam"
+        }
+    ];
+    
+    localStorage.setItem('orderbill', JSON.stringify(orders));
 });
