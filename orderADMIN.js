@@ -1,49 +1,27 @@
-// Lấy sản phẩm từ LocalStorage
-function getOrdersFromLocalStorage() {
-    try {
-        const orders = localStorage.getItem("orders");
-        return orders ? JSON.parse(orders) : [];
-    } catch (error) {
-        console.error("Lỗi khi lấy đơn hàng từ LocalStorage", error);
-        return [];
-    }
-}
-
-// Lưu sản phẩm vào LocalStorage
-function saveOrdersToLocalStorage(orders) {
-    try {
-        localStorage.setItem("orders", JSON.stringify(orders));
-    } catch (error) {
-        console.error("Lỗi khi lưu đơn hàng vào LocalStorage", error);
-    }
-}
 function displayOrder() {
     let orderTableBody = document.getElementById("orderTableBody");
     orderTableBody.innerHTML = "";
-    let orders = getOrdersFromLocalStorage();
+    let orders = JSON.parse(localStorage.getItem("orderbill")) || [];
 
-    orders.forEach((orders, index) => {
+    orders.forEach((order, index) => {
         let newRow = document.createElement("tr");
         newRow.innerHTML = `
-            <td>${orders.id}</td>
-            <td>${orders.user}</td>
-            <td>${orders.date}</td>
-            <td>${orders.phone}</td>
-            <td>${orders.address}</td>
+            <td>${order.id}</td>
+            <td>${order.user}</td>
+            <td>${order.date}</td>
+            <td>${order.phone}</td>
+            <td>${order.address}</td>
             <td class="details-action">
-                <button onclick="checkBill(${index})"><i class="fa-solid fa-x"></i></i></button>
+                <button onclick="checkBill(${index})">
+                    <i class="fa-solid fa-x"></i>
+                </button>
             </td>
-            <td style="width:100px; float:right; text-align:right;">
-                <a class="lnkSua lnkChiTiet" name="btnChiTiet${index}" id="btnChiTiet${index}" 
-                   data-id="${index}" data-trangthai="0" title="Xem chi tiết" href="#" 
-                   onclick="handleDetailClick(event, ${index})">
-                   Chi tiết
-                </a>
-            </td>
+            <td></td>
         `;
-        orderTableBody.appendChild(newRow);  // Thêm dòng mới vào bảng
+        orderTableBody.appendChild(newRow);
     });
 }
+
 function checkBill(index) {
     // Hiển thị thông báo duyệt đơn
     alert("Duyệt đơn thành công!");
@@ -57,8 +35,8 @@ function checkBill(index) {
             // Kiểm tra và đổi biểu tượng
             if (icon.classList.contains("fa-x")) {
                 icon.classList.remove("fa-x");
-                icon.classList.add("fa-check"); // Đổi sang biểu tượng dấu X
-            } else {
+                icon.classList.add("fa-check"); // Đổi sang biểu tượng dấu check
+            } else if (icon.classList.contains("fa-check")) {
                 icon.classList.remove("fa-check");
                 icon.classList.add("fa-x"); // Đổi lại nếu cần
             }
