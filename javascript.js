@@ -184,7 +184,7 @@ class ProductManager {
       <div class="productPrice">${product.price.toLocaleString("vi-VN")} VNĐ</div>
       <div class="btnProduct">
         <button class="viewDetailBtn">Xem chi tiết</button>
-        <button>Mua ngay</button>
+        <button class="muaNgay">Mua ngay</button>
       </div>
       `;
   }
