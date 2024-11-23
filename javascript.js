@@ -149,7 +149,7 @@ class ProductManager {
   }
 
   saveToLocalStorage() {
-    localStorage.setItem("productList", JSON.stringify(this.productList));
+    localStorage.setItem("products", JSON.stringify(this.productList));
     console.log("Danh sách sản phẩm đã được lưu vào localStorage.");
   }
 
