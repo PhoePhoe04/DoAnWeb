@@ -2,13 +2,14 @@ var totalPrice = 0 ;
 orders = [];
 user = {};
 const boughtProductList = [];
+/* Hàm tạo dòng mới trong table giỏ hàng */
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
+  //Tìm sản phẩm trong giỏ hàng
   const filteredProducts = productManager.productList.filter(
     (p) => p.name === productName
   );
   const product = filteredProducts.length > 0 ? filteredProducts[0] : null;
-
   if (product) {
     const table = document.querySelector("#cart");
     const newRow = table.insertRow();
@@ -37,6 +38,7 @@ function getInforProduct(productDiv, a) {
     user.totalPrice = totalPrice;
   }
 }
+//Xoá dòng trong table của giỏ hàng và cập nhập lại tổng số tiền
 document.addEventListener("click", function (event) {
   if (event.target.matches(".deleteRow")) {
     const row = event.target.closest("tr");
@@ -57,6 +59,7 @@ document.addEventListener("click", function (event) {
     row.remove();
   }
 });
+/* Tăng giảm số lượng sản phẩm trong giỏ hàng và cập nhật lại tổng số tiền */
 document.addEventListener("click", function (event) {
   if (event.target.matches(".control_quantity button")) {
     const isIncrement = event.target.textContent === "+";
@@ -93,18 +96,19 @@ document.addEventListener("click", function (event) {
     user.totalPrice = totalPrice;
   }
 });
-document.querySelectorAll(".muaNgay").forEach(addToCart => {
-  addToCart.addEventListener("click", (event) => {
-    if(sessionStorage.getItem("loggedInUser") == null)
-      {
-        alert("Bạn phải đăng nhập vô Website mới được mua hàng");
-      }else{
-        const productDiv = event.target.closest(".product");
-        getInforProduct(productDiv, ".detailName");
-        alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
-        document.querySelector("#totalCost").textContent = totalPrice;
-      }
-  });
+//Nhấn nút mua ngay để bỏ sản phẩm vào giỏ hàng
+// Vời điều kiện đã đăng nhập
+document.addEventListener("click", function (event) {
+  if (event.target.matches(".muaNgay")) {
+    if (sessionStorage.getItem("loggedInUser") == null) {
+      alert("Bạn phải đăng nhập vô Website mới được mua hàng");
+    } else {
+      const productDiv = event.target.closest(".product");
+      getInforProduct(productDiv, ".productName");
+      alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
+      document.querySelector("#totalCost").textContent = totalPrice;
+    }
+  }
 });
 
 returnToMainPage = () => {
@@ -115,16 +119,20 @@ returnToMainPage = () => {
   });
   document.querySelector("#iphone-page").style.display = "block";
 };
+//Trờ về giao diện chính 
 document.querySelectorAll("#return_main_page").forEach((button) => {
   button.onclick = returnToMainPage;
 });
+/* Nhấn nút giỏ hàng */
 document.querySelector(".cart").addEventListener("click", function () {
+  document.querySelector(".container").style.display = "none";
   document.querySelector(".container.slider-banner").style.display = "none";
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "none";
   });
   document.querySelector("#iphone-page").style.display = "none";
   document.querySelector("#shopping_cart_page").style.display = "block";
+  //điều kiện để xác định giỏ hàng rỗng và có sản phẩm
   if (document.querySelector("#cart").rows.length > 1) {
     document.querySelector("#empty").style.display = "none";
     document.querySelector("#non_empty").style.display = "block";
@@ -133,7 +141,8 @@ document.querySelector(".cart").addEventListener("click", function () {
     document.querySelector("#shopping_cart_page").style.overflow = "hidden";
   }
 });
-handlePayment = (dataUser) => {
+// chuyển thông tin user trong local storage sang from dat hang
+xuLyFromdathang = (dataUser) => {
   if (dataUser) {
     var khachHang = JSON.parse(dataUser);
     document.querySelector("#frmdathang #customerName").value = khachHang.username;
@@ -144,6 +153,7 @@ handlePayment = (dataUser) => {
     document.querySelector("#cusPhoneNumber").readOnly = true;
   }
 };
+//xử lý sự kiện khi tick checkbox trong thanh toán
 changeCheckbox = () => {
   if(document.querySelector("#card").checked)
   {
@@ -159,12 +169,13 @@ changeCheckbox = () => {
       document.querySelector("#inputBankCard").style.display = "none";     
     }
 };
-handleTransferPayment = (event) => {
-  event.preventDefault();
+// xử lỹ sự kiện khi nhấn nút phương thức thanh toán
+handleTransferPayment = () => {
   const userName = document.querySelector("#customerName");
   const userAddress = document.querySelector("#customerAddress");
   const userPhone = document.querySelector("#cusPhoneNumber");
   const day = new Date();
+  //lưu toàn bộ thông tin cần thiết vào user
   user.name = userName.value;
   user.address = userAddress.value;
   user.phone = userPhone.value;
@@ -181,7 +192,7 @@ handleTransferPayment = (event) => {
     document.querySelector("#khung_dat_hang").style.display = "none";
     const cartTable = document.querySelector("#cart");
     while (cartTable.rows.length > 1) {
-      cartTable.deleteRow(1);
+      cartTable.deleteRow(1);// xoá toàn bộ dữ liệu trong bảng giỏ hàng
     }
     document.querySelector("#non_empty").style.display = "none";
     document.querySelector("#empty").style.display = "block";
@@ -192,6 +203,7 @@ handleTransferPayment = (event) => {
     createOrderHistoryButton();
   };
 }
+//tạo dòng mới trong bảng Lịch sử mua hàng
 createNewRowOH = (sp, data) => {
   const newRow = document.createElement("tr");
   newRow.innerHTML = `<td>
@@ -206,9 +218,11 @@ createNewRowOH = (sp, data) => {
   <td>${sp.totalPrice}</td>`;
   data.appendChild(newRow);
 };
+//tạo lịch sử đơn hàng
 createOrderHistoryButton = () => {
   const emptyContainer = document.querySelector("#empty");
   const button = document.querySelector("#readOrderHistory");
+  //Khi người dùng nhấn xem lịch sử mua hàng
   button.addEventListener("click", () => {
     document.querySelector("#readOrderHistory").style.display = "none";
     document.querySelector("#empty img").style.display = "none";
@@ -249,8 +263,9 @@ createOrderHistoryButton = () => {
   });
   emptyContainer.appendChild(button);
 };
+//lấy toàn bộ dữ liệu điện thoại đã mua của khách hàng lưu vào local storage
 getUserBoughtPhones = (table) => {
-  const rows = table.querySelectorAll("tr"); // Select all rows in the table
+  const rows = table.querySelectorAll("tr"); 
 
   rows.forEach((row, index) => {
     if (index === 0) return; // Skip the header row
@@ -282,19 +297,21 @@ getUserBoughtPhones = (table) => {
   orders.push(user);
   localStorage.setItem("orders", JSON.stringify(orders));
 });}
+//xử lý sự kiện sau khi người dùng nhấn đặt hàng
 document.querySelector("#dat_hang").addEventListener("click", () => {
   document.querySelector("#khung_dat_hang").style.display = "block";
   const shoppingCartPage = document.querySelector("#shopping_cart_page");
   shoppingCartPage.scrollTo(shoppingCartPage.scrollHeight,0);
   document.querySelector("#shopping_cart_page").style.overflow = "hidden";
   const dataUser = sessionStorage.getItem("loggedInUser");
-  handlePayment(dataUser);
-  document.querySelector("#transferPayment").addEventListener("click", handleTransferPayment(event));
+  xuLyFromdathang(dataUser);
+  document.querySelector("#transferPayment").addEventListener("click", handleTransferPayment);
   document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
     document.querySelector("#khung_dat_hang").style.display = "none";
     document.querySelector("#shopping_cart_page").style.overflow = "auto";
   })
 });
+//Nếu khách hàng xoá hết toàn bộ dòng trong giỏ hàng thì cho sang giao diện empty
 const cartObserver = new MutationObserver(function (mutationsList, observer) {
   if (document.querySelector("#cart").rows.length == 1) {
     document.querySelector("#non_empty").style.display = "none";
