@@ -339,7 +339,7 @@ td button:nth-child(2){
 table{
     width: 100%;
     table-layout: fixed;
-    min-width: 900px;
+    min-width: 1532px;
     border-collapse: collapse;
 }
 thead th{

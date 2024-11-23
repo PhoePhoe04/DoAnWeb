@@ -1,8 +1,18 @@
+function handleDetailClick(event, index) {
+    event.preventDefault(); // Ngừng hành động mặc định của link
+    const orderDetailsDiv = document.getElementById('orderDetails' + index);
+
+    // Toggle hiển thị chi tiết
+    if (orderDetailsDiv) {
+        orderDetailsDiv.style.display = orderDetailsDiv.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
 function displayOrder() {
     let orderTableBody = document.getElementById("orderTableBody");
     orderTableBody.innerHTML = "";
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
-    console.log(orders); // Kiểm tra dữ liệu
+
     if (orders.length === 0) {
         orderTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Không có đơn hàng nào</td></tr>`;
         return;
@@ -29,6 +39,38 @@ function displayOrder() {
             </td>
         `;
         orderTableBody.appendChild(newRow);
+        // Tạo phần chi tiết đơn hàng (ẩn theo mặc định)
+        const orderDetailsDiv = document.createElement('div');
+        orderDetailsDiv.id = 'orderDetails' + index;
+        orderDetailsDiv.style.display = 'none';  // Ẩn theo mặc định
+
+        // Hiển thị chi tiết sản phẩm trong đơn hàng
+        const orderDetailsContent = document.createElement('div');
+        orderDetailsContent.innerHTML = `
+            <table class="order-detail-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số lượng</th>
+                        <th>Giá</th>
+                        <th>Tổng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${order.items.map(item => `
+                        <tr>
+                            <td>${item.productName}</td>
+                            <td>${item.quantity}</td>
+                            <td>${item.price}đ</td>
+                            <td>${item.quantity * item.price}đ</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+        `;
+        orderDetailsDiv.appendChild(orderDetailsContent);
+        // Thêm phần chi tiết vào bảng
+        orderTableBody.appendChild(orderDetailsDiv);
     });
 }
 
