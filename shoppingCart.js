@@ -206,6 +206,7 @@ handlesangUIThanhToan = () => {
 //tạo dòng mới trong bảng Lịch sử mua hàng
 createNewRowOH = (sp, data) => {
   const newRow = document.createElement("tr");
+  
   newRow.innerHTML = `<td>
     <img src="${sp.img}" alt="${sp.id}" width="80" height="80"/>
     <div>${sp.name}</div>
