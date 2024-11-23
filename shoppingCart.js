@@ -2,14 +2,16 @@ var totalPrice = 0 ;
 orders = [];
 user = {};
 const boughtProductList = [];
+const pattern = /[^\d]/g; // Không phải là số
+const pattern1 =/dung lượng: /i// dung lượng: chữ hoa và chữ thường
+const pattern2 = /ram: /i//ram: chữ hoa và chữ thường
 /* Hàm tạo dòng mới trong table giỏ hàng */
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
   //Tìm sản phẩm trong giỏ hàng
-  const filteredProducts = productManager.productList.filter(
+  const product = productManager.productList.find(
     (p) => p.name === productName
   );
-  const product = filteredProducts.length > 0 ? filteredProducts[0] : null;
   if (product) {
     const table = document.querySelector("#cart");
     const newRow = table.insertRow();
@@ -22,17 +24,18 @@ function getInforProduct(productDiv, a) {
       <img src="${product.img}" alt="${product.id}" width="80" height="80"/>
       <div>${product.name}</div>
       <div class="detailPhone">
-        <div id="storage">${product.storage}</div>
-        <div id="ram">${product.ram}</div>
+        <div id="storage">Dung Lượng: ${product.storage}</div>
+        <div id="ram">Ram: ${product.ram}</div>
       </div>
     </div>`
-    cellPrice.textContent = product.price;
+    vnMoney = product.price.toLocaleString("vi-VN") + " VNĐ";
+    cellPrice.textContent = vnMoney;
     cellQuantity.innerHTML = `<div class="control_quantity">
       <button>-</button>
       <div class="quantity">1</div>
       <button>+</button>
     </div>`
-    cellTotalPrice.textContent = product.price;
+    cellTotalPrice.textContent = vnMoney;
     cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`
     totalPrice += parseInt(product.price);
     user.totalPrice = totalPrice;
@@ -52,7 +55,8 @@ document.addEventListener("click", function (event) {
       const quantity = parseInt(row.cells[2].querySelector(".quantity").textContent);
       const price = parseInt(product.price);
       totalPrice -= price * quantity;
-      document.querySelector("#totalCost").textContent = totalPrice;
+      vnMoney = totalPrice.toLocaleString("vi-VN") + " VNĐ";
+      document.querySelector("#totalCost").textContent = vnMoney;
       user.totalPrice = totalPrice;
     }
 
@@ -66,7 +70,11 @@ document.addEventListener("click", function (event) {
     const row = event.target.closest("tr");
     const quantityDiv = row.querySelector(".quantity");
     let quantity = parseInt(quantityDiv.textContent);
-    const price = parseInt(row.cells[1].textContent);
+    vnMoney = row.cells[1].textContent;
+    number = vnMoney.replace(pattern,"");
+    console.log(number);
+    
+    const price = parseInt(number);
     const productName = row.cells[0].querySelector("div > div").textContent;
     const product = productManager.productList.find((p) => p.name === productName);
 
@@ -82,17 +90,16 @@ document.addEventListener("click", function (event) {
 
     quantityDiv.textContent = quantity;
     user.quanity = quantity;
-    row.cells[3].textContent = price * quantity;
+    row.cells[3].textContent = (price * quantity).toLocaleString("vi-VN")+" VNĐ";
 
     totalPrice = Array.from(document.querySelectorAll("#cart tr"))
       .slice(1)
       .reduce((sum, row) => {
         const rowQuantity = parseInt(row.querySelector(".quantity").textContent);
-        const rowPrice = parseInt(row.cells[1].textContent);
-        return sum + rowQuantity * rowPrice;
+        return sum + rowQuantity * price;
       }, 0);
-
-    document.querySelector("#totalCost").textContent = totalPrice;
+    vnMoney = totalPrice.toLocaleString("vi-VN") + " VNĐ";
+    document.querySelector("#totalCost").textContent = vnMoney;
     user.totalPrice = totalPrice;
   }
 });
@@ -106,7 +113,8 @@ document.addEventListener("click", function (event) {
       const productDiv = event.target.closest(".product");
       getInforProduct(productDiv, ".productName");
       alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
-      document.querySelector("#totalCost").textContent = totalPrice;
+      vnMoney = totalPrice.toLocaleString("vi-VN") + " VNĐ";
+      document.querySelector("#totalCost").textContent = vnMoney;
     }
   }
 });
@@ -117,7 +125,6 @@ returnToMainPage = () => {
   document.querySelectorAll(".container.suggestion").forEach((div) => {
     div.style.display = "block";
   });
-  document.querySelector("#iphone-page").style.display = "block";
 };
 //Trờ về giao diện chính 
 document.querySelectorAll("#return_main_page").forEach((button) => {
@@ -125,20 +132,11 @@ document.querySelectorAll("#return_main_page").forEach((button) => {
 });
 /* Nhấn nút giỏ hàng */
 document.querySelector(".cart").addEventListener("click", function () {
-  document.querySelector(".container").style.display = "none";
-  document.querySelector(".container.slider-banner").style.display = "none";
-  document.querySelectorAll(".container.suggestion").forEach((div) => {
-    div.style.display = "none";
-  });
-  document.querySelector("#iphone-page").style.display = "none";
   document.querySelector("#shopping_cart_page").style.display = "block";
   //điều kiện để xác định giỏ hàng rỗng và có sản phẩm
   if (document.querySelector("#cart").rows.length > 1) {
     document.querySelector("#empty").style.display = "none";
     document.querySelector("#non_empty").style.display = "block";
-    document.querySelector("#shopping_cart_page").style.overflow = "auto";
-  }else{
-    document.querySelector("#shopping_cart_page").style.overflow = "hidden";
   }
 });
 // chuyển thông tin user trong local storage sang from dat hang
@@ -170,7 +168,7 @@ changeCheckbox = () => {
     }
 };
 // xử lỹ sự kiện khi nhấn nút phương thức thanh toán
-handleTransferPayment = () => {
+handlesangUIThanhToan = () => {
   const userName = document.querySelector("#customerName");
   const userAddress = document.querySelector("#customerAddress");
   const userPhone = document.querySelector("#cusPhoneNumber");
@@ -182,7 +180,7 @@ handleTransferPayment = () => {
   user.boughtDate = day;
   document.querySelector("#frmdathang h1").style.display = "none";
   document.querySelector("#frmdathang div").style.display ="none";
-  document.querySelector("#transferPayment").style.display = "none";
+  document.querySelector("#sangUIThanhToan").style.display = "none";
   document.querySelector("#frmdathang fieldset").style.display = "block";
   document.querySelector("#card").addEventListener("change",changeCheckbox );
   document.querySelector("#frmdathang").onsubmit = (event) => {
@@ -199,7 +197,9 @@ handleTransferPayment = () => {
     alert("Đơn hàng của bạn đã được gửi lên Admin");
     document.querySelector("#empty h1").textContent = "Chào mừng bạn trở lại cửa hàng của chúng tui";
     document.querySelector("#readOrderHistory").style.display = "block";
-    document.querySelector("#shopping_cart_page").style.overflow = "auto";
+    document.querySelector("#empty h1").textContent = "Chào Mừng Bạn Trờ Lại Cửa Hàng Chúng Tôi"
+    document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
+    document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
     createOrderHistoryButton();
   };
 }
@@ -210,8 +210,8 @@ createNewRowOH = (sp, data) => {
     <img src="${sp.img}" alt="${sp.id}" width="80" height="80"/>
     <div>${sp.name}</div>
       <div class="detailPhone">
-        <div id="storage">${sp.storage}</div>
-        <div id="ram">${sp.ram}</div>
+        <div id="storage">Dung Lượng: ${sp.storage}</div>
+        <div id="ram">Ram: ${sp.ram}</div>
       </div>
   </td>
   <td>${sp.quantity}</td>
@@ -252,12 +252,14 @@ createOrderHistoryButton = () => {
       document.querySelectorAll("#empty p").forEach(div => {
         div.style.display = "block";
       })
+      document.querySelector("#xacNhanThanhToan").remove();
       document.querySelector("#return_main_page").style.display = "block";
       document.querySelector("#readOrderHistory").style.display = "block";
     });
     emptyContainer.appendChild(closeButton);
     const infor = document.createElement("div");
-    infor.textContent = `${user.name} đã thanh toán ${user.totalPrice}`;
+    infor.textContent = `${user.name} đã thanh toán ${user.totalPrice.toLocaleString("vi-VN")} VNĐ`;
+    infor.id = "xacNhanThanhToan";
     infor.style.fontSize = "2rem";
     emptyContainer.appendChild(infor);
   });
@@ -278,37 +280,29 @@ getUserBoughtPhones = (table) => {
       img: imgElement ? imgElement.src : "",
       id: imgElement ? imgElement.alt : "",
       name: nameElement ? nameElement.textContent : "",
-      storage: storageElement ? storageElement.textContent : "",
-      ram: ramElement ? ramElement.textContent : "",
+      storage: storageElement ? storageElement.textContent.replace(pattern1, "") : "",
+      ram: ramElement ? ramElement.textContent.replace(pattern2,"") : "",
       quantity: cells[2].querySelector(".control_quantity > .quantity") ? cells[2].querySelector(".control_quantity > .quantity").textContent : "0",
       totalPrice: cells[3].textContent
     };
     boughtProductList.push(boughtProduct);
 
   user.boughtProducts = boughtProductList;
-  // productManager.forEach(product => {
-  //   if(product.name === boughtProduct.name)
-  //   {
-  //     var a = parseInt(product.quanity);
-  //     var b = parseInt(boughtProduct.quantity);
-  //     product.quanity = (a-b);
-  //   }
-  // });
   orders.push(user);
   localStorage.setItem("orders", JSON.stringify(orders));
 });}
 //xử lý sự kiện sau khi người dùng nhấn đặt hàng
 document.querySelector("#dat_hang").addEventListener("click", () => {
   document.querySelector("#khung_dat_hang").style.display = "block";
-  const shoppingCartPage = document.querySelector("#shopping_cart_page");
-  shoppingCartPage.scrollTo(shoppingCartPage.scrollHeight,0);
-  document.querySelector("#shopping_cart_page").style.overflow = "hidden";
   const dataUser = sessionStorage.getItem("loggedInUser");
   xuLyFromdathang(dataUser);
-  document.querySelector("#transferPayment").addEventListener("click", handleTransferPayment);
+  document.querySelector("#sangUIThanhToan").addEventListener("click",(event) => {
+    event.preventDefault();
+    handlesangUIThanhToan();
+  });
+  //Nhấn nút X
   document.querySelector("#khung_dat_hang img").addEventListener("click", () => {
     document.querySelector("#khung_dat_hang").style.display = "none";
-    document.querySelector("#shopping_cart_page").style.overflow = "auto";
   })
 });
 //Nếu khách hàng xoá hết toàn bộ dòng trong giỏ hàng thì cho sang giao diện empty

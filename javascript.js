@@ -421,17 +421,18 @@ function getInforProduct(productDiv, a) {
       <img src="${product.img}" alt="${product.id}" width="80" height="80"/>
       <div>${product.name}</div>
       <div class="detailPhone">
-        <div id="storage">${product.storage}</div>
-        <div id="ram">${product.ram}</div>
+        <div id="storage">Dung Lượng: ${product.storage}</div>
+        <div id="ram">Ram: ${product.ram}</div>
       </div>
     </div>`;
-    cellPrice.textContent = product.price;
+    vnMoney = product.price.toLocaleString("vi-VN") + "VNĐ";
+    cellPrice.textContent = vnMoney;
     cellQuantity.innerHTML = `<div class="control_quantity">
       <button>-</button>
       <div class="quantity">1</div>
       <button>+</button>
     </div>`;
-    cellTotalPrice.textContent = product.price;
+    cellTotalPrice.textContent = vnMoney;
     cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`;
     totalPrice += product.price;
     user.totalPrice = totalPrice;
@@ -490,7 +491,8 @@ function createPopup(product) {
     } else {
       getInforProduct(document.querySelector(".detail-product"), ".detailName");
       alert("Bạn đã thêm sản phẩm vào giỏ hàng thành công");
-      document.querySelector("#totalCost").textContent = totalPrice;
+      vnMoney = totalPrice.toLocaleString("vi-VN") + " VNĐ";
+      document.querySelector("#totalCost").textContent = vnMoney;
     }
   });
 }
