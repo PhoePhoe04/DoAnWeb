@@ -598,5 +598,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
     
-    localStorage.setItem('orderbill', JSON.stringify(orders));
+    localStorage.setItem('orders', JSON.stringify(orders));
 });

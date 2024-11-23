@@ -408,4 +408,6 @@ document.getElementById("nextPage").onclick = function() {
 window.onload = function() {
     displayCustomers();         // Hiển thị danh sách khách hàng
     displayPaginatedProducts(); // Hiển thị sản phẩm với phân trang
+    displayOrder();
+    displayStatics();
 };
