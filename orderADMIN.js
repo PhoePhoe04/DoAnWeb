@@ -19,10 +19,12 @@ function displayOrder() {
     }
     orders.forEach((order, index) => {
         let newRow = document.createElement("tr");
+        let date = new Date(order.boughtDate);
+        let formattedDate = date.toLocaleDateString('vi-VN');
         newRow.innerHTML = `
             <td>${order.id}</td>
-            <td>${order.user}</td>
-            <td>${order.date}</td>
+            <td>${order.name}</td>
+            <td>${formattedDate}</td>
             <td>${order.phone}</td>
             <td>${order.address}</td>
             <td class="details-action">
@@ -57,14 +59,19 @@ function displayOrder() {
                     </tr>
                 </thead>
                 <tbody>
-                    ${order.items.map(item => `
+                    ${order.boughtProducts ? order.boughtProducts.map(item =>{ 
+                        var price = item.totalPrice; 
+                        var money = price.replace(/^\d/, "");
+                        var singlePrice = parseInt(money)/parseInt(item.quantity);
+                        let singlePriceFormat = singlePrice.toLocaleString("vi-VN");
+                        return `
                         <tr>
-                            <td>${item.productName}</td>
+                            <td>${item.name}</td>
                             <td>${item.quantity}</td>
-                            <td>${item.price}đ</td>
-                            <td>${item.quantity * item.price}đ</td>
+                            <td>${singlePriceFormat}</td>
+                            <td>${price}</td>
                         </tr>
-                    `).join('')}
+                    `}).join('') : ''}
                 </tbody>
             </table>
         `;

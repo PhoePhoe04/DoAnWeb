@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     localStorage.setItem('customers', JSON.stringify(customers));
 
-    let orders = [
+/*     let orders = [
         {
             id: "ORD001",
             user: "Nguyễn Văn A",
@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         }
     ];
-    localStorage.setItem('orders', JSON.stringify(orders));
+    localStorage.setItem('orders', JSON.stringify(orders)); */
 
     let statics = [
         {

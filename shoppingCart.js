@@ -1,6 +1,6 @@
 var totalPrice = 0 ;
-orders = [];
-let user = {};
+var orders = [];
+user = {};
 const boughtProductList = [];
 const pattern = /[^\d]/g; // Không phải là số
 const pattern1 =/dung lượng: /i// dung lượng: chữ hoa và chữ thường
@@ -309,7 +309,7 @@ document.querySelector("#dat_hang").addEventListener("click", () => {
   })
 });
 //Nếu khách hàng xoá hết toàn bộ dòng trong giỏ hàng thì cho sang giao diện empty
-const cartObserver = new MutationObserver(function (mutationsList, observer) {
+const cartObserver = new MutationObserver(function () {
   if (document.querySelector("#cart").rows.length == 1) {
     document.querySelector("#non_empty").style.display = "none";
     document.querySelector("#empty").style.display = "flex";
