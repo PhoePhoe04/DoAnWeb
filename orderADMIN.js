@@ -44,7 +44,6 @@ function displayOrder() {
         // Tạo phần chi tiết đơn hàng (ẩn theo mặc định)
         const orderDetailsDiv = document.createElement('div');
         orderDetailsDiv.id = 'orderDetails' + index;
-        orderDetailsDiv.style.display = 'none';  // Ẩn theo mặc định
 
         // Hiển thị chi tiết sản phẩm trong đơn hàng
         const orderDetailsContent = document.createElement('div');
@@ -59,11 +58,13 @@ function displayOrder() {
                     </tr>
                 </thead>
                 <tbody>
-                    ${order.boughtProducts ? order.boughtProducts.map(item =>{ 
+                    ${order.boughtProducts.map(item =>{ 
                         var price = item.totalPrice; 
-                        var money = price.replace(/^\d/, "");
-                        var singlePrice = parseInt(money)/parseInt(item.quantity);
-                        let singlePriceFormat = singlePrice.toLocaleString("vi-VN");
+                        var money = price.replace(/[^\d]/g, "");
+                        number = parseInt(money);
+                        quantity = parseInt(item.quantity);
+                        singlePrice =  number / quantity;
+                        let singlePriceFormat = singlePrice.toLocaleString("vi-VN")+" VNĐ";
                         return `
                         <tr>
                             <td>${item.name}</td>
@@ -71,7 +72,7 @@ function displayOrder() {
                             <td>${singlePriceFormat}</td>
                             <td>${price}</td>
                         </tr>
-                    `}).join('') : ''}
+                    `}).join('')}
                 </tbody>
             </table>
         `;
