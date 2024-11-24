@@ -1,6 +1,6 @@
 var totalPrice = 0 ;
 orders = [];
-user = {};
+let user = {};
 const boughtProductList = [];
 const pattern = /[^\d]/g; // Không phải là số
 const pattern1 =/dung lượng: /i// dung lượng: chữ hoa và chữ thường
@@ -169,15 +169,7 @@ changeCheckbox = () => {
 };
 // xử lỹ sự kiện khi nhấn nút phương thức thanh toán
 handlesangUIThanhToan = () => {
-  const userName = document.querySelector("#customerName");
-  const userAddress = document.querySelector("#customerAddress");
-  const userPhone = document.querySelector("#cusPhoneNumber");
-  const day = new Date();
   //lưu toàn bộ thông tin cần thiết vào user
-  user.name = userName.value;
-  user.address = userAddress.value;
-  user.phone = userPhone.value;
-  user.boughtDate = day;
   document.querySelector("#frmdathang h1").style.display = "none";
   document.querySelector("#frmdathang div").style.display ="none";
   document.querySelector("#sangUIThanhToan").style.display = "none";
@@ -287,11 +279,21 @@ getUserBoughtPhones = (table) => {
       totalPrice: cells[3].textContent
     };
     boughtProductList.push(boughtProduct);
-
+  });
+  const orderId = `ORD${String(orders.length + 1).padStart(3, '0')}`;
+  const userName = document.querySelector("#customerName");
+  const userAddress = document.querySelector("#customerAddress");
+  const userPhone = document.querySelector("#cusPhoneNumber");
+  const day = new Date();
+  user.id = orderId;
+  user.name = userName.value;
+  user.address = userAddress.value;
+  user.phone = userPhone.value;
+  user.boughtDate = day;
   user.boughtProducts = boughtProductList;
   orders.push(user);
   localStorage.setItem("orders", JSON.stringify(orders));
-});}
+}
 //xử lý sự kiện sau khi người dùng nhấn đặt hàng
 document.querySelector("#dat_hang").addEventListener("click", () => {
   document.querySelector("#khung_dat_hang").style.display = "block";
