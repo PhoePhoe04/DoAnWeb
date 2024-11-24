@@ -126,7 +126,6 @@ function resetForm() {
     document.getElementById("Add-name_product").value = "";
     document.getElementById("Add-price").value = "";
     document.getElementById("add-quantity").value = "0";
-    document.getElementById("Add-detail_Product").value = ""; 
     document.getElementById("select_category").value = "";
     document.getElementById("select_ram").value = "";
     document.getElementById("select_storage").value = "";
@@ -149,203 +148,248 @@ document.getElementById("btn-exit").onclick = function() {
 };
 
 // Xử lý khi nhấn nút Create hoặc Update
-document.getElementById("btn-submit").onclick = function() {
+document.getElementById("btn-submit").onclick = function(event) {
+    event.preventDefault();
+    // Kiểm tra xem nút hiện tại là "Create" hay "Update"
     if (this.innerText === "Create") {
-        addNewProduct();
+        addNewProduct(); // Thêm sản phẩm mới
     } else if (this.innerText === "Update") {
-        updateProduct();
+        updateProduct(); // Cập nhật sản phẩm
     }
-    resetForm();
 };
 
-// Hiển thị danh sách sản phẩm
-function displayProducts() {
-    let productTableBody = document.getElementById("productTableBody");
-    productTableBody.innerHTML = "";  // Xóa nội dung cũ trong bảng
-    let products = getProductsFromLocalStorage();  // Lấy sản phẩm từ LocalStorage
-
-    products.forEach((product, index) => {
-        let newRow = document.createElement("tr");
-        newRow.innerHTML = `
-            <td>${product.name}</td>
-            <td><img src="${product.image}" width="50"></td>
-            <td>${product.ram}</td>
-            <td>${product.storage}</td>
-            <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td> 
-            <td class="details-action">
-                <button onclick="editProduct(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="confirmDeleteProduct(${index})"><i class="fa-solid fa-trash"></i></button>
-            </td>
-        `;
-        productTableBody.appendChild(newRow);  // Thêm dòng mới vào bảng
-    });
+function toggleDisplay() {
+    document.getElementById("containerTable").style.display = "none";
+    document.getElementById("recentProducts").style.display = "block";
+    resetForm();
 }
 
-function generateUniqueId() {
-    return "P" + Date.now();
+class Product {
+    constructor(id, name, category, ram, storage, price, quantity, image) {
+        this.id = id;
+        this.name = name;
+        this.category = category;
+        this.ram = ram;
+        this.storage = storage;
+        this.price = price;
+        this.quantity = quantity;
+        this.image = image;
+    }
+
 }
 
-// Thêm sản phẩm mới
+class ProductManager {
+    constructor() {
+        this.products = this.loadProductsFromLocalStorage();
+    }
+
+    // Lấy sản phẩm từ localStorage
+    loadProductsFromLocalStorage() {
+        try {
+            const storedProducts = localStorage.getItem("products");
+            return storedProducts ? JSON.parse(storedProducts) : [];
+        } catch (error) {
+            console.error("Lỗi khi lấy sản phẩm từ LocalStorage", error);
+            return [];
+        }
+    }
+
+    // Lưu sản phẩm vào localStorage
+    saveProductsToLocalStorage() {
+        try {
+            localStorage.setItem("products", JSON.stringify(this.products));
+        } catch (error) {
+            console.error("Lỗi khi lưu sản phẩm vào LocalStorage", error);
+        }
+    }
+
+    // Thêm sản phẩm mới
+    addProduct(product) {
+        this.products.push(product);
+        this.saveProductsToLocalStorage();  // Lưu vào localStorage sau khi thêm sản phẩm
+    }
+
+    // Cập nhật sản phẩm
+    updateProduct(productId, updatedProduct) {
+        const productIndex = this.products.findIndex(p => p.id === productId);
+        if (productIndex !== -1) {
+            this.products[productIndex] = updatedProduct;
+            this.saveProductsToLocalStorage();  // Lưu lại vào localStorage sau khi cập nhật
+        }
+    }
+
+    // Xóa sản phẩm
+    deleteProduct(productId) {
+        const productIndex = this.products.findIndex(p => p.id === productId);
+        if (productIndex !== -1) {
+            this.products.splice(productIndex, 1);
+            this.saveProductsToLocalStorage();  // Lưu lại vào localStorage sau khi xóa
+        }
+    }
+
+    // Lấy tất cả sản phẩm
+    getAllProducts() {
+        return this.products;
+    }
+}
+
+const productManager = new ProductManager();
+
 function addNewProduct() {
-    let productId = document.getElementById("Add-id_product").value || generateUniqueId(); // Tạo ID nếu rỗng
-    let name = document.getElementById("Add-name_product").value;
-    let category = document.getElementById("select_category").value;
-    let ram = document.getElementById("select_ram").value;
-    let storage = document.getElementById("select_storage").value;
-    let price = document.getElementById("Add-price").value;
-    let detail = document.getElementById("Add-detail_Product").value;
-    let quantity = document.getElementById("add-quantity").value;
-    let imageFile = document.getElementById("fileInput").files[0];
-    // Kiểm tra nếu thông tin không đầy đủ
-    if (!name || !category || !ram || !storage || !price || !quantity || !imageFile) {
-        alert("Vui lòng điền đầy đủ thông tin sản phẩm.");
+    const id = document.getElementById('Add-id_product').value;  // Lấy ID từ input
+    const name = document.getElementById('Add-name_product').value;
+    const category = document.getElementById('select_category').value;
+    const ram = document.getElementById('select_ram').value;
+    const storage = document.getElementById('select_storage').value;
+    const price = document.getElementById('Add-price').value;
+    const quantity = document.getElementById('add-quantity').value;
+    const imageFile = document.getElementById('fileInput').files[0];
+
+    // Kiểm tra nếu ID đã có sẵn
+    const products = productManager.getAllProducts();
+    if (products.some(product => product.id === id)) {
+        alert("ID này đã tồn tại. Vui lòng chọn ID khác.");
         return;
     }
-    // Kiểm tra xem quantity có phải là số và lớn hơn 0
-    if (isNaN(quantity) || quantity <= 0) {
-        alert("Số lượng phải là một số và lớn hơn 0.");
+
+    // Kiểm tra các trường còn lại
+    if (!name || !category || !ram || !storage || !price || !quantity || !imageFile || !id) {
+        alert("Please fill in all the fields.");
         return;
     }
-    let products = getProductsFromLocalStorage();
-    // Kiểm tra nếu ID sản phẩm đã tồn tại trong LocalStorage
-    let existingProduct = products.find(product => product.id === productId);
-    if (existingProduct) {
-        alert("Sản phẩm với ID này đã tồn tại.");
-        return;
-    }
-    let reader = new FileReader();
+
+    const reader = new FileReader();
     reader.onload = function(event) {
-        // Thêm sản phẩm vào danh sách
-        products.push({
-            id: productId,
+        const newProduct = new Product(
+            id,
             name,
             category,
             ram,
             storage,
             price,
-            detail,
             quantity,
-            image: event.target.result
-        });
-        // Lưu sản phẩm vào LocalStorage và hiển thị lại danh sách sản phẩm
-        saveProductsToLocalStorage(products);
+            event.target.result
+        );
+        
+        productManager.addProduct(newProduct);
+        alert("Tạo sản phẩm thành công");
         displayProducts();
-        // Đặt lại form sau khi thêm sản phẩm mới
-        resetForm();
-        // Chuyển đổi giữa các phần tử
-        document.getElementById("containerTable").style.display = "none";
-        document.getElementById("recentProducts").style.display = "block";
-        // Thông báo thêm sản phẩm thành công
-        alert("Thêm sản phẩm thành công!");
+        
+        // Quay lại trang recentProduct sau 2 giây
+        setTimeout(() => {
+            toggleDisplay(); 
+        }, 500);
     };
-
     reader.readAsDataURL(imageFile);
 }
-// Hàm cập nhật sản phẩm
-function updateProduct() {
-    let productId = document.getElementById("Add-id_product").value;
-    let name = document.getElementById("Add-name_product").value;
-    let category = document.getElementById("select_category").value;
-    let ram = document.getElementById("select_ram").value;
-    let storage = document.getElementById("select_storage").value;
-    let price = document.getElementById("Add-price").value;
-    let detail = document.getElementById("Add-detail_Product").value;
-    let quantity = document.getElementById("add-quantity").value;
-    let imageFile = document.getElementById("fileInput").files[0];
 
-    // Kiểm tra nếu thông tin không đầy đủ
-    if (!productId || !name || !category || !ram || !storage || !price || !quantity) {
-        alert("Vui lòng điền đầy đủ thông tin sản phẩm.");
-        return;
-    }
-
-    // Kiểm tra xem quantity có phải là số và lớn hơn 0
-    if (isNaN(quantity) || quantity <= 0) {
-        alert("Số lượng phải là một số và lớn hơn 0.");
-        return;
-    }
-
-    // Lấy tất cả sản phẩm từ LocalStorage
-    let products = getProductsFromLocalStorage();
-    
-    // Tìm sản phẩm theo productId
-    let product = products.find(p => p.id === productId);  // Dùng find để tìm sản phẩm theo id
-
+function editProduct(productId) {
+    // Lấy sản phẩm từ localStorage dựa trên id
+    const product = productManager.getAllProducts().find(p => p.id === productId);
     if (!product) {
-        alert("Không tìm thấy sản phẩm với ID này.");
+        alert("Không tìm thấy sản phẩm để chỉnh sửa.");
         return;
     }
 
-    // Cập nhật thông tin sản phẩm
-    product.name = name;
-    product.price = price;
-    product.category = category;
-    product.ram = ram;
-    product.storage = storage;
-    product.detail = detail;
-    product.quantity = quantity;
-    // Kiểm tra nếu có hình ảnh mới
-    if (imageFile) {
-        let reader = new FileReader();
-        reader.onload = function(event) {
-            product.image = event.target.result;  // Cập nhật hình ảnh
-            saveProductsToLocalStorage(products);  // Lưu lại sản phẩm
-            displayProducts();  // Hiển thị lại sản phẩm
-            resetForm();  // Reset form
-            document.getElementById("containerTable").style.display = "none";
-            document.getElementById("recentProducts").style.display = "block";
-        };
-        reader.readAsDataURL(imageFile);
-    } else {
-        // Nếu không có hình ảnh mới, chỉ cập nhật các thuộc tính khác
-        saveProductsToLocalStorage(products);
-        displayProducts();
-        resetForm();
-        document.getElementById("containerTable").style.display = "none";
-        document.getElementById("recentProducts").style.display = "block";
-    }
-}
-
-
-// Sửa thông tin sản phẩm
-function editProduct(index) {
-    let products = getProductsFromLocalStorage();
-    let product = products[index];
-    // Lưu lại index sản phẩm để khi update, biết chính xác sản phẩm nào
-    editIndex = index;
-    // Cập nhật form với thông tin sản phẩm cần chỉnh sửa
-    document.getElementById("Add-id_product").value = product.id;
-    document.getElementById("Add-id_product").readOnly = true;
-    document.getElementById("Add-name_product").value = product.name;
-    document.getElementById("Add-price").value = product.price;
-    document.getElementById("select_category").value = product.category || "";
-    document.getElementById("select_ram").value = product.ram || "";
-    document.getElementById("select_storage").value = product.storage || "";
-    document.getElementById("Add-detail_Product").value = product.detail;
-    document.getElementById("add-quantity").value = product.quantity || 0;
-    // Thay đổi nút từ "Add" thành "Update"
-    document.getElementById("btn-submit").innerText = "Update";
-    // Hiển thị form cập nhật
-    document.getElementById("recentProducts").style.display = "none";  
+    // Hiển thị form
     document.getElementById("containerTable").style.display = "block";
-}
-// Xóa sản phẩm
-function updatePagination() {
-    const products = getProductsFromLocalStorage();
-    const totalPages = Math.ceil(products.length / productsPerPage);
-    if (currentPage > totalPages) {
-        currentPage = totalPages;
-    }
-    displayPaginatedProducts();
+    document.getElementById("recentProducts").style.display = "none";
+    document.getElementById("btn-submit").innerText = "Update";  // Đổi nút thành Update
+
+    // Điền thông tin sản phẩm vào form
+    document.getElementById('Add-id_product').value = product.id;
+    document.getElementById('Add-id_product').readOnly = true;  // Không cho sửa ID
+    document.getElementById('Add-name_product').value = product.name;
+    document.getElementById('Add-price').value = product.price;
+    document.getElementById('add-quantity').value = product.quantity;
+    document.getElementById('select_category').value = product.category;
+    document.getElementById('select_ram').value = product.ram;
+    document.getElementById('select_storage').value = product.storage;
+
+    // Lưu trữ thông tin sản phẩm đang sửa để dùng trong hàm cập nhật
+    editIndex = productId;
 }
 
-function confirmDeleteProduct(index) {
-    if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này?")) {
-        let products = getProductsFromLocalStorage();
-        products.splice(index, 1);
-        saveProductsToLocalStorage(products);
-        updatePagination(); // Cập nhật phân trang sau khi xóa
+function updateProduct() {
+    const id = document.getElementById('Add-id_product').value;
+    const name = document.getElementById('Add-name_product').value;
+    const category = document.getElementById('select_category').value;
+    const ram = document.getElementById('select_ram').value;
+    const storage = document.getElementById('select_storage').value;
+    const price = document.getElementById('Add-price').value;
+    const quantity = document.getElementById('add-quantity').value;
+    const imageFile = document.getElementById('fileInput').files[0];
+
+    if (!name || !category || !ram || !storage || !price || !quantity || !imageFile) {
+        alert("Please fill in all the fields.");
+        return;
     }
+
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        const updatedProduct = new Product(
+            id,
+            name,
+            category,
+            ram,
+            storage,
+            price,
+            quantity,
+            event.target.result
+        );
+
+        // Cập nhật sản phẩm trong ProductManager
+        productManager.updateProduct(id, updatedProduct);
+
+        // Hiển thị thông báo thành công
+        alert("Cập nhật sản phẩm thành công");
+        displayProducts();
+        
+        // Quay lại trang recentProduct sau 2 giây
+        setTimeout(() => {
+            toggleDisplay();
+        }, 500);
+    };
+    reader.readAsDataURL(imageFile);
+}
+
+// Hàm xác nhận xóa sản phẩm
+function confirmDeleteProduct(productId) {
+    console.log("Xóa sản phẩm với id:", productId); // Debug
+    // Chuyển pproductId và id trong danh sách về cùng kiểu dữ liệu (chẳng hạn là chuỗi)
+    const product = productManager.getAllProducts().find(p => String(p.id) === String(productId));
+    if (!product) {
+        alert("Không tìm thấy sản phẩm để xóa.");
+        return;
+    }
+    const confirmation = confirm(`Bạn có chắc chắn muốn xóa sản phẩm ${product.name}?`);
+    if (confirmation) {
+        productManager.deleteProduct(product.id);
+        displayProducts(); // Cập nhật lại giao diện
+        alert('Sản phẩm đã bị xóa!');
+    }
+}
+
+function displayProducts() {
+    const products = productManager.getAllProducts();
+    const productTableBody = document.getElementById('productTableBody');
+    productTableBody.innerHTML = ""; // Xóa bảng trước khi hiển thị lại
+
+    products.forEach(product => {
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td>${product.name}</td>
+            <td><img src="${product.image}" width="50"></td>
+            <td>${product.ram}</td>
+            <td>${product.storage}</td>
+            <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td>
+            <td class="details-action">
+                <button onclick="editProduct('${product.id}')"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onclick="confirmDeleteProduct('${product.id}')"><i class="fa-solid fa-trash"></i></button>
+            </td>
+        `;
+        productTableBody.appendChild(newRow);
+    });
 }
 
 let currentPage = 1;
@@ -371,17 +415,17 @@ function displayPaginatedProducts() {
     let productTableBody = document.getElementById("productTableBody");
     productTableBody.innerHTML = ""; // Xóa nội dung hiện tại của bảng
 
-    paginatedProducts.forEach((product, index) => {
-        let newRow = document.createElement("tr");
+    paginatedProducts.forEach(product => {
+        const newRow = document.createElement('tr');
         newRow.innerHTML = `
             <td>${product.name}</td>
             <td><img src="${product.image}" width="50"></td>
             <td>${product.ram}</td>
             <td>${product.storage}</td>
-            <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td> 
+            <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td>
             <td class="details-action">
-                <button onclick="editProduct(${start + index})"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="confirmDeleteProduct(${start + index})"><i class="fa-solid fa-trash"></i></button>
+                <button onclick="editProduct('${product.id}')"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onclick="confirmDeleteProduct('${product.id}')"><i class="fa-solid fa-trash"></i></button>
             </td>
         `;
         productTableBody.appendChild(newRow);
@@ -396,18 +440,20 @@ document.getElementById("prevPage").onclick = function() {
     }
 };
 document.getElementById("nextPage").onclick = function() {
-    const products = getProductsFromLocalStorage();  
-    const totalPages = Math.ceil(products.length / productsPerPage);  
-    if (currentPage < totalPages) {  
-        currentPage++; 
+    const products = getProductsFromLocalStorage();
+    const totalPages = Math.ceil(products.length / productsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
         displayPaginatedProducts();
     }
-}; 
+};
+ 
 
 // Khởi tạo hiển thị cả danh sách khách hàng và sản phẩm với phân trang
 window.onload = function() {
-    displayCustomers();         // Hiển thị danh sách khách hàng
-    displayPaginatedProducts(); // Hiển thị sản phẩm với phân trang
-    displayOrder();
-    displayStatics();
+    displayProducts();               // Hiển thị các sản phẩm
+    displayCustomers();              // Hiển thị khách hàng
+    displayPaginatedProducts();      // Hiển thị sản phẩm với phân trang
+    displayOrder();                  // Hiển thị các đơn hàng
+    displayStatics();                // Hiển thị thống kê
 };
