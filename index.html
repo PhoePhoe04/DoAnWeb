@@ -69,9 +69,7 @@
                 >Xiaomi</a
               ></li>
               
-              <li><a href="" onclick="changePage('oppo-page'); return false">
-                OPPO
-              </a></li>
+              <li>OPPO</li>
             </ul>
           </div>
         </div>
@@ -85,11 +83,11 @@
           <!-- Slider -->
           <div class="container slider-banner">
             <div class="slider">
-              <div class="banner"><img src="./assets/item/qc1.png" /></div>
-              <div class="banner"><img src="./assets/item/qc2.png" /></div>
-              <div class="banner"><img src="./assets/item/qc3.png" /></div>
-              <div class="banner"><img src="./assets/item/qc4.png" /></div>
-              <div class="banner"><img src="./assets/item/qc5.png" /></div>
+              <div class="banner"><img src="./assets/item/qc1.png" width="595" height="300" /></div>
+              <div class="banner"><img src="./assets/item/qc2.png" width="595" height="300" /></div>
+              <div class="banner"><img src="./assets/item/qc3.png" width="595" height="300" /></div>
+              <div class="banner"><img src="./assets/item/qc4.png" width="595" height="300" /></div>
+              <div class="banner"><img src="./assets/item/qc5.png" width="595" height="300" /></div>
             </div>
           </div>
           <!-- Suggestion -->
@@ -163,8 +161,9 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p class="sort-increase sortBtn" onclick="sortIncreament('iphone-page', 'productIPhone', this)">Giá tăng dần</p>
-                <p class="sort-decrease sortBtn" onclick="sortDecrement('iphone-page', 'productIPhone', this)">Giá giảm dần</p>
+                <p>Nổi bật</p>
+                <p>Mới</p>
+                <p>Giá</p>
               </div>
             </div>
 
@@ -236,8 +235,9 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p class="sort-increase sortBtn" onclick="sortIncreament('samsung-page', 'productSamSung', this)">Giá tăng dần</p>
-                <p class="sort-decrease sortBtn" onclick="sortDecrement('samsung-page', 'productSamSung', this)">Giá giảm dần</p>
+                <p>Nổi bật</p>
+                <p>Mới</p>
+                <p>Giá</p>
               </div>
             </div>
 
@@ -309,86 +309,14 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p class="sort-increase sortBtn" onclick="sortIncreament('xiaomi-page', 'productXiaomi', this)">Giá tăng dần</p>
-                <p class="sort-decrease sortBtn" onclick="sortDecrement('xiaomi-page', 'productXiaomi', this)">Giá giảm dần</p>
+                <p>Nổi bật</p>
+                <p>Mới</p>
+                <p>Giá</p>
               </div>
             </div>
 
             <!-- Phần sản phẩm của Xiaomi -->
             <div id="productXiaomi" class="xiaomi products"></div>
-            <div class="showMore">
-              <button id="showMoreBtn" onclick="showMoreProducts()">
-                Hiển thị thêm
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- OPPO -->
-        <div id="oppo-page" class="page section">
-          <div class="container">
-            <!-- Link chuyển hướng -->
-            <nav>
-              <a href="" onclick="changePage('home'); return false;">Home</a>
-              <div>></div>
-              <a href="">OPPO</a>
-            </nav>
-
-            <div class="margin-filter-sort">
-              <!-- Nút Filter -->
-              <div class="filter">
-                <button
-                  id="oppo-filterBtn"
-                  class="filterBtn"
-                  onclick="togglePopup('#oppo-filterBtn')"
-                >
-                  <i class="fa-solid fa-filter"></i>Lọc
-                  <div class="triangle section"></div>
-                  <div
-                    class="filter-popup section"
-                    onclick="event.stopPropagation()"
-                  >
-                    <div class="gia-san-pham">
-                      <h3>Giá sản phẩm</h3>
-                      <div class="filter-options cost-options">
-                        <div class="option">Dưới 10 triệu</div>
-                        <div class="option">Từ 10 - 20 triệu</div>
-                        <div class="option">Từ 20 - 30 triệu</div>
-                        <div class="option">Trên 30 triệu</div>
-                      </div>
-                    </div>
-                    <div class="tuy-chon">
-                      <div>
-                        <h3>RAM</h3>
-                        <div class="filter-options ram-options">
-                          <div class="option">4 GB</div>
-                          <div class="option">6 GB</div>
-                          <div class="option">8 GB</div>
-                        </div>
-                      </div>
-                      <div>
-                        <h3>Dung lượng</h3>
-                        <div class="filter-options storage-options">
-                          <div class="option">64 GB</div>
-                          <div class="option">128 GB</div>
-                          <div class="option">256 GB</div>
-                          <div class="option">512 GB</div>
-                          <div class="option">1 TB</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </button>
-              </div>
-              <!-- Button sort -->
-              <div class="sort">
-                <p>Sắp xếp theo:</p>
-                <p class="sort-increase sortBtn" onclick="sortIncreament('oppo-page', 'productOppo', this)">Giá tăng dần</p>
-                <p class="sort-decrease sortBtn" onclick="sortDecrement('oppo-page', 'productOppo', this)">Giá giảm dần</p>
-              </div>
-            </div>
-
-            <!-- Phần sản phẩm của OPPO -->
-            <div id="productOppo" class="oppo products"></div>
             <div class="showMore">
               <button id="showMoreBtn" onclick="showMoreProducts()">
                 Hiển thị thêm
@@ -584,8 +512,57 @@
         </div>
       </div>
 
-      <footer></footer>
-    </div>
+      <footer>
+        <div class="footer-container">
+          <div class="footer-links">
+            <h3>Thông tin</h3>
+            <ul>
+              <li><a href="#">Về chúng tôi</a></li>
+              <li><a href="#">Điều khoản sử dụng</a></li>
+              <li><a href="#">Chính sách bảo mật</a></li>
+            </ul>
+          </div>
+          <div class="footer-contact">
+            <h3>Liên hệ</h3>
+            <ul>
+              <li><i class="fa-solid fa-phone"></i> Hotline: 1900-123-456</li>
+              <li><i class="fa-solid fa-envelope"></i> Email: support@bidieo.com</li>
+              <li><i class="fa-solid fa-location-dot"></i> Địa chỉ: 273 An Dương Vương, Q.5, TP. Hồ Chí Minh</li>
+            </ul>
+          </div>
+          <div class="footer-social">
+            <h3>Kết nối với chúng tôi</h3>
+            <ul class="social-links">
+              <li>
+                <a href="https://fb.com/bd04.bac" target="_blank" aria-label="Facebook">
+                  <i class="fa-brands fa-facebook"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/bachoai.04/" target="_blank" aria-label="Instagram">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.youtube.com/@hoaibacnguyen4906" target="_blank" aria-label="YouTube">
+                  <i class="fa-brands fa-youtube"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-form">
+            <h3>Để lại thông tin của bạn</h3>
+            <form>
+              <input type="email" placeholder="Nhập email của bạn" />
+              <button type="submit">Gửi</button>
+            </form>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 BiDiEO. All rights reserved. Thiết kế bởi Nhóm Bắc.</p>
+        </div>
+      </footer>
+      
     <script src="login.js"></script>
     <script src="javascript.js"></script>
     <script src="shoppingCart.js"></script>
