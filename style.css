@@ -64,10 +64,28 @@ header {
 }
 /* LOGO */
 .logo {
-  background-color: black;
-  width: 30rem;
-  height: 4rem;
+  display: flex;
+  align-items: center; /* Căn giữa theo chiều dọc */
+  justify-content: center; /* Căn giữa theo chiều ngang */
+  background: transparent; /* Giữ nguyên hoặc tùy chỉnh */
+  width: 30rem; /* Điều chỉnh theo ý thích */
+  height: 6rem; /* Tăng chiều cao để hình ảnh và chữ dễ căn chỉnh */
+  padding: 1rem; /* Tạo khoảng trống giữa logo và viền */
+  border-radius: 10px; /* Tùy chỉnh nếu muốn logo mềm mại hơn */
+  gap: 1rem; /* Khoảng cách giữa hình ảnh và chữ */
 }
+
+.logo img {
+  width: 4rem; /* Chiều rộng hình ảnh logo */
+  height: auto; /* Đảm bảo giữ tỷ lệ hình ảnh */
+}
+
+.logo h2 {
+  color: white; /* Đổi màu chữ nếu cần */
+  font-size: 2.4rem; /* Kích thước chữ */
+  margin: 0; /* Loại bỏ margin mặc định */
+}
+
 
 /* THANH TÌM KIẾM */
 .searchBar {
