@@ -1020,3 +1020,102 @@ header {
   margin-left: 20px;
   cursor: pointer;
 }
+/* footer */
+footer {
+  background-color: #2c3e50;
+  color: white;
+  padding: 40px 0 20px;
+  font-size: 1.6rem;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.footer-links,
+.footer-contact,
+.footer-social,
+.footer-form {
+  flex: 1 1 20%;
+  margin-bottom: 20px;
+}
+
+.footer-links ul,
+.footer-contact ul,
+.footer-social ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li,
+.footer-contact li {
+  margin: 10px 0;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-contact li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-social ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.footer-social a {
+  color: white;
+  font-size: 24px;
+}
+
+.footer-social a:hover {
+  color: #3498db;
+}
+
+.footer-form form {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 1.4rem;
+}
+
+.footer-form button {
+  padding: 10px 20px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footer-form button:hover {
+  background-color: #1a73e8;
+}
+
+.footer-bottom {
+  background-color: #1a252f;
+  text-align: center;
+  padding: 10px 0;
+  font-size: 1.4rem;
+}
