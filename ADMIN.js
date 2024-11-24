@@ -267,7 +267,7 @@ function addNewProduct() {
         
         productManager.addProduct(newProduct);
         alert("Tạo sản phẩm thành công");
-        displayProducts();
+        displayPaginatedProducts();
         
         // Quay lại trang recentProduct sau 2 giây
         setTimeout(() => {
