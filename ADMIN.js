@@ -101,23 +101,17 @@ document.getElementById("staticsLink").addEventListener("click", () => showSecti
 
 // Lấy sản phẩm từ LocalStorage
 function getProductsFromLocalStorage() {
-    try {
-        const products = localStorage.getItem("products");
-        return products ? JSON.parse(products) : [];
-    } catch (error) {
-        console.error("Lỗi khi lấy sản phẩm từ LocalStorage", error);
-        return [];
-    }
+    return JSON.parse(localStorage.getItem('products')) || [];
 }
 
+
 // Lưu sản phẩm vào LocalStorage
-function saveProductsToLocalStorage(products) {
-    try {
-        localStorage.setItem("products", JSON.stringify(products));
-    } catch (error) {
-        console.error("Lỗi khi lưu sản phẩm vào LocalStorage", error);
-    }
+function saveProductToLocalStorage(product) {
+    const products = JSON.parse(localStorage.getItem('products')) || [];
+    products.push(product);
+    localStorage.setItem('products', JSON.stringify(products));
 }
+
 
 // Đặt lại form
 function resetForm() {
@@ -206,7 +200,7 @@ class ProductManager {
     // Thêm sản phẩm mới
     addProduct(product) {
         this.products.push(product);
-        this.saveProductsToLocalStorage();  // Lưu vào localStorage sau khi thêm sản phẩm
+        this.saveProductsToLocalStorage(); // Lưu vào localStorage sau khi thêm sản phẩm
     }
 
     // Cập nhật sản phẩm
@@ -343,7 +337,7 @@ function updateProduct() {
 
         // Hiển thị thông báo thành công
         alert("Cập nhật sản phẩm thành công");
-        displayProducts();
+        displayPaginatedProducts();
         
         // Quay lại trang recentProduct sau 2 giây
         setTimeout(() => {
@@ -356,30 +350,40 @@ function updateProduct() {
 // Hàm xác nhận xóa sản phẩm
 function confirmDeleteProduct(productId) {
     console.log("Xóa sản phẩm với id:", productId); // Debug
-    // Chuyển pproductId và id trong danh sách về cùng kiểu dữ liệu (chẳng hạn là chuỗi)
     const product = productManager.getAllProducts().find(p => String(p.id) === String(productId));
     if (!product) {
         alert("Không tìm thấy sản phẩm để xóa.");
         return;
     }
+    
     const confirmation = confirm(`Bạn có chắc chắn muốn xóa sản phẩm ${product.name}?`);
     if (confirmation) {
+        // Xóa sản phẩm
         productManager.deleteProduct(product.id);
-        displayProducts(); // Cập nhật lại giao diện
+        // Kiểm tra nếu số lượng sản phẩm đã thay đổi và cần điều chỉnh số trang
+        const totalProducts = productManager.getAllProducts().length;
+        const totalPages = Math.ceil(totalProducts / productsPerPage);
+        // Nếu trang hiện tại lớn hơn tổng số trang, giảm số trang
+        if (currentPage > totalPages) {
+            currentPage = totalPages; // Đặt lại trang hiện tại về số trang hợp lệ
+        }
+        // Cập nhật lại phân trang sau khi xóa sản phẩm
+        displayPaginatedProducts();
         alert('Sản phẩm đã bị xóa!');
     }
 }
 
 function displayProducts() {
-    const products = productManager.getAllProducts();
+    const products = getProductsFromLocalStorage();
     const productTableBody = document.getElementById('productTableBody');
     productTableBody.innerHTML = ""; // Xóa bảng trước khi hiển thị lại
 
     products.forEach(product => {
         const newRow = document.createElement('tr');
+        newRow.classList.add('newRow');
         newRow.innerHTML = `
             <td>${product.name}</td>
-            <td><img src="${product.image}" width="50"></td>
+            <td><img src="${product.image}" width="50" alt="${product.name}"></td>
             <td>${product.ram}</td>
             <td>${product.storage}</td>
             <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td>
@@ -417,9 +421,10 @@ function displayPaginatedProducts() {
 
     paginatedProducts.forEach(product => {
         const newRow = document.createElement('tr');
+        newRow.classList.add('newRow');
         newRow.innerHTML = `
             <td>${product.name}</td>
-            <td><img src="${product.image}" width="50"></td>
+            <td><img src="${product.image}" width="50" alt="${product.name}"></td>
             <td>${product.ram}</td>
             <td>${product.storage}</td>
             <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td>
@@ -447,11 +452,9 @@ document.getElementById("nextPage").onclick = function() {
         displayPaginatedProducts();
     }
 };
- 
-
 // Khởi tạo hiển thị cả danh sách khách hàng và sản phẩm với phân trang
 window.onload = function() {
-    displayProducts();               // Hiển thị các sản phẩm
+    displayProducts();
     displayCustomers();              // Hiển thị khách hàng
     displayPaginatedProducts();      // Hiển thị sản phẩm với phân trang
     displayOrder();                  // Hiển thị các đơn hàng
