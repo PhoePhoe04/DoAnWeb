@@ -392,16 +392,15 @@ header {
   border-radius: 10px;
   width: 100%;
   max-width: 500px;
-  height: 300px;
+  height: auto;
   background-color: #fff;
   border: 1px solid blue;
-  padding: 0 10px;
+  padding: 10px 10px;
   overflow: auto;
 }
 .gia-san-pham,
 .tuy-chon {
   margin-top: 4px;
-  border: 1px solid red;
 }
 
 .gia-san-pham > h3 {
@@ -422,7 +421,7 @@ header {
 }
 
 .gia-san-pham > div > div:hover {
-  background-color: yellow;
+  background-color: rgb(240, 240, 120);;
 }
 
 .tuy-chon {
@@ -430,31 +429,29 @@ header {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.tuy-chon > .option > h3 {
+.tuy-chon  h3 {
   text-align: left;
 }
 
-.tuy-chon > .option > div {
+.filter-options{
   display: flex;
   gap: 10px;
-  padding: 10px;
   flex-wrap: wrap;
+  padding: 10px;
 }
 
-.tuy-chon > .option > div > div {
-  border: 1px solid green;
-  padding: 4px;
+.filter-options > .option{
+  border: 1px solid black;
+  padding: 5px;
   border-radius: 5px;
 }
 
-.tuy-chon > .option > div > div:hover {
-  background-color: yellow;
+.option:hover{
+  background-color: rgb(240, 240, 120);
 }
 
-.confirm-cancel {
-  display: flex;
-  position: absolute;
-  bottom: 0;
+.option.filted{
+  background-color: rgb(240, 240, 120);
 }
 
 /* SORT */
@@ -465,6 +462,15 @@ header {
 
 .sort > p {
   font-size: 1.6em;
+}
+
+.sortBtn:hover{
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.sortBtn.sorted{
+  font-weight: bold;
 }
 
 /*---------<< FILTER-SORT  */

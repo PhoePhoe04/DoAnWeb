@@ -393,6 +393,9 @@ productManager.addProduct(new Product("xiaomi","xiaomi_rn13_8-128","./assets/ite
 productManager.addProduct(new Product("xiaomi","xiaomi_rn13pr_8-128","./assets/item/xiaomi_rn13pr_8-128.jpg", "Xiaomi Redmi Note 13 PRO 8GB/128 GB", 5990000, 10, "8 GB", "128 GB"));
 productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128 GB", 4090000, 10, "8 GB", "128 GB"));
 
+productManager.addProduct(new Product("oppo","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128 GB", 4090000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("oppo","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128 GB", 4090000, 10, "8 GB", "128 GB"));
+
 
 productManager.loadFromLocalStorage();
 
@@ -400,6 +403,7 @@ productManager.displayProductsToUI("productsSuggestion");
 productManager.displayProductsWithType("productIPhone", "iphone");
 productManager.displayProductsWithType("productSamSung", "samsung");
 productManager.displayProductsWithType("productXiaomi", "xiaomi");
+productManager.displayProductsWithType("productOppo", "oppo");
 
 var totalPrice = 0;
 function getInforProduct(productDiv, a) {
@@ -530,3 +534,74 @@ function filterProductsToUI(pageId, containerID, type) {
 filterProductsToUI("iphone-page","productIPhone", "iphone");
 filterProductsToUI("samsung-page","productSamSung", "samsung");
 filterProductsToUI("xiaomi-page","productXiaomi", "xiaomi");
+filterProductsToUI("oppo-page","productOppo", "oppo");
+
+// function sortSelected(pageId){
+//   const page = document.getElementById(pageId);
+//   const sortButtons = page.querySelectorAll(".sortBtn");
+
+//   // Thêm sự kiện click cho từng nút
+//   sortButtons.forEach((button) => {
+//     button.addEventListener("click", () => {
+//       // Loại bỏ class 'sorted' khỏi tất cả các nút
+//       sortButtons.forEach((btn) => btn.classList.remove("sorted"));
+
+//       // Thêm class 'sorted' vào nút được nhấn
+//       button.classList.add("sorted");
+//     });
+//   });
+// }
+
+// sortSelected('iphone-page')
+
+
+// Hàm sắp xếp giá tăng dần
+function sortIncreament(pageId, containerProducts, element) {
+  const page = document.getElementById(pageId);
+  const productContainer = page.querySelector(`#${containerProducts}`);
+  const products = Array.from(productContainer.querySelectorAll('.product'));
+
+  // Sắp xếp sản phẩm theo giá tăng dần
+  products.sort((a, b) => {
+    const priceA = parseInt(a.querySelector('.productPrice').textContent.replace(/[^0-9]/g, ''));
+    const priceB = parseInt(b.querySelector('.productPrice').textContent.replace(/[^0-9]/g, ''));
+    return priceA - priceB;
+  });
+
+  // Xóa sản phẩm cũ và thêm sản phẩm đã sắp xếp lại
+  productContainer.innerHTML = '';
+  products.forEach((product) => productContainer.appendChild(product));
+
+  // Cập nhật class "sorted"
+  updateSortedClass(element);
+}
+
+// Hàm sắp xếp giá giảm dần
+function sortDecrement(pageId, containerProducts, element) {
+  const page = document.getElementById(pageId);
+  const productContainer = page.querySelector(`#${containerProducts}`);
+  const products = Array.from(productContainer.querySelectorAll('.product'));
+
+  // Sắp xếp sản phẩm theo giá giảm dần
+  products.sort((a, b) => {
+    const priceA = parseInt(a.querySelector('.productPrice').textContent.replace(/[^0-9]/g, ''));
+    const priceB = parseInt(b.querySelector('.productPrice').textContent.replace(/[^0-9]/g, ''));
+    return priceB - priceA;
+  });
+
+  // Xóa sản phẩm cũ và thêm sản phẩm đã sắp xếp lại
+  productContainer.innerHTML = '';
+  products.forEach((product) => productContainer.appendChild(product));
+
+  // Cập nhật class "sorted"
+  updateSortedClass(element);
+}
+
+// Hàm cập nhật class "sorted"
+function updateSortedClass(activeElement) {
+  // Xóa class "sorted" khỏi tất cả các nút
+  document.querySelectorAll('.sortBtn').forEach((btn) => btn.classList.remove('sorted'));
+
+  // Thêm class "sorted" vào nút được bấm
+  activeElement.classList.add('sorted');
+}

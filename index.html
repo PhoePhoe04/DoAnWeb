@@ -69,7 +69,9 @@
                 >Xiaomi</a
               ></li>
               
-              <li>OPPO</li>
+              <li><a href="" onclick="changePage('oppo-page'); return false">
+                OPPO
+              </a></li>
             </ul>
           </div>
         </div>
@@ -161,9 +163,8 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p>Nổi bật</p>
-                <p>Mới</p>
-                <p>Giá</p>
+                <p class="sort-increase sortBtn" onclick="sortIncreament('iphone-page', 'productIPhone', this)">Giá tăng dần</p>
+                <p class="sort-decrease sortBtn" onclick="sortDecrement('iphone-page', 'productIPhone', this)">Giá giảm dần</p>
               </div>
             </div>
 
@@ -235,9 +236,8 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p>Nổi bật</p>
-                <p>Mới</p>
-                <p>Giá</p>
+                <p class="sort-increase sortBtn" onclick="sortIncreament('samsung-page', 'productSamSung', this)">Giá tăng dần</p>
+                <p class="sort-decrease sortBtn" onclick="sortDecrement('samsung-page', 'productSamSung', this)">Giá giảm dần</p>
               </div>
             </div>
 
@@ -309,14 +309,86 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p>Nổi bật</p>
-                <p>Mới</p>
-                <p>Giá</p>
+                <p class="sort-increase sortBtn" onclick="sortIncreament('xiaomi-page', 'productXiaomi', this)">Giá tăng dần</p>
+                <p class="sort-decrease sortBtn" onclick="sortDecrement('xiaomi-page', 'productXiaomi', this)">Giá giảm dần</p>
               </div>
             </div>
 
             <!-- Phần sản phẩm của Xiaomi -->
             <div id="productXiaomi" class="xiaomi products"></div>
+            <div class="showMore">
+              <button id="showMoreBtn" onclick="showMoreProducts()">
+                Hiển thị thêm
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- OPPO -->
+        <div id="oppo-page" class="page section">
+          <div class="container">
+            <!-- Link chuyển hướng -->
+            <nav>
+              <a href="" onclick="changePage('home'); return false;">Home</a>
+              <div>></div>
+              <a href="">OPPO</a>
+            </nav>
+
+            <div class="margin-filter-sort">
+              <!-- Nút Filter -->
+              <div class="filter">
+                <button
+                  id="oppo-filterBtn"
+                  class="filterBtn"
+                  onclick="togglePopup('#oppo-filterBtn')"
+                >
+                  <i class="fa-solid fa-filter"></i>Lọc
+                  <div class="triangle section"></div>
+                  <div
+                    class="filter-popup section"
+                    onclick="event.stopPropagation()"
+                  >
+                    <div class="gia-san-pham">
+                      <h3>Giá sản phẩm</h3>
+                      <div class="filter-options cost-options">
+                        <div class="option">Dưới 10 triệu</div>
+                        <div class="option">Từ 10 - 20 triệu</div>
+                        <div class="option">Từ 20 - 30 triệu</div>
+                        <div class="option">Trên 30 triệu</div>
+                      </div>
+                    </div>
+                    <div class="tuy-chon">
+                      <div>
+                        <h3>RAM</h3>
+                        <div class="filter-options ram-options">
+                          <div class="option">4 GB</div>
+                          <div class="option">6 GB</div>
+                          <div class="option">8 GB</div>
+                        </div>
+                      </div>
+                      <div>
+                        <h3>Dung lượng</h3>
+                        <div class="filter-options storage-options">
+                          <div class="option">64 GB</div>
+                          <div class="option">128 GB</div>
+                          <div class="option">256 GB</div>
+                          <div class="option">512 GB</div>
+                          <div class="option">1 TB</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </button>
+              </div>
+              <!-- Button sort -->
+              <div class="sort">
+                <p>Sắp xếp theo:</p>
+                <p class="sort-increase sortBtn" onclick="sortIncreament('oppo-page', 'productOppo', this)">Giá tăng dần</p>
+                <p class="sort-decrease sortBtn" onclick="sortDecrement('oppo-page', 'productOppo', this)">Giá giảm dần</p>
+              </div>
+            </div>
+
+            <!-- Phần sản phẩm của OPPO -->
+            <div id="productOppo" class="oppo products"></div>
             <div class="showMore">
               <button id="showMoreBtn" onclick="showMoreProducts()">
                 Hiển thị thêm
