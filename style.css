@@ -49,7 +49,7 @@ header {
 
 .header-mask {
   width: 100%;
-  height: 95px;
+  height: 100px;
 }
 /*                                                .header                                            */
 .header {
@@ -69,14 +69,12 @@ header {
   justify-content: center;
   background: transparent; 
   width: 30rem; 
-  height: 6rem;
-  padding: 1rem;
   border-radius: 10px; 
   gap: 1rem; 
 }
 
 .logo img {
-  width: 4rem; 
+  width: 3rem; 
   height: auto;
 }
 
