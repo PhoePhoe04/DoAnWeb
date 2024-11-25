@@ -95,10 +95,10 @@ function toggleDetailPopup() {
 
 // +++++++++++++++++++++++++++++++++++ OOP +++++++++++++++++++++++++++++++++++
 class Product {
-  constructor(type, id, img, name, price, quantity, ram, storage) {
-    this.type = type;
+  constructor(category, id, image, name, price, quantity, ram, storage) {
+    this.category = category;
     this.id = id;
-    this.img = img;
+    this.image = image;
     this.name = name;
     this.price = price;
     this.quantity = quantity;
@@ -159,9 +159,9 @@ class ProductManager {
       this.productList = JSON.parse(storedData).map(
         (product) =>
           new Product(
-            product.type,
+            product.category,
             product.id,
-            product.img,
+            product.image,
             product.name,
             product.price,
             product.quantity,
@@ -201,7 +201,7 @@ class ProductManager {
   displayProduct(productDiv, product) {
     productDiv.innerHTML = `
       <div class="productImg">
-        <image src="${product.img}" alt="${product.name}"/>
+        <img src="${product.image}" alt="${product.name}"/>
       </div>
       <div class="productName">${product.name}</div>
       <div class="productDetail"></div>
@@ -238,7 +238,7 @@ class ProductManager {
     container.innerHTML = ""; // Xóa các sản phẩm cũ
 
     this.productList.forEach((product) => {
-      if (String(product.type) === String(type) && product.quantity > 0) {
+      if (String(product.category) === String(type) && product.quantity > 0) {
         const productDiv = document.createElement("div");
 
         // Thêm id và class product
@@ -340,61 +340,61 @@ function setViewDetailEvent(buttonElement) {
 // ==================================================== Products Manager ====================================================
 const productManager = new ProductManager();
 
-productManager.addProduct(new Product("iphone","ip11_64","./assets/item/ip11_64.jpg", "iPhone 11 64GB", 8999000, 10, "4 GB", "64 GB"));
-productManager.addProduct(new Product("iphone","ip11_128","./assets/item/ip11_128.jpg", "iPhone 11 128GB", 10190000, 10, "4 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip12_64","./assets/item/ip12_64.jpg", "iPhone 12 64GB", 11590000, 10, "4 GB", "64 GB"));
-productManager.addProduct(new Product("iphone","ip12_128","./assets/item/ip11_128.jpg", "iPhone 12 128GB", 13590000, 10, "4 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip13_128","./assets/item/ip13_128.jpg", "iPhone 13 128GB", 13490000, 10, "4 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip13_256","./assets/item/ip13_256.jpg", "iPhone 13 256GB", 17390000, 10, "4 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip14_128","./assets/item/ip14_128.jpg", "iPhone 14 128GB", 17490000, 10, "6 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip14+_128","./assets/item/ip14+_128.jpg", "iPhone 14 PLUS 128GB", 20090000, 10, "6 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip14_256","./assets/item/ip14_256.jpg", "iPhone 14 256GB", 20590000, 10, "6 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip14+_256","./assets/item/ip14+_256.jpg", "iPhone 14 PLUS 256GB", 23590000, 10, "6 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip14prm_128","./assets/item/ip14prm_128.jpg", "iPhone 14 PRO MAX 128GB", 26990000, 10, "6 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip14prm_256","./assets/item/ip14prm_256.jpg", "iPhone 14 PRO MAX 256GB", 28590000, 10, "6 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip14prm_512","./assets/item/ip14prm_512.jpg", "iPhone 14 PRO MAX 512GB", 35990000, 10, "6 GB", "512 GB"));
-productManager.addProduct(new Product("iphone","ip15_128","./assets/item/ip15_128.jpg", "iPhone 15 128GB", 19890000, 10, "6 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip15+_128","./assets/item/ip15+_128.jpg", "iPhone 15 PLUS 128GB", 22890000, 10, "6 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip15prm_256","./assets/item/ip15prm_256.jpg", "iPhone 15 PRO MAX 256GB", 29590000, 10, "8 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip15_256","./assets/item/ip15_256.jpg", "iPhone 15 256GB", 22990000, 10, "6 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip15+_256","./assets/item/ip15+_256.jpg", "iPhone 15 PLUS 256GB", 25990000, 10, "6 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip15prm_512","./assets/item/ip15prm_512.jpg", "iPhone 15 PRO MAX 512GB", 34990000, 10, "8 GB", "512 GB"));
-productManager.addProduct(new Product("iphone","ip15pr_256","./assets/item/ip15pr_256.jpg", "iPhone 15 PRO 256GB", 28490000, 10, "8 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip15prm_1TB","./assets/item/ip15prm_1TB.jpg", "iPhone 15 PRO MAX 1TB", 40290000, 10, "8 GB", "1 TB"));
-productManager.addProduct(new Product("iphone","ip15pr_128","./assets/item/ip15pr_128.jpg", "iPhone 15 PRO 128GB", 25590000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip15pr_512","./assets/item/ip15pr_512.jpg", "iPhone 15 PRO 512GB", 33490000, 10, "8 GB", "512 GB"));
-productManager.addProduct(new Product("iphone","ip15+_512","./assets/item/ip15+_512.jpg", "iPhone 15 PLUS 512GB", 29990000, 10, "8 GB", "512 GB"));
-productManager.addProduct(new Product("iphone","ip15_512","./assets/item/ip15_512.jpg", "iPhone 15 512GB", 27990000, 10, "8 GB", "512 GB"));
-productManager.addProduct(new Product("iphone","ip16prm_256","./assets/item/ip16prm_256.jpg", "iPhone 16 PRO MAX 256GB", 34990000, 10, "8 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip16prm_512","./assets/item/ip16prm_512.jpg", "iPhone 16 PRO MAX 512GB", 40890000, 10, "8 GB", "512 GB"));
-productManager.addProduct(new Product("iphone","ip16prm_1TB","./assets/item/ip16prm_1TB.png", "iPhone 16 PRO MAX 1TB", 46790000, 10, "8 GB", "1 TB"));
-productManager.addProduct(new Product("iphone","ip16pr_128","./assets/item/ip16pr_128.png", "iPhone 16 PRO 128 GB", 28890000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip16pr_256","./assets/item/ip16pr_256.png", "iPhone 16 PRO 256 GB", 31990000, 10, "8 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip16pr_512","./assets/item/ip16pr_512.png", "iPhone 16 PRO 512 GB", 37990000, 10, "8 GB", "512 GB"));
-productManager.addProduct(new Product("iphone","ip16pr_1TB","./assets/item/ip16pr_1TB.png", "iPhone 16 PRO 1 TB", 43990000, 10, "8 GB", "1 TB"));
-productManager.addProduct(new Product("iphone","ip16+_128","./assets/item/ip16+_128.jpg", "iPhone 16 PLUS 128 GB", 26990000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip16+_256","./assets/item/ip16+_256.png", "iPhone 16 PLUS 256 GB", 27990000, 10, "8 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip16+_512","./assets/item/ip16+_512.png", "iPhone 16 PLUS 512 GB", 32990000, 10, "8 GB", "512 GB"));
-productManager.addProduct(new Product("iphone","ip16_128","./assets/item/ip16_128.png", "iPhone 16 PLUS 128 GB", 22290000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("iphone","ip16_256","./assets/item/ip16_256.png", "iPhone 16 PLUS 256 GB", 25490000, 10, "8 GB", "256 GB"));
-productManager.addProduct(new Product("iphone","ip16_512","./assets/item/ip16_512.png", "iPhone 16 PLUS 512 GB", 29890000, 10, "8 GB", "512 GB"));
+productManager.addProduct(new Product("iphone","ip11_64","./assets/item/ip11_64.jpg", "iPhone 11 64GB", 8999000, 10, "4GB", "64GB"));
+productManager.addProduct(new Product("iphone","ip11_128","./assets/item/ip11_128.jpg", "iPhone 11 128GB", 10190000, 10, "4GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip12_64","./assets/item/ip12_64.jpg", "iPhone 12 64GB", 11590000, 10, "4GB", "64GB"));
+productManager.addProduct(new Product("iphone","ip12_128","./assets/item/ip12_128.jpg", "iPhone 12 128GB", 13590000, 10, "4GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip13_128","./assets/item/ip13_128.jpg", "iPhone 13 128GB", 13490000, 10, "4GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip13_256","./assets/item/ip13_256.jpg", "iPhone 13 256GB", 17390000, 10, "4GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip14_128","./assets/item/ip14_128.jpg", "iPhone 14 128GB", 17490000, 10, "6GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip14+_128","./assets/item/ip14+_128.jpg", "iPhone 14 PLUS 128GB", 20090000, 10, "6GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip14_256","./assets/item/ip14_256.jpg", "iPhone 14 256GB", 20590000, 10, "6GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip14+_256","./assets/item/ip14+_256.jpg", "iPhone 14 PLUS 256GB", 23590000, 10, "6GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip14prm_128","./assets/item/ip14prm_128.jpg", "iPhone 14 PRO MAX 128GB", 26990000, 10, "6GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip14prm_256","./assets/item/ip14prm_256.jpg", "iPhone 14 PRO MAX 256GB", 28590000, 10, "6GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip14prm_512","./assets/item/ip14prm_512.jpg", "iPhone 14 PRO MAX 512GB", 35990000, 10, "6GB", "512GB"));
+productManager.addProduct(new Product("iphone","ip15_128","./assets/item/ip15_128.jpg", "iPhone 15 128GB", 19890000, 10, "6GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip15+_128","./assets/item/ip15+_128.jpg", "iPhone 15 PLUS 128GB", 22890000, 10, "6GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip15prm_256","./assets/item/ip15prm_256.jpg", "iPhone 15 PRO MAX 256GB", 29590000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip15_256","./assets/item/ip15_256.jpg", "iPhone 15 256GB", 22990000, 10, "6GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip15+_256","./assets/item/ip15+_256.jpg", "iPhone 15 PLUS 256GB", 25990000, 10, "6GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip15prm_512","./assets/item/ip15prm_512.jpg", "iPhone 15 PRO MAX 512GB", 34990000, 10, "8GB", "512GB"));
+productManager.addProduct(new Product("iphone","ip15pr_256","./assets/item/ip15pr_256.jpg", "iPhone 15 PRO 256GB", 28490000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip15prm_1TB","./assets/item/ip15prm_1TB.jpg", "iPhone 15 PRO MAX 1TB", 40290000, 10, "8GB", "1 TB"));
+productManager.addProduct(new Product("iphone","ip15pr_128","./assets/item/ip15pr_128.jpg", "iPhone 15 PRO 128GB", 25590000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip15pr_512","./assets/item/ip15pr_512.jpg", "iPhone 15 PRO 512GB", 33490000, 10, "8GB", "512GB"));
+productManager.addProduct(new Product("iphone","ip15+_512","./assets/item/ip15+_512.jpg", "iPhone 15 PLUS 512GB", 29990000, 10, "8GB", "512GB"));
+productManager.addProduct(new Product("iphone","ip15_512","./assets/item/ip15_512.jpg", "iPhone 15 512GB", 27990000, 10, "8GB", "512GB"));
+productManager.addProduct(new Product("iphone","ip16prm_256","./assets/item/ip16prm_256.jpg", "iPhone 16 PRO MAX 256GB", 34990000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip16prm_512","./assets/item/ip16prm_512.jpg", "iPhone 16 PRO MAX 512GB", 40890000, 10, "8GB", "512GB"));
+productManager.addProduct(new Product("iphone","ip16prm_1TB","./assets/item/ip16prm_1TB.png", "iPhone 16 PRO MAX 1TB", 46790000, 10, "8GB", "1 TB"));
+productManager.addProduct(new Product("iphone","ip16pr_128","./assets/item/ip16pr_128.png", "iPhone 16 PRO 128GB", 28890000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip16pr_256","./assets/item/ip16pr_256.png", "iPhone 16 PRO 256GB", 31990000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip16pr_512","./assets/item/ip16pr_512.png", "iPhone 16 PRO 512GB", 37990000, 10, "8GB", "512GB"));
+productManager.addProduct(new Product("iphone","ip16pr_1TB","./assets/item/ip16pr_1TB.png", "iPhone 16 PRO 1 TB", 43990000, 10, "8GB", "1 TB"));
+productManager.addProduct(new Product("iphone","ip16+_128","./assets/item/ip16+_128.jpg", "iPhone 16 PLUS 128GB", 26990000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip16+_256","./assets/item/ip16+_256.png", "iPhone 16 PLUS 256GB", 27990000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip16+_512","./assets/item/ip16+_512.png", "iPhone 16 PLUS 512GB", 32990000, 10, "8GB", "512GB"));
+productManager.addProduct(new Product("iphone","ip16_128","./assets/item/ip16_128.png", "iPhone 16 PLUS 128GB", 22290000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("iphone","ip16_256","./assets/item/ip16_256.png", "iPhone 16 PLUS 256GB", 25490000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("iphone","ip16_512","./assets/item/ip16_512.png", "iPhone 16 PLUS 512GB", 29890000, 10, "8GB", "512GB"));
 
-productManager.addProduct(new Product("samsung","ssgS24_Ultra_5G_256","./assets/item/ssgS24_Ultra_5G_256.jpg", "SamSung Galaxy S24 Ultra 5G 256 GB", 29990000, 10, "12 GB", "256 GB"));
-productManager.addProduct(new Product("samsung","ssgS24_Ultra_5G_512","./assets/item/ssgS24_Ultra_5G_512.jpg", "SamSung Galaxy S24 Ultra 5G 512 GB", 33490000, 10, "12 GB", "512 GB"));
-productManager.addProduct(new Product("samsung","ssgA16_128","./assets/item/ssgA16_128.jpg", "SamSung Galaxy A16 128 GB", 5890000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("samsung","ssgA16_256","./assets/item/ssgA16_256.jpg", "SamSung Galaxy A16 256 GB", 6690000, 10, "8 GB", "256 GB"));
-productManager.addProduct(new Product("samsung","ssgA16_5G_128","./assets/item/ssgA16_5G_128.jpg", "SamSung Galaxy A16 5G 128 GB", 6090000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("samsung","ssgA16_5G_256","./assets/item/ssgA16_5G.jpg", "SamSung Galaxy A16 5G 256 GB", 6990000, 10, "8 GB", "256 GB"));
-productManager.addProduct(new Product("samsung","ssgA55_5G_256","./assets/item/ssgA55_5G_256.jpg", "SamSung Galaxy A55 5G 12GB-256 GB", 10990000, 10, "12 GB", "256 GB"));
-productManager.addProduct(new Product("samsung","ssgA55_5G_128","./assets/item/ssgA55_5G_128.jpg", "SamSung Galaxy A55 5G 12GB/128 GB", 10990000, 10, "12 GB", "128 GB"));
-productManager.addProduct(new Product("samsung","ssgA55_5G_256_8gb","./assets/item/ssgA55_5G_256_8gb.jpg", "SamSung Galaxy A55 5G 8GB/256 GB", 10990000, 10, "8 GB", "256 GB"));
+productManager.addProduct(new Product("samsung","ssgS24_Ultra_5G_256","./assets/item/ssgS24_Ultra_5G_256.jpg", "SamSung Galaxy S24 Ultra 5G 256GB", 29990000, 10, "12GB", "256GB"));
+productManager.addProduct(new Product("samsung","ssgS24_Ultra_5G_512","./assets/item/ssgS24_Ultra_5G_512.jpg", "SamSung Galaxy S24 Ultra 5G 512GB", 33490000, 10, "12GB", "512GB"));
+productManager.addProduct(new Product("samsung","ssgA16_128","./assets/item/ssgA16_128.jpg", "SamSung Galaxy A16 128GB", 5890000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("samsung","ssgA16_256","./assets/item/ssgA16_256.jpg", "SamSung Galaxy A16 256GB", 6690000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("samsung","ssgA16_5G_128","./assets/item/ssgA16_5G_128.jpg", "SamSung Galaxy A16 5G 128GB", 6090000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("samsung","ssgA16_5G_256","./assets/item/ssgA16_5G.jpg", "SamSung Galaxy A16 5G 256GB", 6990000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("samsung","ssgA55_5G_256","./assets/item/ssgA55_5G_256.jpg", "SamSung Galaxy A55 5G 12GB-256GB", 10990000, 10, "12GB", "256GB"));
+productManager.addProduct(new Product("samsung","ssgA55_5G_128","./assets/item/ssgA55_5G_128.jpg", "SamSung Galaxy A55 5G 12GB/128GB", 10990000, 10, "12GB", "128GB"));
+productManager.addProduct(new Product("samsung","ssgA55_5G_256_8gb","./assets/item/ssgA55_5G_256_8gb.jpg", "SamSung Galaxy A55 5G 8GB/256GB", 10990000, 10, "8GB", "256GB"));
 
-productManager.addProduct(new Product("xiaomi","xiaomi_rn13_8-128","./assets/item/xiaomi_rn13_8-128.jpg", "Xiaomi Redmi Note 13 8GB/128 GB", 4390000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("xiaomi","xiaomi_rn13pr_8-128","./assets/item/xiaomi_rn13pr_8-128.jpg", "Xiaomi Redmi Note 13 PRO 8GB/128 GB", 5990000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128 GB", 4090000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("xiaomi","xiaomi_rn13_8-128","./assets/item/xiaomi_rn13_8-128.jpg", "Xiaomi Redmi Note 13 8GB/128GB", 4390000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("xiaomi","xiaomi_rn13pr_8-128","./assets/item/xiaomi_rn13pr_8-128.jpg", "Xiaomi Redmi Note 13 PRO 8GB/128GB", 5990000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4090000, 10, "8GB", "128GB"));
 
-productManager.addProduct(new Product("oppo","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128 GB", 4090000, 10, "8 GB", "128 GB"));
-productManager.addProduct(new Product("oppo","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128 GB", 4090000, 10, "8 GB", "128 GB"));
+productManager.addProduct(new Product("oppo","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4090000, 10, "8GB", "128GB"));
+productManager.addProduct(new Product("oppo","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4090000, 10, "8GB", "128GB"));
 
 
 productManager.loadFromLocalStorage();
@@ -422,7 +422,7 @@ function getInforProduct(productDiv, a) {
     const cellTotalPrice = newRow.insertCell(3);
     const cellDelete = newRow.insertCell(4);
     cellData.innerHTML = `<div>
-      <img src="${product.img}" alt="${product.id}" width="80" height="80"/>
+      <img src="${product.image}" alt="${product.id}" width="80" height="80"/>
       <div>${product.name}</div>
       <div class="detailPhone">
         <div id="storage">Dung Lượng: ${product.storage}</div>
@@ -457,8 +457,8 @@ function createPopup(product) {
   popup.innerHTML = `
     <div class="popup-content">
       <div class="detail-content">
-        <div class="img-product">
-          <img src="${product.img}" alt="${product.name}">
+        <div class="image-product">
+          <img src="${product.image}" alt="${product.name}">
         </div>
         <div class="detail-product">
           <div class="detailName">${product.name}</div>
