@@ -1,3 +1,10 @@
+// Hàm chuyển đổi ngày thành định dạng "dd/mm/yyyy"
+function formatDate(date) {
+    var day = date.getDate();
+    var month = date.getMonth() + 1; // Tháng bắt đầu từ 0
+    var year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+}
 function displayStatics() {
     let staticsTableBody = document.getElementById("staticsTableBody");
     staticsTableBody.innerHTML = "";
