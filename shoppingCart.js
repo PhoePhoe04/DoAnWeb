@@ -137,23 +137,6 @@ changeCheckbox = () => {
     document.querySelector("#dateCreated").required = false;
   }
 };
-// Tạo dòng mới trong bảng Lịch sử mua hàng
-function createNewRowOH(sp, data) {
-  const newRow = document.createElement("tr");
-  newRow.innerHTML = `
-    <td>${sp.id}</td>
-    <td>
-      <img src="${sp.img}" alt="${sp.id}" width="80" height="80"/>
-      <div>${sp.name}</div>
-      <div class="detailPhone">
-        <div id="storage">Dung Lượng: ${sp.storage}</div>
-        <div id="ram">Ram: ${sp.ram}</div>
-      </div>
-    </td>
-    <td>${sp.quantity}</td>
-    <td>${sp.totalPrice}</td>`;
-  data.appendChild(newRow);
-};
 // Tính tổng số tiền trong bảng orderHistory
 function calculateTotalOrderPrice() {
   const orderHistoryTable = document.querySelector("#orderHistory");
@@ -239,6 +222,7 @@ getUserBoughtPhones = (table) => {
   user.boughtProducts = boughtProductList;
   orders.push(user);
   localStorage.setItem("orders", JSON.stringify(orders));
+boughtProductList=[];
 }
 // Xử lý sự kiện sau khi người dùng nhấn đặt hàng
 document.querySelector("#dat_hang").addEventListener("click", () => {
@@ -333,16 +317,12 @@ function validatePayedByCard(){
   const cartTable = document.querySelector("#cart");
   while (cartTable.rows.length > 1) {
     cartTable.deleteRow(1); // Xoá toàn bộ dữ liệu trong bảng giỏ hàng
-  }
-  createOrderHistory();
-  document.querySelector("#frmdathang").style.display = "block";
+  } document.querySelector("#frmdathang").style.display = "block";
   document.querySelector("#khung_dat_hang").style.display = "none";
   document.querySelector("#non_empty").style.display = "none";
   document.querySelector("#empty").style.display = "block";
-  alert("Đơn hàng của bạn đã được gửi lên Admin");
-  boughtProductList = []
-  document.querySelector("#empty h1").textContent = "Chào mừng bạn trở lại cửa hàng của chúng tui";
-  displayOrder();
+alert("Đơn hàng của bạn đã được gửi lên admin");
+document.querySelector("#empty h1").textContent = "Chào mừng bạn trở lại cửa hàng của chúng tui";
   document.querySelector("#empty h1").textContent = "Chào Mừng Bạn Trờ Lại Cửa Hàng Chúng Tôi";
   document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
   document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
