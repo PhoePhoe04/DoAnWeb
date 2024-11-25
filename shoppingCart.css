@@ -1,8 +1,4 @@
-#customerName, #customerAddress, #cusPhoneNumber{
-    background-color: inherit;
-    border: none;
-    border-bottom: 1px solid black;
-  }
+/* 
   #frmdathang{
     position: absolute;
     inset: 0;
@@ -13,11 +9,7 @@
     font-size: 1.4rem;
     background-color: yellow;
   }
-  #frmdathang fieldset{
-    display: none;
-    border: 1px solid black;
-    padding: 4px;
-  }
+
   legend{
     background-color: black;
     color: white;
@@ -28,34 +20,65 @@
     grid-template-columns: 200px 1fr;
     grid-template-rows:repeat(3, 30px) ;
   }
-  #sangUIThanhToan{
-    background-color: black;
-    color: rgb(13, 255, 0);
-    border-radius: 15px;
-    padding: 4px;
-  }
-  .center{
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-  }
-  #cardNumber{
-    width: 100%;
-  }
- #nameOnCard{
-  width: 69%;
- }
- #dateCreated{
-  width: 30%;
- }
  #inputBankCard{
   display: none;
  }
  #inputBankCard label, fieldset label{
   display: inline-block;
+ } */
+ #sangUIThanhToan{
+  background-color: black;
+  color: rgb(13, 255, 0);
+  border-radius: 15px;
+  padding: 4px;
+}
+ #frmdathang fieldset{
+  width: 54rem;
+}
+#cardNumber{
+  width: 49rem;
+}
+#nameOnCard{
+width: 60%;
+}
+#dateCreated{
+width: 38%;
+}
+ .center{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+#customerName, #customerAddress, #cusPhoneNumber{
+  background-color: inherit;
+  border: none;
+  border-bottom: 1px solid black;
+  width:35rem;
+}
+#frmdathang label,#frmthanhtoan label{
+  display: inline-block;
+  width: 8rem;
+}
+ #frmdathang, #frmthanhtoan{
+  color: rgb(0, 0, 0);
+  width: 50rem;
+  margin-left: auto;
+  margin-right: auto;
  }
- #readOrderHistory{
+ #khung_dat_hang {
+  border: 2px solid rgba(26, 16, 16, 0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(68, 39, 39, 0.5);
+  height: 180px;
+  width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: auto;
   display: none;
+}
+ #readOrderHistory{
   color: white;
   background-color: darkcyan;
   padding: 8px;
@@ -140,13 +163,10 @@
   cursor: pointer;
 }
 #shopping_cart_page {
-  display: none;
-  position: relative;
-  top: -382px;
-  margin: auto;
+  margin-top: 10px;
   min-height: 100vh;
-  width: auto;
-  background-color: yellow;
+  width: 100%;
+  background-color: white;
 }
 #non_empty {
   display: none;
@@ -190,10 +210,10 @@
 .deleteRow {
   color: #FF0080;
 }
-#khung_dat_hang {
+/* #khung_dat_hang {
   position: absolute;
   background-color: rgba(0, 0, 0, 0.8);
-  top: 0;
+  top: 10px;
   left: 0;
   width: 100%;
   height: 100%;
@@ -201,11 +221,11 @@
 }
 #khung_dat_hang img {
   position: absolute;
-  top: 0;
+  top: 100px;
   left: 10px;
   width: 70px;
   height: 70px;
-}
+} */
 #sotientongcong {
   display: inline;
   padding: 4px;
@@ -227,4 +247,7 @@
   width: auto;
   margin-left: auto;
   margin-right: auto;
+}
+#dong_dat_hang{
+  background-color: black;
 }

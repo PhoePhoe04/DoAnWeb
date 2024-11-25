@@ -32,10 +32,10 @@
               />
             </form>
             <div class="cart">
-              <button class="btn-cart">
+              <a class="btn-cart" href="" onclick="changePage('shopping_cart_page'); return false;">
                 <i class="fa-solid fa-cart-shopping"></i>
                 <p>Giỏ hàng</p>
-              </button>
+              </a>
             </div>
             <div class="loginbtn">
               <button class="btnLogin-popup">
@@ -330,7 +330,7 @@
             <nav>
               <a href="" onclick="changePage('home'); return false;">Home</a>
               <div>></div>
-              <a href="">SamSung</a>
+              <a href="">Oppo</a>
             </nav>
 
             <div class="margin-filter-sort">
@@ -397,7 +397,7 @@
           </div>
         </div>
         <!-- Cart -->
-        <div id="shopping_cart_page">
+        <div id="shopping_cart_page" class="page section">
           <div id="empty">
             <img
               src="./assets/img/logo-img/empty_cart.png"
@@ -408,8 +408,7 @@
             <h1>Bạn chưa mua sản phẩm của cửa hàng chúng tôi</h1>
             <p id="firstP">Bạn hãy tiếp tục mua sắm.</p>
             <p id="secondP">Bạn sẽ tìm được chiếc điện thoại yêu thích của mình.</p>
-            <button id="return_main_page">Bắt Đầu Mua Sắm</button>
-            <button id="readOrderHistory">Xem Lịch Sử Mua Hàng</button>
+            <a id="return_main_page" href="" onclick="changePage('home'); return false;">Bắt đầu mua sắm</a>
           </div>
           <div id="non_empty">
             <h1 id="gio_hang">Giỏ hàng của bạn</h1>
@@ -431,56 +430,46 @@
               </div>
             </div>
             <div id="khung_dat_hang">
-              <img
-                src="./assets/img/icon/close.png"
-                alt=""
-                width="100"
-                height="100"
-              />
-              <form id="frmdathang">
-                <h1>Thông tin giao hàng</h1>
-                <div id="div">
+                <img
+                  src="./assets/img/icon/close.png"
+                  alt=""
+                  width="25"
+                  height="25"
+                  id="dong_dat_hang"
+                />
+                <form id="frmdathang">
+                  <h1>Thông tin giao hàng</h1>
                   <label for="customerName">Họ tên:</label>
-                  <input id="customerName" type="text" />
+                  <input id="customerName" type="text" required /><br>
                   <label for="customerAddress">Địa chỉ:</label>
-                  <input id="customerAddress" type="text" required />
+                  <input id="customerAddress" type="text" required /><br>
                   <label for="cusPhoneNumber">Số điện thoại:</label>
-                  <input id="cusPhoneNumber" type="text" />
-                </div>
-                <div class="center">
-                  <button id="sangUIThanhToan">Phương thức thanh toán</button>
-                </div>
-                <fieldset>
-                  <legend>Phương thức thanh toán</legend>
-                  <input type="checkbox" id="cash" checked />
-                  <label for="cash" style="width: 60%"
-                    >Thanh toán bằng tiền mặt khi nhận hàng</label
-                  >
-                  <input type="checkbox" id="card" />
-                  <label for="card">Thẻ ngân hàng</label><br />
-                  <div id="inputBankCard">
-                    <label for="cardNumber">Số thẻ:</label><br />
-                    <input
-                      id="cardNumber"
-                      placeholder="Nhập số thẻ"
-                      type="text"
-                    /><br />
-                    <label for="nameOnCard" style="width: 69%"
-                      >Tên in trên thẻ:</label
-                    >
-                    <label for="dateCreated">Ngày phát hành:</label><br />
-                    <input
-                      id="nameOnCard"
-                      placeholder="Nhập tên in trên thẻ"
-                      type="text"
-                    />
-                    <input id="dateCreated" placeholder="mm/yy" type="text" />
-                  </div>
+                  <input id="cusPhoneNumber" type="text" required /><br>
+                    <div class="center">
+                      <input id="sangUIThanhToan" type="submit" value="Chuyển sang thanh toán" />
+                    </div>
+                  </fieldset>
+                </form>
+                <form id="frmthanhtoan">
+                  <fieldset>
+                    <legend>Phương thức thanh toán</legend>
+                    <input type="checkbox" id="cash" name="paymentMethod"/>
+                    <label for="cash" style="width: 60%">Thanh toán bằng tiền mặt khi nhận hàng</label>
+                    <input type="checkbox" id="card" name="paymentMethod" />
+                    <label for="card">Thẻ ngân hàng</label><br />
+                    <div id="inputBankCard" style="display: none;">
+                      <label for="cardNumber">Số thẻ:</label><br />
+                      <input id="cardNumber" placeholder="Nhập số thẻ" type="text" /><br />
+                      <label for="nameOnCard" style="width: 60%">Tên in trên thẻ:</label>
+                      <label for="dateCreated" style="width: 38%;">Ngày phát hành:</label><br />
+                      <input id="nameOnCard" placeholder="Nhập tên in trên thẻ" type="text" />
+                      <input id="dateCreated" placeholder="mm/yy" type="text" />
+                    </div>
+                  </fieldset>
                   <div class="center">
                     <input type="submit" value="Thanh toán" />
                   </div>
-                </fieldset>
-              </form>
+                </form>
             </div>
           </div>
         </div>
