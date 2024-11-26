@@ -78,7 +78,11 @@ width: 38%;
   overflow: auto;
   display: none;
 }
+#orderHistoryContainer{
+  display: none;
+}
  #readOrderHistory{
+  display: none;
   color: white;
   background-color: darkcyan;
   padding: 8px;
@@ -144,6 +148,16 @@ width: 38%;
   font-weight: bolder;
 }
 #return_main_page {
+  background-color: darkblue;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  padding: 8px;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+#return_sc_page {
   background-color: darkblue;
   color: white;
   border-radius: 20px;
