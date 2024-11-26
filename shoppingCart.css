@@ -80,6 +80,9 @@ width: 38%;
 }
 #orderHistoryContainer{
   display: none;
+  width: 130rem;
+  margin-left: auto;
+  margin-right: auto;
 }
  #readOrderHistory{
   display: none;
@@ -95,7 +98,7 @@ width: 38%;
   border-collapse: collapse;
   margin-bottom: 10px;
   margin-top: 10px;
-  width: 70%;
+  width: 100%;
  }
  #orderHistory td{
   font-size: 1.8rem;
@@ -264,4 +267,16 @@ width: 38%;
 }
 #dong_dat_hang{
   background-color: black;
+}
+#orderData #orderDetail{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  color: red;
+  font-size: 2.5rem;
+  border: 2px solid rgba(26, 16, 16, 0.5);
+  border-radius: 10px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 30px rgba(68, 39, 39, 0.5);
+  padding: 4px;
 }

@@ -1,3 +1,4 @@
+var id_order = {};
 function handleDetailClick(event, index) {
     event.preventDefault(); // Ngừng hành động mặc định của link
     const orderDetailsDiv = document.getElementById('orderDetails' + index);
@@ -18,6 +19,7 @@ function displayOrder() {
         return;
     }
     orders.forEach((order, index) => {
+        id_order[index] = order.id;
         let newRow = document.createElement("tr");
         let date = new Date(order.boughtDate);
         let formattedDate = date.toLocaleDateString('vi-VN');
@@ -94,10 +96,40 @@ function checkBill(index) {
                 alert("Duyệt đơn thành công!");
                 icon.classList.remove("fa-x");
                 icon.classList.add("fa-check"); // Đổi sang biểu tượng dấu check
+                var duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder"));
+                if(!duyetDonHang){
+                    duyetDonHang = [];
+                    data = {};
+                    data.id = id_order[index];
+                    data.mode = "pass";
+                    duyetDonHang.push(data);
+                }else{
+                    var themPhanTu = 1;
+                    duyetDonHang.forEach(order => {
+                        if(order.id === id_order[index])
+                        {
+                            themPhanTu--;
+                            order.mode = "pass";
+                        }
+                    })
+                    if (themPhanTu === 1) {
+                        data = {};
+                        data.id = id_order[index];
+                        data.mode = "pass";
+                        duyetDonHang.push(data);
+                    }
+                }
+                localStorage.setItem("checkedOrder",JSON.stringify(duyetDonHang));
             } else if (icon.classList.contains("fa-check")) {
                 alert("Hủy duyệt đơn thành công!");
                 icon.classList.remove("fa-check");
                 icon.classList.add("fa-x"); // Đổi lại nếu cần
+                let duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder"));
+                duyetDonHang.forEach(order => {
+                    if(order.id === id_order[index])
+                        order.mode = "fail";
+                })
+                localStorage.setItem("checkedOrder", JSON.stringify(duyetDonHang));
             }
         }
     }
