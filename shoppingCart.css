@@ -280,3 +280,6 @@ width: 38%;
   box-shadow: 0 0 30px rgba(68, 39, 39, 0.5);
   padding: 4px;
 }
+#orderHistoryContainer .center h1{
+  font-size: 4rem;
+}

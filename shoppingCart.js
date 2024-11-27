@@ -1,5 +1,6 @@
 var totalPrice = 0;
 user = {};
+data = {};
 const pattern = /[^\d]/g; // Không phải là số
 const pattern1 = /dung lượng: /i; // dung lượng: chữ hoa và chữ thường
 const pattern2 = /ram: /i; // ram: chữ hoa và chữ thường
@@ -20,7 +21,7 @@ function getInforProduct(productDiv, a) {
 
     cellData.innerHTML = `
       <div>
-        <img src="${product.img}" alt="${product.id}" width="80" height="80"/>
+        <img src="${product.image}" alt="${product.id}" width="80" height="80"/>
         <div>${product.name}</div>
         <div class="detailPhone">
           <div id="storage">Dung Lượng: ${product.storage}</div>
@@ -134,44 +135,37 @@ changeCheckbox = () => {
 };
 //Xem lịch sử mua hàng
 function displayOrderHistory(){
+  document.querySelector("#readOrderHistory").style.display = "block";
   var button = document.querySelector("#readOrderHistory");
   button.addEventListener("click",() => {
     var checkedOrder = JSON.parse(localStorage.getItem("checkedOrder"));
     if (checkedOrder) {  
       checkedOrder.forEach(check => {
         if(check.mode === "pass"){
+          createNewOH(check.id);
           document.querySelector("#empty").style.display = "none";
           document.querySelector("#orderHistoryContainer").style.display = "block";
         }else{
-          alert("Đơn hàng của bạn chưa được ADMIN duyệt");
+          alert(`Đơn hàng của bạn có mã ${check.id} chưa được ADMIN duyệt`);
           return false;
         }
       }) 
-      createNewOH();
-    } else {
-      alert("Đơn hàng của bạn chưa được ADMIN duyệt");
-      return false;
-    }
+    } 
   })
 }
+document.querySelector("#return_sc_page").addEventListener("click",() => {
+  document.querySelectorAll("#orderDetail").forEach(element => {
+    element.remove();
+  });
+  document.querySelectorAll("#orderHistory").forEach(element => {
+    element.remove();
+  });
+  document.querySelector("#orderHistoryContainer").style.display = "none";
+  document.querySelector("#empty").style.display = "flex";
+})
 //Reload trang với điều kiện cho nút xem lịch sử giỏ hàng.
 document.addEventListener("DOMContentLoaded", () => {
-  const orders = JSON.parse(localStorage.getItem("orders")) || [];
-  if (orders.length > 0) {
-    document.querySelector("#readOrderHistory").style.display = "block";
-    displayOrderHistory();
-    document.querySelector("#return_sc_page").addEventListener("click",() => {
-      //xoá toàn bộ element có id.
-      document.querySelectorAll("#orderDetail").forEach(element => {
-        element.remove();
-      });
-      document.querySelectorAll("#orderHistory").forEach(element => {
-        element.remove();
-      });
-      document.querySelector("#orderHistoryContainer").style.display = "none";
-      document.querySelector("#empty").style.display = "flex";
-    })
-  }
+  return displayOrderHistory();
 });
 // Tạo dòng mới trong bảng sản phẩm
 function displayProducts(sp, data) {
@@ -190,28 +184,30 @@ function displayProducts(sp, data) {
   data.appendChild(newRow);
 };
 //Tạo đơn hàng mới
-function createNewOH() {
+function createNewOH(id) {
   const orders = JSON.parse(localStorage.getItem("orders"));
   const ohContainer = document.querySelector("#orderData");
   orders.forEach(element => {
-    const dataOrder = document.createElement("div");
-    dataOrder.id = "orderDetail"
-    dataOrder.innerHTML = `
-      <div>Mã đơn hàng: ${element.id}</div>
-      <div>Số lượng điện thoại đã mua: ${element.quantity}</div>
-      <div>Số tiền đã trả: ${element.payedMoney.toLocaleString("vi-VN")+" VNĐ"}</div>`
-    ohContainer.appendChild(dataOrder);
-    const table = document.createElement("table");
-    table.id = "orderHistory";
-    table.innerHTML= `<table>
-      <tr>
-        <td>Thông tin sản phẩm</td>
-        <td>Số lượng</td>
-        <td>Thành tiền</td>
-      </tr>
-    </table>`
-    element.boughtProducts.forEach(products =>{displayProducts(products,table)});
-    ohContainer.appendChild(table);
+    if (element.id === id) {
+      const dataOrder = document.createElement("div");
+      dataOrder.id = "orderDetail"
+      dataOrder.innerHTML = `
+        <div>Mã đơn hàng: ${element.id}</div>
+        <div>Số lượng điện thoại đã mua: ${element.quantity}</div>
+        <div>Số tiền đã trả: ${element.payedMoney.toLocaleString("vi-VN")+" VNĐ"}</div>`
+      ohContainer.appendChild(dataOrder);
+      const table = document.createElement("table");
+      table.id = "orderHistory";
+      table.innerHTML= `<table>
+        <tr>
+          <td>Thông tin sản phẩm</td>
+          <td>Số lượng</td>
+          <td>Thành tiền</td>
+        </tr>
+      </table>`
+      element.boughtProducts.forEach(products =>{displayProducts(products,table)});
+      ohContainer.appendChild(table);
+    }
   });
 }
 // Lấy toàn bộ dữ liệu điện thoại đã mua của khách hàng lưu vào local storage
@@ -245,6 +241,7 @@ getUserBoughtPhones = (table) => {
   const userPhone = document.querySelector("#cusPhoneNumber");
   const day = new Date();
   user.id = orderId;
+  data.id = orderId;
   user.name = userName.value;
   user.address = userAddress.value;
   user.phone = userPhone.value;
@@ -337,7 +334,7 @@ function validatePayedByCard(){
     }
     const patternDate = /(0[1-9]|1[0-2])\/\d{2}/; // thang/name(2 ky tu)
     if(!patternDate.test(ngaylapthe.value)){
-      alert("Ngày trên thẻ không hợp lệ");
+      alert("Ngày phát hành thẻ không hợp lệ");
       return false;
     }
   }
@@ -346,6 +343,10 @@ function validatePayedByCard(){
   while (cartTable.rows.length > 1) {
     cartTable.deleteRow(1); // Xoá toàn bộ dữ liệu trong bảng giỏ hàng, trở về empty
   } 
+  var duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder"))||[];
+  data.mode = "fail";
+  duyetDonHang.push(data);
+  localStorage.setItem("checkedOrder",JSON.stringify(duyetDonHang));
   document.querySelector("#frmdathang").style.display = "block";
   document.querySelector("#khung_dat_hang").style.display = "none";
   alert("Đơn hàng của bạn đã được gửi lên admin");
