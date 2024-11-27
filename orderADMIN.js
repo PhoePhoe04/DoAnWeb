@@ -10,6 +10,7 @@ function handleDetailClick(event, index) {
 }
 
 function displayOrder() {
+    let checkedOrders = JSON.parse(localStorage.getItem("checkedOrder")) || [];
     let orderTableBody = document.getElementById("orderTableBody");
     orderTableBody.innerHTML = "";
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
@@ -28,11 +29,11 @@ function displayOrder() {
             <td>${order.name}</td>
             <td>${formattedDate}</td>
             <td>${order.phone}</td>
-            <td>${order.address}</td>
             <td class="details-action">
                 <button onclick="checkBill(${index})">
-                    <i class="fa-solid fa-x"></i>
+                    <i class="fa-solid ${checkedOrders.find(o => o.id === order.id && o.mode === 'pass') ? 'fa-check' : 'fa-x'}"></i>
                 </button>
+            </td>
             </td>
             <td style="width:100px; text-align:center;">
                 <a class="lnkSua lnkChiTiet" id="btnChiTiet${index}" 
@@ -87,7 +88,6 @@ function displayOrder() {
 function checkBill(index) {
     // Lấy nút mà người dùng đã nhấp vào
     const button = document.querySelector(`button[onclick="checkBill(${index})"]`);
-    
     if (button) {
         const icon = button.querySelector("i"); // Tìm phần tử <i> trong nút
         if (icon) {
@@ -97,29 +97,12 @@ function checkBill(index) {
                 icon.classList.remove("fa-x");
                 icon.classList.add("fa-check"); // Đổi sang biểu tượng dấu check
                 var duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder"));
-                if(!duyetDonHang){
-                    duyetDonHang = [];
-                    data = {};
-                    data.id = id_order[index];
-                    data.mode = "pass";
-                    duyetDonHang.push(data);
-                }else{
-                    var themPhanTu = 1;
-                    duyetDonHang.forEach(order => {
-                        if(order.id === id_order[index])
-                        {
-                            themPhanTu--;
-                            order.mode = "pass";
-                        }
-                    })
-                    if (themPhanTu === 1) {
-                        data = {};
-                        data.id = id_order[index];
-                        data.mode = "pass";
-                        duyetDonHang.push(data);
-                    }
-                }
+                duyetDonHang.forEach(order => {
+                    if(order.id === id_order[index])
+                        order.mode = "pass";
+                })
                 localStorage.setItem("checkedOrder",JSON.stringify(duyetDonHang));
+                
             } else if (icon.classList.contains("fa-check")) {
                 alert("Hủy duyệt đơn thành công!");
                 icon.classList.remove("fa-check");
@@ -130,6 +113,19 @@ function checkBill(index) {
                         order.mode = "fail";
                 })
                 localStorage.setItem("checkedOrder", JSON.stringify(duyetDonHang));
+/*                 let orderTableBody = document.querySelector("#orderTableBody");
+                let rows = orderTableBody.querySelectorAll("tr");
+                rows.forEach((row,index) => {
+                    if (index === 0) {
+                        return;
+                    }
+                    if(row.querySelector("td").textContent === id_order[index]){
+                        const button = document.querySelector(`button[onclick="checkBill(${index})"]`);
+                        const icon = button.querySelector("i");
+                        icon.classList.remove("fa-check");
+                        icon.classList.add("fa-x"); 
+                    }
+                }); */
             }
         }
     }
