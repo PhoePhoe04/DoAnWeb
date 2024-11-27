@@ -35,9 +35,11 @@ html {
   /* => 1rem = 10px */
 }
 
-html,
-body {
+html, body {
   height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /*====================================================  HEADER ==================================================== */
@@ -173,7 +175,9 @@ header {
 }
 
 /*====================================================  MAIN ==================================================== */
-
+main{
+  flex: 1;
+}
 .active {
   display: block !important;
 }
@@ -317,7 +321,7 @@ header {
 }
 
 /* --------------------------------------------- IPHONE --------------------------------------------- */
-#iphone-page {
+/* #iphone-page {
   width: 100%;
   height: 400px;
   padding-top: 10px;
@@ -327,7 +331,7 @@ header {
   width: 100%;
   background: var(--white);
   border-radius: 10px;
-}
+} */
 
 .container > nav {
   display: flex;
@@ -694,12 +698,15 @@ header {
   display: none;
 }
 
+.dangnhap{
+  height: 0px;
+}
 
 .wrapper{
   position: relative;
   width: 400px;
   height: 440px;
-  background: transparent;
+  background: #bcced37d;;
   border: 2px solid rgba(255, 255, 255, .5);
   border-radius: 20px;
   backdrop-filter: blur(20px);
@@ -730,6 +737,7 @@ header {
   transform: translateX(-400px);
 }
 .wrapper .form-box.register{
+  top: 0;
   position: absolute;
   transition: none;
   transform: translateX(400px);
@@ -863,6 +871,7 @@ footer {
   color: white;
   padding: 40px 0 20px;
   font-size: 1.6rem;
+  margin-top: 20px;
 }
 
 .footer-container {

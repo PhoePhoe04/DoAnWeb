@@ -13,11 +13,13 @@ function displayOrder() {
     let orderTableBody = document.getElementById("orderTableBody");
     orderTableBody.innerHTML = "";
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    let checkedOrders = JSON.parse(localStorage.getItem("checkedOrder")) || [];
 
     if (orders.length === 0) {
         orderTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Không có đơn hàng nào</td></tr>`;
         return;
     }
+
     orders.forEach((order, index) => {
         id_order[index] = order.id;
         let newRow = document.createElement("tr");
@@ -43,6 +45,7 @@ function displayOrder() {
             </td>
         `;
         orderTableBody.appendChild(newRow);
+
         // Tạo phần chi tiết đơn hàng (ẩn theo mặc định)
         const orderDetailsDiv = document.createElement('div');
         orderDetailsDiv.id = 'orderDetails' + index;
@@ -81,6 +84,19 @@ function displayOrder() {
         orderDetailsDiv.appendChild(orderDetailsContent);
         // Thêm phần chi tiết vào bảng
         orderTableBody.appendChild(orderDetailsDiv);
+
+        // Kiểm tra trạng thái đã duyệt và thay đổi biểu tượng
+        const orderId = order.id;
+        const orderIndex = checkedOrders.findIndex(o => o.id === orderId);
+
+        if (orderIndex !== -1 && checkedOrders[orderIndex].mode === "pass") {
+            const button = document.querySelector(`button[onclick="checkBill(${index})"]`);
+            const icon = button.querySelector("i");
+            if (icon) {
+                icon.classList.remove("fa-x");
+                icon.classList.add("fa-check"); // Đổi sang biểu tượng dấu check
+            }
+        }
     });
 }
 
@@ -91,46 +107,40 @@ function checkBill(index) {
     if (button) {
         const icon = button.querySelector("i"); // Tìm phần tử <i> trong nút
         if (icon) {
-            // Kiểm tra và đổi biểu tượng
+            let duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder")) || []; // Lấy danh sách các đơn hàng đã duyệt
+            
+            // Kiểm tra trạng thái hiện tại của nút và thay đổi biểu tượng tương ứng
+            const orderId = id_order[index];
+            const orderIndex = duyetDonHang.findIndex(order => order.id === orderId);
+            
             if (icon.classList.contains("fa-x")) {
+                // Nếu biểu tượng là fa-x, duyệt đơn hàng
                 alert("Duyệt đơn thành công!");
                 icon.classList.remove("fa-x");
                 icon.classList.add("fa-check"); // Đổi sang biểu tượng dấu check
-                var duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder"));
-                if(!duyetDonHang){
-                    duyetDonHang = [];
-                    data = {};
-                    data.id = id_order[index];
-                    data.mode = "pass";
-                    duyetDonHang.push(data);
-                }else{
-                    var themPhanTu = 1;
-                    duyetDonHang.forEach(order => {
-                        if(order.id === id_order[index])
-                        {
-                            themPhanTu--;
-                            order.mode = "pass";
-                        }
-                    })
-                    if (themPhanTu === 1) {
-                        data = {};
-                        data.id = id_order[index];
-                        data.mode = "pass";
-                        duyetDonHang.push(data);
-                    }
+                
+                // Nếu đơn hàng chưa duyệt, thêm vào mảng
+                if (orderIndex === -1) {
+                    duyetDonHang.push({ id: orderId, mode: "pass" });
+                } else {
+                    // Nếu đơn hàng đã tồn tại trong mảng, chỉ cần cập nhật lại trạng thái
+                    duyetDonHang[orderIndex].mode = "pass";
                 }
-                localStorage.setItem("checkedOrder",JSON.stringify(duyetDonHang));
+
             } else if (icon.classList.contains("fa-check")) {
+                // Nếu biểu tượng là fa-check, hủy duyệt đơn hàng
                 alert("Hủy duyệt đơn thành công!");
                 icon.classList.remove("fa-check");
-                icon.classList.add("fa-x"); // Đổi lại nếu cần
-                let duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder"));
-                duyetDonHang.forEach(order => {
-                    if(order.id === id_order[index])
-                        order.mode = "fail";
-                })
-                localStorage.setItem("checkedOrder", JSON.stringify(duyetDonHang));
+                icon.classList.add("fa-x"); // Đổi lại thành biểu tượng x
+
+                // Nếu đơn hàng đã duyệt, thay đổi trạng thái thành "fail"
+                if (orderIndex !== -1) {
+                    duyetDonHang[orderIndex].mode = "fail";
+                }
             }
+
+            // Lưu lại danh sách các đơn hàng đã duyệt vào localStorage
+            localStorage.setItem("checkedOrder", JSON.stringify(duyetDonHang));
         }
     }
 }

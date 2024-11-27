@@ -392,9 +392,9 @@ productManager.addProduct(new Product("samsung","ssgA55_5G_256_8gb","./assets/it
 productManager.addProduct(new Product("xiaomi","xiaomi_rn13_8-128","./assets/item/xiaomi_rn13_8-128.jpg", "Xiaomi Redmi Note 13 8GB/128GB", 4390000, 10, "8GB", "128GB"));
 productManager.addProduct(new Product("xiaomi","xiaomi_rn13pr_8-128","./assets/item/xiaomi_rn13pr_8-128.jpg", "Xiaomi Redmi Note 13 PRO 8GB/128GB", 5990000, 10, "8GB", "128GB"));
 productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4090000, 10, "8GB", "128GB"));
-
 productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 3490000, 10, "6GB", "128GB"));
 productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4990000, 10, "8GB", "256GB"));
+productManager.addProduct(new Product("oppo","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4990000, 10, "8GB", "256GB"));
 
 
 productManager.loadFromLocalStorage();
