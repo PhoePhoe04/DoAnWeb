@@ -113,19 +113,6 @@ function checkBill(index) {
                         order.mode = "fail";
                 })
                 localStorage.setItem("checkedOrder", JSON.stringify(duyetDonHang));
-/*                 let orderTableBody = document.querySelector("#orderTableBody");
-                let rows = orderTableBody.querySelectorAll("tr");
-                rows.forEach((row,index) => {
-                    if (index === 0) {
-                        return;
-                    }
-                    if(row.querySelector("td").textContent === id_order[index]){
-                        const button = document.querySelector(`button[onclick="checkBill(${index})"]`);
-                        const icon = button.querySelector("i");
-                        icon.classList.remove("fa-check");
-                        icon.classList.add("fa-x"); 
-                    }
-                }); */
             }
         }
     }
