@@ -113,7 +113,6 @@ document.addEventListener("click", function (event) {
   }
 });
 
-
 /* Nhấn nút giỏ hàng */
 document.querySelector(".cart").addEventListener("click", function () {
   document.querySelector("#shopping_cart_page").style.display = "block";

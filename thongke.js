@@ -6,9 +6,18 @@ function formatDate(date) {
     return `${day}/${month}/${year}`;
 }
 function displayStatics() {
+    // Lấy giá trị từ các trường ngày và loại sản phẩm
+    var startDate = new Date(document.getElementById("startDate").value);
+    var endDate = new Date(document.getElementById("endDate").value);
+    var selectedProductType = document.getElementById("productType").value;
+
     let staticsTableBody = document.getElementById("staticsTableBody");
     staticsTableBody.innerHTML = "";
     let statics = JSON.parse(localStorage.getItem("statics")) || [];
+
+    const productTotals = {};
+    let totalAmount = 0;
+    let totalQuantity = 0;
 
     console.log(statics); // Kiểm tra dữ liệu
     statics.forEach((statics) => {
