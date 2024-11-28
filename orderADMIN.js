@@ -2,11 +2,80 @@ var id_order = {};
 function handleDetailClick(event, index) {
     event.preventDefault(); // Ngừng hành động mặc định của link
     const orderDetailsDiv = document.getElementById('orderDetails' + index);
-
     // Toggle hiển thị chi tiết
     if (orderDetailsDiv) {
         orderDetailsDiv.style.display = orderDetailsDiv.style.display === 'none' ? 'block' : 'none';
     }
+}
+
+// Thêm sự kiện click cho nút "Xem"
+document.getElementById("seeButton").addEventListener("click", function(event) {
+    event.preventDefault(); // Ngừng hành động mặc định của nút, ví dụ như submit form nếu có
+
+    // Lấy giá trị từ các input ngày
+    const startDate = document.getElementById("startDay").value;
+    const endDate = document.getElementById("endDay").value;
+
+    // Kiểm tra nếu ngày hợp lệ
+    if (startDate && endDate) {
+        // Chuyển đổi thành kiểu Date để so sánh
+        const start = new Date(startDate);
+        const end = new Date(endDate);
+
+        if (start > end) {
+            alert("Ngày bắt đầu không thể lớn hơn ngày kết thúc!");
+            return;
+        }
+
+        // Lọc các đơn hàng trong phạm vi ngày đã chọn
+        filterOrdersByDate(start, end);
+    } else {
+        alert("Vui lòng chọn cả ngày bắt đầu và ngày kết thúc.");
+    }
+});
+
+// Hàm lọc đơn hàng theo ngày
+function filterOrdersByDate(start, end) {
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+    let orderTableBody = document.getElementById("orderTableBody");
+    orderTableBody.innerHTML = "";
+
+    if (orders.length === 0) {
+        orderTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Không có đơn hàng nào</td></tr>`;
+        return;
+    }
+
+    // Lọc đơn hàng theo ngày
+    orders.forEach((order, index) => {
+        let orderDate = new Date(order.boughtDate); // Chuyển đổi ngày mua thành đối tượng Date
+
+        // Kiểm tra xem ngày mua nằm trong phạm vi không
+        if (orderDate >= start && orderDate <= end) {
+            // Tiến hành hiển thị các đơn hàng lọc được
+            let newRow = document.createElement("tr");
+            let formattedDate = orderDate.toLocaleDateString('vi-VN');
+            newRow.innerHTML = `
+                <td>${order.id}</td>
+                <td>${order.name}</td>
+                <td>${formattedDate}</td>
+                <td>${order.phone}</td>
+                <td>${order.address}</td>
+                <td class="details-action">
+                    <button onclick="checkBill(${index})">
+                        <i class="fa-solid fa-x"></i>
+                    </button>
+                </td>
+                <td style="width:100px; text-align:center;">
+                    <a class="lnkSua lnkChiTiet" id="btnChiTiet${index}" 
+                       data-id="${index}" data-trangthai="0" title="Xem chi tiết" 
+                       href="#" onclick="handleDetailClick(event, ${index})">
+                       Chi tiết
+                    </a>
+                </td>
+            `;
+            orderTableBody.appendChild(newRow);
+        }
+    });
 }
 
 function displayOrder() {
@@ -49,7 +118,7 @@ function displayOrder() {
         // Tạo phần chi tiết đơn hàng (ẩn theo mặc định)
         const orderDetailsDiv = document.createElement('div');
         orderDetailsDiv.id = 'orderDetails' + index;
-
+        orderDetailsDiv.style.display = 'none';
         // Hiển thị chi tiết sản phẩm trong đơn hàng
         const orderDetailsContent = document.createElement('div');
         orderDetailsContent.innerHTML = `
