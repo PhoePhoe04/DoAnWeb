@@ -145,6 +145,7 @@ document.querySelector("#return_sc_page").addEventListener("click",() => {
 //Xem lịch sử mua hàng
 function displayOrderHistory() {
   var button = document.querySelector("#readOrderHistory");
+  var name = JSON.parse(localStorage.getItem("orders"))
   button.style.display = "block"; // Ensure the button is visible
   button.addEventListener("click", () => {
     var checkedOrder = JSON.parse(localStorage.getItem("checkedOrder"));
@@ -190,10 +191,12 @@ function displayProducts(sp, data) {
 };
 //Tạo đơn hàng mới
 function createNewOH(id) {
+  const user = JSON.parse(sessionStorage.getItem("loggedInUser"));
+  var ten = user.username;
   const orders = JSON.parse(localStorage.getItem("orders"));
   const ohContainer = document.querySelector("#orderData");
   orders.forEach(element => {
-    if (element.id === id) {
+    if (element.id === id && element.name === ten) {
       const dataOrder = document.createElement("div");
       dataOrder.id = "orderDetail"
       dataOrder.innerHTML = `
