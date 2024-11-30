@@ -176,7 +176,7 @@ function checkBill(index) {
     if (button) {
         const icon = button.querySelector("i"); // Tìm phần tử <i> trong nút
         if (icon) {
-            let duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder")); // Lấy danh sách các đơn hàng chưa duyệt
+            let duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder")); // Lấy danh sách các đơn hàng chưa duyệt và đã duyệt
             
             // Kiểm tra trạng thái hiện tại của nút và thay đổi biểu tượng tương ứng
             const orderId = id_order[index];
