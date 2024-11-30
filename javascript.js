@@ -405,44 +405,6 @@ productManager.displayProductsWithType("productSamSung", "samsung");
 productManager.displayProductsWithType("productXiaomi", "xiaomi");
 productManager.displayProductsWithType("productOppo", "oppo");
 
-var totalPrice = 0;
-function getInforProduct(productDiv, a) {
-  const productName = productDiv.querySelector(a).textContent;
-  const product = productManager.productList.find(
-    (p) => p.name === productName
-  );
-
-  if (product) {
-    const table = document.querySelector("#cart");
-    const newRow = table.insertRow();
-
-    const cellData = newRow.insertCell(0);
-    const cellPrice = newRow.insertCell(1);
-    const cellQuantity = newRow.insertCell(2);
-    const cellTotalPrice = newRow.insertCell(3);
-    const cellDelete = newRow.insertCell(4);
-    cellData.innerHTML = `<div>
-      <img src="${product.image}" alt="${product.id}" width="80" height="80"/>
-      <div>${product.name}</div>
-      <div class="detailPhone">
-        <div id="storage">Dung Lượng: ${product.storage}</div>
-        <div id="ram">Ram: ${product.ram}</div>
-      </div>
-    </div>`;
-    vnMoney = product.price.toLocaleString("vi-VN") + "VNĐ";
-    cellPrice.textContent = vnMoney;
-    cellQuantity.innerHTML = `<div class="control_quantity">
-      <button>-</button>
-      <div class="quantity">1</div>
-      <button>+</button>
-    </div>`;
-    cellTotalPrice.textContent = vnMoney;
-    cellDelete.innerHTML = `<div class="deleteRow">Xoá</div>`;
-    totalPrice += product.price;
-    user.totalPrice = totalPrice;
-  }
-}
-
 // Popup detail
 function createPopup(product) {
   // Kiểm tra nếu popup đã tồn tại thì không tạo mới

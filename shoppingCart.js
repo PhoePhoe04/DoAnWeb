@@ -132,26 +132,6 @@ changeCheckbox = () => {
     document.querySelector("#dateCreated").required = false;
   }
 };
-//Xem lịch sử mua hàng
-function displayOrderHistory(){
-  document.querySelector("#readOrderHistory").style.display = "block";
-  var button = document.querySelector("#readOrderHistory");
-  button.addEventListener("click",() => {
-    var checkedOrder = JSON.parse(localStorage.getItem("checkedOrder"));
-    if (checkedOrder) {  
-      checkedOrder.forEach(check => {
-        if(check.mode === "pass"){
-          createNewOH(check.id);
-          document.querySelector("#empty").style.display = "none";
-          document.querySelector("#orderHistoryContainer").style.display = "block";
-        }else{
-          alert(`Đơn hàng của bạn có mã ${check.id} chưa được ADMIN duyệt`);
-          return false;
-        }
-      }) 
-    } 
-  })
-}
 document.querySelector("#return_sc_page").addEventListener("click",() => {
   document.querySelectorAll("#orderDetail").forEach(element => {
     element.remove();
@@ -162,10 +142,36 @@ document.querySelector("#return_sc_page").addEventListener("click",() => {
   document.querySelector("#orderHistoryContainer").style.display = "none";
   document.querySelector("#empty").style.display = "flex";
 })
-//Reload trang với điều kiện cho nút xem lịch sử giỏ hàng.
-document.addEventListener("DOMContentLoaded", () => {
-  return displayOrderHistory();
-});
+//Xem lịch sử mua hàng
+function displayOrderHistory() {
+  var button = document.querySelector("#readOrderHistory");
+  button.style.display = "block"; // Ensure the button is visible
+  button.addEventListener("click", () => {
+    var checkedOrder = JSON.parse(localStorage.getItem("checkedOrder"));
+    if (checkedOrder) {
+      checkedOrder.forEach(check => {
+        if (check.mode === "pass") {
+          createNewOH(check.id);
+          document.querySelector("#empty").style.display = "none";
+          document.querySelector("#orderHistoryContainer").style.display = "block";
+        } else {
+          alert(`Đơn hàng của bạn có mã ${check.id} chưa được ADMIN duyệt`);
+          return false;
+        }
+      });
+    }
+  });
+}
+// Xử lý sự kiện khi tick checkbox trong thanh toán
+changeCheckbox = () => {
+  if (document.querySelector("#cash").checked) {
+    document.querySelector("#card").checked = false;
+    document.querySelector("#inputBankCard").style.display = "none";
+    document.querySelector("#cardNumber").required = false;
+    document.querySelector("#nameOnCard").required = false;
+    document.querySelector("#dateCreated").required = false;
+  }
+};
 // Tạo dòng mới trong bảng sản phẩm
 function displayProducts(sp, data) {
   const newRow = document.createElement("tr");
@@ -350,17 +356,29 @@ function validatePayedByCard(){
   document.querySelector("#khung_dat_hang").style.display = "none";
   alert("Đơn hàng của bạn đã được gửi lên admin");
   document.querySelector("#readOrderHistory").style.display = "block";
-  document.querySelector("#empty h1").textContent = "Chào mừng bạn trở lại cửa hàng của chúng tui";
-  document.querySelector("#empty h1").textContent = "Chào Mừng Bạn Trờ Lại Cửa Hàng Chúng Tôi";
-  document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
-  document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
   totalPrice = 0;
   document.querySelector("#frmthanhtoan").reset();
+}
+function checkOrderHistory() {
+  if (sessionStorage.getItem("loggedInUser") === null) {
+    document.querySelector("#readOrderHistory").style.display = "none";
+    document.querySelector("#orderHistoryContainer").style.display = "none";
+    document.querySelector("#empty").style.display = "flex";
+  }else if (localStorage.getItem("checkedOrder")) {
+    document.querySelector("#empty h1").textContent = "Chào Mừng Bạn Trờ Lại Cửa Hàng Chúng Tôi";
+    document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
+    document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
+    document.querySelector("#readOrderHistory").style.display = "block";
+    displayOrderHistory();
+  } else {
+    document.querySelector("#readOrderHistory").style.display = "none";
+  }
 }
 document.querySelector("#frmthanhtoan").onsubmit = (event) =>{
   event.preventDefault();
   return validatePayedByCard();
 }
+checkOrderHistory();
 // Nếu khách hàng xoá hết toàn bộ dòng trong giỏ hàng thì cho sang giao diện empty
 const cartObserver = new MutationObserver(function () {
   if (document.querySelector("#cart").rows.length == 1) {

@@ -160,6 +160,8 @@ loginButton.addEventListener("click", function (event) {
 logoutButton.addEventListener("click", function () {
     // Xóa thông tin người dùng khỏi sessionStorage
     sessionStorage.removeItem("loggedInUser");
+    //Sử dụng hàm này để ẩn nút xem lịch sử mua hàng
+    checkOrderHistory();
     // Ẩn menu người dùng
     userMenu.style.display = "none";
     // Hiển thị lại nút Login

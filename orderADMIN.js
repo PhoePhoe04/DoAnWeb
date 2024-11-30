@@ -176,7 +176,7 @@ function checkBill(index) {
     if (button) {
         const icon = button.querySelector("i"); // Tìm phần tử <i> trong nút
         if (icon) {
-            let duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder")) || []; // Lấy danh sách các đơn hàng đã duyệt
+            let duyetDonHang = JSON.parse(localStorage.getItem("checkedOrder")); // Lấy danh sách các đơn hàng chưa duyệt
             
             // Kiểm tra trạng thái hiện tại của nút và thay đổi biểu tượng tương ứng
             const orderId = id_order[index];
@@ -187,12 +187,7 @@ function checkBill(index) {
                 alert("Duyệt đơn thành công!");
                 icon.classList.remove("fa-x");
                 icon.classList.add("fa-check"); // Đổi sang biểu tượng dấu check
-                
-                // Nếu đơn hàng chưa duyệt, thêm vào mảng
-                if (orderIndex === -1) {
-                    duyetDonHang.push({ id: orderId, mode: "pass" });
-                } else {
-                    // Nếu đơn hàng đã tồn tại trong mảng, chỉ cần cập nhật lại trạng thái
+                if (orderIndex !== -1) {
                     duyetDonHang[orderIndex].mode = "pass";
                 }
 
