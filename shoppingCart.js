@@ -144,23 +144,28 @@ document.querySelector("#return_sc_page").addEventListener("click",() => {
 })
 //Xem lịch sử mua hàng
 function displayOrderHistory() {
-  var button = document.querySelector("#readOrderHistory");
-  var name = JSON.parse(localStorage.getItem("orders"))
+  const button = document.querySelector("#readOrderHistory");
   button.style.display = "block"; // Ensure the button is visible
   button.addEventListener("click", () => {
     var checkedOrder = JSON.parse(localStorage.getItem("checkedOrder"));
-    if (checkedOrder) {
-      checkedOrder.forEach(check => {
-        if (check.mode === "pass") {
-          createNewOH(check.id);
-          document.querySelector("#empty").style.display = "none";
-          document.querySelector("#orderHistoryContainer").style.display = "block";
-        } else {
-          alert(`Đơn hàng của bạn có mã ${check.id} chưa được ADMIN duyệt`);
-          return false;
+    const user = JSON.parse(sessionStorage.getItem("loggedInUser"));
+    var ten = user.username;
+    const orders = JSON.parse(localStorage.getItem("orders"));
+    orders.forEach(element => {
+      if (element.name === ten) {    
+        if (checkedOrder) {
+          checkedOrder.forEach(check => {
+            if (check.mode === "pass" && check.id === element.id) {
+              createNewOH(check.id);
+              document.querySelector("#empty").style.display = "none";
+              document.querySelector("#orderHistoryContainer").style.display = "block";
+            }else if(check.id === element.id){
+              alert(`Đơn hàng của bạn có mã ${check.id} chưa được ADMIN duyệt`);
+            }
+          });
         }
-      });
-    }
+      }
+    })
   });
 }
 // Xử lý sự kiện khi tick checkbox trong thanh toán
@@ -371,7 +376,6 @@ function checkOrderHistory() {
     document.querySelector("#empty h1").textContent = "Chào Mừng Bạn Trờ Lại Cửa Hàng Chúng Tôi";
     document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
     document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
-    document.querySelector("#readOrderHistory").style.display = "block";
     displayOrderHistory();
   } else {
     document.querySelector("#readOrderHistory").style.display = "none";
