@@ -155,12 +155,14 @@ function displayOrderHistory() {
       if (element.name === ten) {    
         if (checkedOrder) {
           checkedOrder.forEach(check => {
-            if (check.mode === "pass" && check.id === element.id) {
-              createNewOH(check.id);
-              document.querySelector("#empty").style.display = "none";
-              document.querySelector("#orderHistoryContainer").style.display = "block";
-            }else if(check.id === element.id){
-              alert(`Đơn hàng của bạn có mã ${check.id} chưa được ADMIN duyệt`);
+            if(check.id === element.id){
+              if (check.mode === "pass") {
+                createNewOH(check.id);
+                document.querySelector("#empty").style.display = "none";
+                document.querySelector("#orderHistoryContainer").style.display = "block";
+              }else{
+                alert(`Đơn hàng của bạn có mã ${check.id} chưa được ADMIN duyệt`);
+              }
             }
           });
         }
