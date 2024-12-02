@@ -4,8 +4,8 @@ data = {};
 const pattern = /[^\d]/g; // Không phải là số
 const pattern1 = /dung lượng: /i; // dung lượng: chữ hoa và chữ thường
 const pattern2 = /ram: /i; // ram: chữ hoa và chữ thường
-var payedByCard = 0; // nguoi mua tra tien bang the ngan hang
-
+let payedByCard = 0; // nguoi mua tra tien bang the ngan hang
+let dathanhtoan = 0;
 /* Hàm tạo dòng mới trong table giỏ hàng */
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
@@ -170,16 +170,6 @@ function displayOrderHistory() {
     })
   });
 }
-// Xử lý sự kiện khi tick checkbox trong thanh toán
-changeCheckbox = () => {
-  if (document.querySelector("#cash").checked) {
-    document.querySelector("#card").checked = false;
-    document.querySelector("#inputBankCard").style.display = "none";
-    document.querySelector("#cardNumber").required = false;
-    document.querySelector("#nameOnCard").required = false;
-    document.querySelector("#dateCreated").required = false;
-  }
-};
 // Tạo dòng mới trong bảng sản phẩm
 function displayProducts(sp, data) {
   const newRow = document.createElement("tr");
@@ -321,22 +311,31 @@ document.querySelector("#cash").addEventListener("change", () => {
   }
 });
 
-document.querySelector("#card").addEventListener("change", () => {
-  if(document.querySelector("#card").checked)
-  {
-    document.querySelector("#inputBankCard").style.display = "block";
-    document.querySelector("#cardNumber").required = true;
-    document.querySelector("#nameOnCard").required = true;
-    document.querySelector("#dateCreated").required = true;
-    payedByCard ++;
+document.querySelectorAll("input[type=checkbox]").forEach(a => {
+  payedByCard = 0;
+  dathanhtoan = 0;
+  if (a.id === "card") {
+    a.addEventListener("change", () => {
+      document.querySelector("#cash").checked = false;
+      document.querySelector("#inputBankCard").style.display = "block";
+      document.querySelector("#cardNumber").required = true;
+      document.querySelector("#nameOnCard").required = true;
+      document.querySelector("#dateCreated").required = true;
+      payedByCard++;
+      dathanhtoan++;
+    })
   }
-  if (document.querySelector("#cash").checked) {
-    document.querySelector("#inputBankCard").style.display = "none";
-    document.querySelector("#cardNumber").required = false;
-    document.querySelector("#nameOnCard").required = false;
-    document.querySelector("#dateCreated").required = false;
+  if (a.id === "cash") {
+    a.addEventListener("change", () => {
+      document.querySelector("#card").checked = false;
+      document.querySelector("#inputBankCard").style.display = "none";
+      document.querySelector("#cardNumber").required = false;
+      document.querySelector("#nameOnCard").required = false;
+      document.querySelector("#dateCreated").required = false;
+      dathanhtoan++;
+    })
   }
-});
+})
 //Kiem tra thong tin thanh toan truoc khi submit from
 function validatePayedByCard(){
   if (payedByCard > 0) {
@@ -352,6 +351,10 @@ function validatePayedByCard(){
       alert("Ngày phát hành thẻ không hợp lệ");
       return false;
     }
+  }else if(dathanhtoan === 0)
+  {
+    alert("Bạn chưa chọn phương thức thanh toán");
+    return false;
   }
   const cartTable = document.querySelector("#cart");
   getUserBoughtPhones(cartTable);

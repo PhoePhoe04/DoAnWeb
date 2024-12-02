@@ -26,6 +26,10 @@
  #inputBankCard label, fieldset label{
   display: inline-block;
  } */
+#empty img{
+  width: 300px;
+  height: 200px;
+}
  #sangUIThanhToan{
   background-color: black;
   color: rgb(13, 255, 0);
@@ -49,6 +53,7 @@ width: 38%;
   margin-bottom: 10px;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 #customerName, #customerAddress, #cusPhoneNumber{
   background-color: inherit;
@@ -282,4 +287,120 @@ width: 38%;
 }
 #orderHistoryContainer .center h1{
   font-size: 4rem;
+}
+@media (max-width: 991px){
+
+}
+@media (max-width: 768px){
+  #empty img{
+    width: 300px;
+    height: 210px;
+  }
+  #orderHistoryContainer{
+    width: 100%;
+  }
+  #cart th, #cart td{
+    font-size: 1.4rem;
+  }
+  #sotientongcong div{
+    border: none;
+  }
+  #orderHistory, #orderDetail{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1.6rem !important;
+  }
+  .center #titleOHC{
+    font-size: 2rem !important;
+  }
+  #orderHistory td, #orderHistory th{
+    font-size: 1.6rem !important;
+  }
+  #sotientongcong div{
+    border: none;
+  }
+}
+@media (max-width: 480px){
+  #empty img{
+    width: 200px;
+    height: 150px;
+  }
+  #cart th, #cart td{
+    font-size: 1rem;
+  }
+  #orderHistoryContainer{
+    width: 100%;
+  }
+  #orderHistory, #orderDetail{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem !important;
+    color: black !important;
+  }
+  .center #titleOHC{
+    font-size: 2rem !important;
+  }
+  #orderHistory td, #orderHistory th{
+    font-size: 1rem !important;
+  }
+  #sotientongcong div{
+    border: none;
+  }
+  #cart{
+    width: 85%;
+  }
+  #inputBankCard{
+    width: 24rem;
+  }
+  #return_main_page,#readOrderHistory,#return_sc_page, #dat_hang, #sotientongcong div{
+    font-size: 1rem;
+  }
+  .quantity{
+    width: 2rem;
+  }
+  .control_quantity button{
+    width: 1rem;
+  }
+  #khung_dat_hang{
+    width: 30rem;
+    height: 15rem;
+    overflow: auto;
+  }
+  #frmdathang, #frmthanhtoan{
+    width: 24rem !important;
+    font-size: 1rem;
+  }
+  #frmthanhtoan label{
+    font-size: 0.8rem;
+    width: 40% !important;
+  }
+  /* #frmthanhtoan label:first-child{
+    width: 60% !important;
+  } */
+  #frmthanhtoan label[for="nameOnCard"]{
+    width: 60% !important;
+  }
+  #frmthanhtoan label[for="dateCreated"]{
+    width: 34% !important;
+  }
+  #dateCreated{
+    width: 39% !important;
+  }
+  #nameOnCard{
+    width: 59% !important;
+  }
+  #frmthanhtoan input{
+    font-size: 1rem;
+  }
+  #frmdathang h1, #frmthanhtoan h1{
+    font-size: 1rem;
+  }
+  #cardNumber{
+    width: 23.8rem;
+  }
+  #customerName, #customerAddress, #cusPhoneNumber{
+    width:12rem;
+  }
 }

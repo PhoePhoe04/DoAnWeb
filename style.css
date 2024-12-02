@@ -488,8 +488,8 @@ main{
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   display: none; /* Ẩn popup mặc định */
-  justify-content: center;
-  align-items: center;
+  justify-self: center;
+  align-self: center;
   z-index: 1000;
 }
 
@@ -513,11 +513,11 @@ main{
   display: flex;
 }
 
-.img-product {
+.image-product {
   width: 35%;
 }
 
-.img-product > img {
+.image-product > img {
   width: 100%;
   height: auto;
   margin-bottom: 10px;
