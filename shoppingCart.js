@@ -4,8 +4,8 @@ data = {};
 const pattern = /[^\d]/g; // Không phải là số
 const pattern1 = /dung lượng: /i; // dung lượng: chữ hoa và chữ thường
 const pattern2 = /ram: /i; // ram: chữ hoa và chữ thường
-let payedByCard = 0; // nguoi mua tra tien bang the ngan hang
-let dathanhtoan = 0;
+var payedByCard = 0; // nguoi mua tra tien bang the ngan hang
+var dathanhtoan = 0;
 /* Hàm tạo dòng mới trong table giỏ hàng */
 function getInforProduct(productDiv, a) {
   const productName = productDiv.querySelector(a).textContent;
@@ -294,22 +294,6 @@ document.querySelector("#frmdathang").onsubmit = (event) => {
   event.preventDefault();
   return validatePhoneNumber();
 };
-document.querySelector("#cash").addEventListener("change", () => {
-  if (document.querySelector("#cash").checked) {
-    document.querySelector("#inputBankCard").style.display = "none";
-    document.querySelector("#cardNumber").required = false;
-    document.querySelector("#nameOnCard").required = false;
-    document.querySelector("#dateCreated").required = false;
-  }
-  if(document.querySelector("#card").checked)
-  {
-    document.querySelector("#inputBankCard").style.display = "block";
-    document.querySelector("#cardNumber").required = true;
-    document.querySelector("#nameOnCard").required = true;
-    document.querySelector("#dateCreated").required = true;
-    payedByCard ++;
-  }
-});
 
 document.querySelectorAll("input[type=checkbox]").forEach(a => {
   payedByCard = 0;

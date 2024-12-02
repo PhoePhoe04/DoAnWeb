@@ -355,7 +355,7 @@ width: 38%;
     width: 24rem;
   }
   #return_main_page,#readOrderHistory,#return_sc_page, #dat_hang, #sotientongcong div{
-    font-size: 1rem;
+    font-size: 1.4rem;
   }
   .quantity{
     width: 2rem;
@@ -365,7 +365,7 @@ width: 38%;
   }
   #khung_dat_hang{
     width: 30rem;
-    height: 15rem;
+    height: 16rem;
     overflow: auto;
   }
   #frmdathang, #frmthanhtoan{
