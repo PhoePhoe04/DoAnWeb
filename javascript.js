@@ -2,19 +2,29 @@
 
 // Sự kiện cho nút hiển thị thêm
 function showMoreProducts() {
-  const items = document.querySelectorAll(
-    ".products .product:nth-child(n + 9)"
-  );
+  const items = document.querySelectorAll(".products .product:nth-child(n + 9)");
   const button = document.getElementById("showMoreBtn");
 
-  items.forEach((item) => {
-    item.style.display = item.style.display === "none" ? "block" : "none";
+  // Kiểm tra trạng thái hiện tại của các mục
+  const isHidden = Array.from(items).every(item => item.style.display === "none" || item.style.display === "");
+
+  // Cập nhật trạng thái hiển thị
+  items.forEach(item => {
+    item.style.display = isHidden ? "block" : "none";
   });
 
-  // Thay đổi văn bản nút dựa trên trạng thái hiển thị
-  button.textContent =
-    button.textContent === "Hiển thị thêm" ? "Thu gọn" : "Hiển thị thêm";
+  // Thay đổi văn bản nút
+  button.textContent = isHidden ? "Thu gọn" : "Hiển thị thêm";
 }
+
+// Đảm bảo rằng các mục bị ẩn khi trang tải
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".products .product:nth-child(n + 9)");
+  items.forEach(item => {
+    item.style.display = "none";
+  });
+});
+
 
 // SLIDER-BANNER
 const slides = document.querySelectorAll(".banner");
@@ -395,7 +405,6 @@ productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item
 productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 3490000, 10, "6GB", "128GB"));
 productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4990000, 10, "8GB", "256GB"));
 productManager.addProduct(new Product("oppo","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4990000, 10, "8GB", "256GB"));
-
 
 productManager.loadFromLocalStorage();
 
