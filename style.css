@@ -246,6 +246,7 @@ main{
   height: 45rem;
   border-radius: 10px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.2);
+  display: block;
 }
 
 .productImg {

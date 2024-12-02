@@ -23,12 +23,13 @@
               <img src="assets/img/logo-img/Bắc.png" alt="Logo"/>
               <h2>BiDiEO</h2>
             </div>            
-            <form class="searchBar">
-              <button></button>
+            <form class="searchBar" onsubmit="return false;">
+              <button type="button"></button>
               <input
                 type="text"
                 class="search"
                 placeholder="Bạn muốn tìm gì...."
+                oninput="searchProducts(this.value)"
               />
             </form>
             <div class="cart">

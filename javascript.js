@@ -25,6 +25,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+//Sự kiện tìm kiếm
+function searchProducts(keyword) {
+  // Lấy danh sách tất cả các sản phẩm
+  const products = document.querySelectorAll(".products .product");
+
+  // Lặp qua từng sản phẩm
+  products.forEach((product) => {
+    const productName = product.querySelector(".productName").textContent;
+
+    // Kiểm tra tên sản phẩm có chứa từ khóa không (không phân biệt chữ hoa/thường)
+    if (productName.toLowerCase().includes(keyword.toLowerCase())) {
+      product.style.display = "block"; // Hiển thị sản phẩm khớp
+    } else {
+      product.style.display = "none"; // Ẩn sản phẩm không khớp
+    }
+  });
+}
 
 // SLIDER-BANNER
 const slides = document.querySelectorAll(".banner");
