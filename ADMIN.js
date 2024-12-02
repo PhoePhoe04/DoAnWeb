@@ -373,29 +373,6 @@ function confirmDeleteProduct(productId) {
     }
 }
 
-function displayProducts() {
-    const products = getProductsFromLocalStorage();
-    const productTableBody = document.getElementById('productTableBody');
-    productTableBody.innerHTML = ""; // Xóa bảng trước khi hiển thị lại
-
-    products.forEach(product => {
-        const newRow = document.createElement('tr');
-        newRow.classList.add('newRow');
-        newRow.innerHTML = `
-            <td>${product.name}</td>
-            <td><img src="${product.image}" width="50" alt="${product.name}"></td>
-            <td>${product.ram}</td>
-            <td>${product.storage}</td>
-            <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td>
-            <td class="details-action">
-                <button onclick="editProduct('${product.id}')"><i class="fa-solid fa-pen-to-square"></i></button>
-                <button onclick="confirmDeleteProduct('${product.id}')"><i class="fa-solid fa-trash"></i></button>
-            </td>
-        `;
-        productTableBody.appendChild(newRow);
-    });
-}
-
 let currentPage = 1;
 const productsPerPage = 6; // Hiển thị 6 sản phẩm mỗi trang
 
@@ -454,7 +431,6 @@ document.getElementById("nextPage").onclick = function() {
 };
 // Khởi tạo hiển thị cả danh sách khách hàng và sản phẩm với phân trang
 window.onload = function() {
-    displayProducts();
     displayCustomers();              // Hiển thị khách hàng
     displayPaginatedProducts();      // Hiển thị sản phẩm với phân trang
     displayOrder();                  // Hiển thị các đơn hàng
