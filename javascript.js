@@ -232,7 +232,7 @@ class ProductManager {
       </div>
       <div class="productName">${product.name}</div>
       <div class="productDetail"></div>
-      <div class="productPrice">${product.price.toLocaleString("vi-VN")} VNĐ</div>
+      <div class="productPrice">${parseInt(product.price).toLocaleString('vi-VN')} VNĐ</div>
       <div class="btnProduct">
         <button class="viewDetailBtn" onclick="setViewDetailEvent(this)">Xem chi tiết</button>
         <button class="muaNgay">Mua ngay</button>

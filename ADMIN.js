@@ -404,7 +404,7 @@ function displayPaginatedProducts() {
             <td><img src="${product.image}" width="50" alt="${product.name}"></td>
             <td>${product.ram}</td>
             <td>${product.storage}</td>
-            <td>${parseInt(product.price).toLocaleString('vi-VN')}đ</td>
+            <td>${parseInt(product.price).toLocaleString('vi-VN')} VNĐ</td>
             <td class="details-action">
                 <button onclick="editProduct('${product.id}')"><i class="fa-solid fa-pen-to-square"></i></button>
                 <button onclick="confirmDeleteProduct('${product.id}')"><i class="fa-solid fa-trash"></i></button>
