@@ -2,14 +2,18 @@
 
 // Sự kiện cho nút hiển thị thêm
 function showMoreProducts() {
-  const items = document.querySelectorAll(".products .product:nth-child(n + 9)");
+  const items = document.querySelectorAll(
+    ".products .product:nth-child(n + 9)"
+  );
   const button = document.getElementById("showMoreBtn");
 
   // Kiểm tra trạng thái hiện tại của các mục
-  const isHidden = Array.from(items).every(item => item.style.display === "none" || item.style.display === "");
+  const isHidden = Array.from(items).every(
+    (item) => item.style.display === "none" || item.style.display === ""
+  );
 
   // Cập nhật trạng thái hiển thị
-  items.forEach(item => {
+  items.forEach((item) => {
     item.style.display = isHidden ? "block" : "none";
   });
 
@@ -19,8 +23,10 @@ function showMoreProducts() {
 
 // Đảm bảo rằng các mục bị ẩn khi trang tải
 document.addEventListener("DOMContentLoaded", () => {
-  const items = document.querySelectorAll(".products .product:nth-child(n + 9)");
-  items.forEach(item => {
+  const items = document.querySelectorAll(
+    ".products .product:nth-child(n + 9)"
+  );
+  items.forEach((item) => {
     item.style.display = "none";
   });
 });
@@ -139,10 +145,15 @@ class ProductManager {
     this.productList = [];
   }
 
+  getProductsByCategory(category) {
+    return this.productList.filter((product) => product.category === category);
+  }
+
   getProductById(id) {
     return this.productList.find((product) => product.id === id) || null;
   }
 
+  // Thêm sản phẩm
   addProduct(product) {
     if (product instanceof Product) {
       this.productList.push(product);
@@ -153,6 +164,7 @@ class ProductManager {
     }
   }
 
+  // Cập nhật sản phẩm với id
   updateProductByID(productID, updateFields) {
     // Tìm sản phẩm cần thay đổi
     const productIndex = this.productList.findIndex(
@@ -175,11 +187,13 @@ class ProductManager {
     );
   }
 
+  // Lưu sản phẩm xuống localStorage
   saveToLocalStorage() {
     localStorage.setItem("products", JSON.stringify(this.productList));
     console.log("Danh sách sản phẩm đã được lưu vào localStorage.");
   }
 
+  // Lấy dữ liệu từ localStorage
   loadFromLocalStorage() {
     const storedData = localStorage.getItem("products");
     if (storedData) {
@@ -199,30 +213,6 @@ class ProductManager {
       console.log("Danh sách sản phẩm đã được tải từ localStorage.");
     }
   }
-  // TEMP
-  setViewDetailEvent(buttonElement) {
-    // Ngăn chặn sự kiện nếu không truyền đúng nút
-    if (!buttonElement) {
-      console.error("Nút không hợp lệ!");
-      return;
-    }
-  
-    // Xử lý sự kiện khi bấm vào nút
-    const productElement = buttonElement.closest(".product");
-    if (!productElement) {
-      console.error("Không tìm thấy phần tử cha của nút.");
-      return;
-    }
-  
-    const productId = productElement.id;
-    const product = productManager.getProductById(productId);
-  
-    if (product) {
-      createPopup(product); // Hiển thị thông tin chi tiết sản phẩm
-    } else {
-      console.error("Không tìm thấy sản phẩm với ID:", productId);
-    }
-  }
 
   // Cấu trúc của 1 sản phẩm
   displayProduct(productDiv, product) {
@@ -232,7 +222,9 @@ class ProductManager {
       </div>
       <div class="productName">${product.name}</div>
       <div class="productDetail"></div>
-      <div class="productPrice">${parseInt(product.price).toLocaleString('vi-VN')} VNĐ</div>
+      <div class="productPrice">${parseInt(product.price).toLocaleString(
+        "vi-VN"
+      )} VNĐ</div>
       <div class="btnProduct">
         <button class="viewDetailBtn" onclick="setViewDetailEvent(this)">Xem chi tiết</button>
         <button class="muaNgay">Mua ngay</button>
@@ -240,43 +232,42 @@ class ProductManager {
       `;
   }
 
-  // Trình bày sản phẩm ra màn hình
-  displayProductsToUI(containerID) {
+  // Trình bày sản phẩm ra màn hình, category: "" = all
+  displayProductsToUI(containerID, category) {
     const container = document.getElementById(containerID);
     // container.innerHTML = ""; // Xóa các sản phẩm cũ
 
-    this.productList.forEach((product) => {
-      if (product.quantity > 0) {
-        const productDiv = document.createElement("div");
+    if (category === "") {
+      this.productList.forEach((product) => {
+        if (product.quantity > 0) {
+          const productDiv = document.createElement("div");
 
-        // Thêm id và class product
-        productDiv.id = product.id;
-        productDiv.classList.add("product");
+          // Thêm id và class product
+          productDiv.id = product.id;
+          productDiv.classList.add("product");
 
-        this.displayProduct(productDiv, product);
-        container.appendChild(productDiv);
-      }
-    });
+          this.displayProduct(productDiv, product);
+          container.appendChild(productDiv);
+        }
+      });
+    } else {
+      let products = this.getProductsByCategory(category);
+      products.forEach((product) => {
+        if (product.quantity > 0) {
+          const productDiv = document.createElement("div");
+
+          // Thêm id và class product
+          productDiv.id = product.id;
+          productDiv.classList.add("product");
+
+          this.displayProduct(productDiv, product);
+          container.appendChild(productDiv);
+        }
+      });
+    }
   }
 
-  // Trình bày sản phẩm ra màn hình theo Type
-  displayProductsWithType(containerID, type) {
-    const container = document.getElementById(containerID);
-    container.innerHTML = ""; // Xóa các sản phẩm cũ
-
-    this.productList.forEach((product) => {
-      if (String(product.category) === String(type) && product.quantity > 0) {
-        const productDiv = document.createElement("div");
-
-        // Thêm id và class product
-        productDiv.id = product.id;
-        productDiv.classList.add("product");
-        this.displayProduct(productDiv, product);
-        container.appendChild(productDiv);
-      }
-    });
-  }
-
+  // filterProducts
   filterProducts(pageId, containerID, type) {
     // Lấy container của page
     const pageContainer = document.getElementById(pageId);
@@ -284,7 +275,9 @@ class ProductManager {
     // Lấy các tùy chọn được chọn
     const costFilted = pageContainer.querySelector(".cost-options .filted");
     const ramFilted = pageContainer.querySelector(".ram-options .filted");
-    const storageFilted = pageContainer.querySelector(".storage-options .filted");
+    const storageFilted = pageContainer.querySelector(
+      ".storage-options .filted"
+    );
 
     // Lấy khoảng giá từ tùy chọn
     const { min: costMin, max: costMax } = costFilted
@@ -293,8 +286,9 @@ class ProductManager {
 
     // Lọc sản phẩm
     const filteredProducts = this.productList.filter((product) => {
-      if(String(product.type) === type){
-        const isPriceMatch = product.price >= costMin && product.price <= costMax;
+      if (String(product.type) === type) {
+        const isPriceMatch =
+          product.price >= costMin && product.price <= costMax;
         const isRamMatch = ramFilted
           ? product.ram === ramFilted.textContent.trim()
           : true;
@@ -304,7 +298,7 @@ class ProductManager {
         return (
           isPriceMatch && isRamMatch && isStorageMatch && product.quantity > 0
         );
-      }else{
+      } else {
         return false;
       }
     });
@@ -428,14 +422,13 @@ const productManager = new ProductManager();
 // productManager.addProduct(new Product("oppo","oppo_a58_6-128","./assets/item/op_a58_128_6gb.webp", "OPPO A58 4G 6GB/128GB", 4690000, 10, "6GB", "256GB"));
 // productManager.addProduct(new Product("oppo","oppo_r11f_8-256","./assets/item/op_r11f_256_8gb.webp", "OPPO Reno11 F 5G 8GB/256GB", 8490000, 10, "8GB", "256GB"));
 
-
 productManager.loadFromLocalStorage();
 
-productManager.displayProductsToUI("productsSuggestion");
-productManager.displayProductsWithType("productIPhone", "iphone");
-productManager.displayProductsWithType("productSamSung", "samsung");
-productManager.displayProductsWithType("productXiaomi", "xiaomi");
-productManager.displayProductsWithType("productOppo", "oppo");
+productManager.displayProductsToUI("productsSuggestion", "");
+productManager.displayProductsToUI("productIPhone", "iphone");
+productManager.displayProductsToUI("productSamSung", "samsung");
+productManager.displayProductsToUI("productXiaomi", "xiaomi");
+productManager.displayProductsToUI("productOppo", "oppo");
 
 // Popup detail
 function createPopup(product) {
@@ -458,7 +451,9 @@ function createPopup(product) {
           <div class="detailName">${product.name}</div>
           <div class="detailRam">RAM: ${product.ram}</div>
           <div class="detailStorage">Storage: ${product.storage}</div>
-          <div class="detailCash">${product.price.toLocaleString("vi-VN")} VND</div>
+          <div class="detailCash">${product.price.toLocaleString(
+            "vi-VN"
+          )} VND</div>
         </div> 
       </div>
       <div id="btnPopup">
@@ -518,17 +513,16 @@ function filterProductsToUI(pageId, containerID, type) {
         }
 
         // Gọi hàm filterProducts để cập nhật sản phẩm hiển thị
-        productManager.filterProducts(pageId,containerID, type);
+        productManager.filterProducts(pageId, containerID, type);
       }
     });
   });
 }
 
-
-filterProductsToUI("iphone-page","productIPhone", "iphone");
-filterProductsToUI("samsung-page","productSamSung", "samsung");
-filterProductsToUI("xiaomi-page","productXiaomi", "xiaomi");
-filterProductsToUI("oppo-page","productOppo", "oppo");
+filterProductsToUI("iphone-page", "productIPhone", "iphone");
+filterProductsToUI("samsung-page", "productSamSung", "samsung");
+filterProductsToUI("xiaomi-page", "productXiaomi", "xiaomi");
+filterProductsToUI("oppo-page", "productOppo", "oppo");
 
 // function sortSelected(pageId){
 //   const page = document.getElementById(pageId);
@@ -548,22 +542,25 @@ filterProductsToUI("oppo-page","productOppo", "oppo");
 
 // sortSelected('iphone-page')
 
-
 // Hàm sắp xếp giá tăng dần
 function sortIncreament(pageId, containerProducts, element) {
   const page = document.getElementById(pageId);
   const productContainer = page.querySelector(`#${containerProducts}`);
-  const products = Array.from(productContainer.querySelectorAll('.product'));
+  const products = Array.from(productContainer.querySelectorAll(".product"));
 
   // Sắp xếp sản phẩm theo giá tăng dần
   products.sort((a, b) => {
-    const priceA = parseInt(a.querySelector('.productPrice').textContent.replace(/[^0-9]/g, ''));
-    const priceB = parseInt(b.querySelector('.productPrice').textContent.replace(/[^0-9]/g, ''));
+    const priceA = parseInt(
+      a.querySelector(".productPrice").textContent.replace(/[^0-9]/g, "")
+    );
+    const priceB = parseInt(
+      b.querySelector(".productPrice").textContent.replace(/[^0-9]/g, "")
+    );
     return priceA - priceB;
   });
 
   // Xóa sản phẩm cũ và thêm sản phẩm đã sắp xếp lại
-  productContainer.innerHTML = '';
+  productContainer.innerHTML = "";
   products.forEach((product) => productContainer.appendChild(product));
 
   // Cập nhật class "sorted"
@@ -574,17 +571,21 @@ function sortIncreament(pageId, containerProducts, element) {
 function sortDecrement(pageId, containerProducts, element) {
   const page = document.getElementById(pageId);
   const productContainer = page.querySelector(`#${containerProducts}`);
-  const products = Array.from(productContainer.querySelectorAll('.product'));
+  const products = Array.from(productContainer.querySelectorAll(".product"));
 
   // Sắp xếp sản phẩm theo giá giảm dần
   products.sort((a, b) => {
-    const priceA = parseInt(a.querySelector('.productPrice').textContent.replace(/[^0-9]/g, ''));
-    const priceB = parseInt(b.querySelector('.productPrice').textContent.replace(/[^0-9]/g, ''));
+    const priceA = parseInt(
+      a.querySelector(".productPrice").textContent.replace(/[^0-9]/g, "")
+    );
+    const priceB = parseInt(
+      b.querySelector(".productPrice").textContent.replace(/[^0-9]/g, "")
+    );
     return priceB - priceA;
   });
 
   // Xóa sản phẩm cũ và thêm sản phẩm đã sắp xếp lại
-  productContainer.innerHTML = '';
+  productContainer.innerHTML = "";
   products.forEach((product) => productContainer.appendChild(product));
 
   // Cập nhật class "sorted"
@@ -594,8 +595,10 @@ function sortDecrement(pageId, containerProducts, element) {
 // Hàm cập nhật class "sorted"
 function updateSortedClass(activeElement) {
   // Xóa class "sorted" khỏi tất cả các nút
-  document.querySelectorAll('.sortBtn').forEach((btn) => btn.classList.remove('sorted'));
+  document
+    .querySelectorAll(".sortBtn")
+    .forEach((btn) => btn.classList.remove("sorted"));
 
   // Thêm class "sorted" vào nút được bấm
-  activeElement.classList.add('sorted');
+  activeElement.classList.add("sorted");
 }
