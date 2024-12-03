@@ -426,7 +426,8 @@ main {
 }
 
 .gia-san-pham > div > div:hover {
-  background-color: rgb(120, 126, 240);
+  color: var(--white);
+  background-color: var(--blue1, --blue2);
 }
 
 .tuy-chon {
@@ -452,7 +453,8 @@ main {
 }
 
 .option:hover {
-  background-color: rgb(120, 126, 240);
+  color: var(--white);
+  background-color: var(--blue1, --blue2);
 }
 
 .option.filted {
