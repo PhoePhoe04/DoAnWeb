@@ -251,24 +251,20 @@ class ProductManager {
     });
   }
 
-  // filterProducts
-  filterProducts(pageId, containerID, type) {
-    // Lấy container của page
-    let pageContainer = document.getElementById(pageId);
+  // Lọc các sản phẩm theo options
+  filterOptions(pageId, category) {
+    let containerID = document.getElementById(pageId);
 
-    // Lấy các tùy chọn được chọn
-    let costFilted = pageContainer.querySelector(".cost-options .filted");
-    let ramFilted = pageContainer.querySelector(".ram-options .filted");
-    let storageFilted = pageContainer.querySelector(".storage-options .filted");
+    let costFilted = containerID.querySelector(".cost-options .filted");
+    let ramFilted = containerID.querySelector(".ram-options .filted");
+    let storageFilted = containerID.querySelector(".storage-options .filted");
 
-    // Lấy khoảng giá từ tùy chọn
     let { min: costMin, max: costMax } = costFilted
       ? this.getCostRange(costFilted.textContent)
       : { min: 0, max: Infinity };
 
-    // Lọc sản phẩm
-    let filteredProducts = this.productList.filter((product) => {
-      if (String(product.type) === type) {
+    let filteredProducts = this.getProductsByCategory(category).filter(
+      (product) => {
         let isPriceMatch = product.price >= costMin && product.price <= costMax;
         let isRamMatch = ramFilted
           ? product.ram === ramFilted.textContent.trim()
@@ -279,23 +275,10 @@ class ProductManager {
         return (
           isPriceMatch && isRamMatch && isStorageMatch && product.quantity > 0
         );
-      } else {
-        return false;
       }
-    });
-
-    // Hiển thị sản phẩm được lọc
-    let container = document.getElementById(containerID);
-    container.innerHTML = ""; // Xóa danh sách cũ
-    filteredProducts.forEach((product) => {
-      let productDiv = document.createElement("div");
-      productDiv.id = product.id;
-      productDiv.classList.add("product");
-      this.displayProduct(productDiv, product); // Hiển thị sản phẩm
-      container.appendChild(productDiv);
-    });
-
+    );
     console.log("Filtered Products:", filteredProducts); // Debug danh sách lọc
+    return filteredProducts;
   }
 
   // Hàm hỗ trợ lấy khoảng giá từ chuỗi
@@ -486,7 +469,7 @@ function createPopup(product) {
   });
 }
 
-function filterProductsToUI(pageId, containerID, type) {
+function filterProductsToUI(pageId, containerID, category) {
   const pageContainer = document.getElementById(pageId);
 
   pageContainer.querySelectorAll(".option").forEach((option) => {
@@ -509,7 +492,10 @@ function filterProductsToUI(pageId, containerID, type) {
         }
 
         // Gọi hàm filterProducts để cập nhật sản phẩm hiển thị
-        productManager.filterProducts(pageId, containerID, type);
+        productManager.displayProductsToUI(
+          containerID,
+          productManager.filterOptions(pageId, category)
+        );
       }
     });
   });
