@@ -524,15 +524,54 @@ document.addEventListener('DOMContentLoaded', function() {
             },
             {
                 category: "oppo",
-                id: "xiaomi_r13_8-128",
-                image: "./assets/item/xiaomi_r13_8-128.jpg",
-                name: "Xiaomi Redmi 13 8GB/128GB",
-                price: 4990000,
+                id: "oppo_r10_8-256",
+                image: "./assets/item/op_r10_256_8gb.webp",
+                name: "OPPO Reno 10 5G 8GB/256GB",
+                price: 7490000,
                 quantity: 10,
                 ram: "8GB",
                 storage: "256GB"
-            }
-            
+            },
+            {
+                category: "oppo",
+                id: "oppo_a79_8-256",
+                image: "./assets/item/op_a79_256_8gb.webp",
+                name: "OPPO A79 5G 8GB/256GB",
+                price: 7190000,
+                quantity: 10,
+                ram: "8GB",
+                storage: "256GB"
+            },
+            {
+                category: "oppo",
+                id: "oppo_a18_4-128",
+                image: "./assets/item/op_a18_128_4gb.webp",
+                name: "OPPO A18 4GB/128GB",
+                price: 3690000,
+                quantity: 10,
+                ram: "4GB",
+                storage: "128GB"
+            },
+            {
+                category: "oppo",
+                id: "oppo_a58_6-128",
+                image: "./assets/item/op_a58_128_6gb.webp",
+                name: "OPPO A58 4G 6GB/128GB",
+                price: 4690000,
+                quantity: 10,
+                ram: "6GB",
+                storage: "256GB"
+            },
+            {
+                category: "oppo",
+                id: "oppo_r11f_8-256",
+                image: "./assets/item/op_r11f_256_8gb.webp",
+                name: "OPPO Reno11 F 5G 8GB/256GB",
+                price: 8490000,
+                quantity: 10,
+                ram: "8GB",
+                storage: "256GB"
+            },
         ];
     }
     localStorage.setItem('products', JSON.stringify(products));
