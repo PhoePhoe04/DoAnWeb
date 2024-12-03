@@ -232,67 +232,48 @@ class ProductManager {
       `;
   }
 
-  // Trình bày sản phẩm ra màn hình, category: "" = all
-  displayProductsToUI(containerID, category) {
+  // Trình bày sản phẩm ra màn hình
+  displayProductsToUI(containerID, products) {
     const container = document.getElementById(containerID);
-    // container.innerHTML = ""; // Xóa các sản phẩm cũ
+    container.innerHTML = ""; // Xóa các sản phẩm cũ
 
-    if (category === "") {
-      this.productList.forEach((product) => {
-        if (product.quantity > 0) {
-          const productDiv = document.createElement("div");
+    products.forEach((product) => {
+      if (product.quantity > 0) {
+        const productDiv = document.createElement("div");
 
-          // Thêm id và class product
-          productDiv.id = product.id;
-          productDiv.classList.add("product");
+        // Thêm id và class product
+        productDiv.id = product.id;
+        productDiv.classList.add("product");
 
-          this.displayProduct(productDiv, product);
-          container.appendChild(productDiv);
-        }
-      });
-    } else {
-      let products = this.getProductsByCategory(category);
-      products.forEach((product) => {
-        if (product.quantity > 0) {
-          const productDiv = document.createElement("div");
-
-          // Thêm id và class product
-          productDiv.id = product.id;
-          productDiv.classList.add("product");
-
-          this.displayProduct(productDiv, product);
-          container.appendChild(productDiv);
-        }
-      });
-    }
+        this.displayProduct(productDiv, product);
+        container.appendChild(productDiv);
+      }
+    });
   }
 
   // filterProducts
   filterProducts(pageId, containerID, type) {
     // Lấy container của page
-    const pageContainer = document.getElementById(pageId);
+    let pageContainer = document.getElementById(pageId);
 
     // Lấy các tùy chọn được chọn
-    const costFilted = pageContainer.querySelector(".cost-options .filted");
-    const ramFilted = pageContainer.querySelector(".ram-options .filted");
-    const storageFilted = pageContainer.querySelector(
-      ".storage-options .filted"
-    );
+    let costFilted = pageContainer.querySelector(".cost-options .filted");
+    let ramFilted = pageContainer.querySelector(".ram-options .filted");
+    let storageFilted = pageContainer.querySelector(".storage-options .filted");
 
     // Lấy khoảng giá từ tùy chọn
-    const { min: costMin, max: costMax } = costFilted
+    let { min: costMin, max: costMax } = costFilted
       ? this.getCostRange(costFilted.textContent)
       : { min: 0, max: Infinity };
 
     // Lọc sản phẩm
-    const filteredProducts = this.productList.filter((product) => {
+    let filteredProducts = this.productList.filter((product) => {
       if (String(product.type) === type) {
-        const isPriceMatch =
-          product.price >= costMin && product.price <= costMax;
-        const isRamMatch = ramFilted
+        let isPriceMatch = product.price >= costMin && product.price <= costMax;
+        let isRamMatch = ramFilted
           ? product.ram === ramFilted.textContent.trim()
           : true;
-        const isStorageMatch = storageFilted
+        let isStorageMatch = storageFilted
           ? product.storage === storageFilted.textContent.trim()
           : true;
         return (
@@ -304,10 +285,10 @@ class ProductManager {
     });
 
     // Hiển thị sản phẩm được lọc
-    const container = document.getElementById(containerID);
+    let container = document.getElementById(containerID);
     container.innerHTML = ""; // Xóa danh sách cũ
     filteredProducts.forEach((product) => {
-      const productDiv = document.createElement("div");
+      let productDiv = document.createElement("div");
       productDiv.id = product.id;
       productDiv.classList.add("product");
       this.displayProduct(productDiv, product); // Hiển thị sản phẩm
@@ -424,11 +405,26 @@ const productManager = new ProductManager();
 
 productManager.loadFromLocalStorage();
 
-productManager.displayProductsToUI("productsSuggestion", "");
-productManager.displayProductsToUI("productIPhone", "iphone");
-productManager.displayProductsToUI("productSamSung", "samsung");
-productManager.displayProductsToUI("productXiaomi", "xiaomi");
-productManager.displayProductsToUI("productOppo", "oppo");
+productManager.displayProductsToUI(
+  "productsSuggestion",
+  productManager.productList
+);
+productManager.displayProductsToUI(
+  "productIPhone",
+  productManager.getProductsByCategory("iphone")
+);
+productManager.displayProductsToUI(
+  "productSamSung",
+  productManager.getProductsByCategory("samsung")
+);
+productManager.displayProductsToUI(
+  "productXiaomi",
+  productManager.getProductsByCategory("xiaomi")
+);
+productManager.displayProductsToUI(
+  "productOppo",
+  productManager.getProductsByCategory("oppo")
+);
 
 // Popup detail
 function createPopup(product) {
