@@ -380,7 +380,7 @@ const productManager = new ProductManager();
 // productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 3490000, 10, "6GB", "128GB"));
 // productManager.addProduct(new Product("xiaomi","xiaomi_r13_8-128","./assets/item/xiaomi_r13_8-128.jpg", "Xiaomi Redmi 13 8GB/128GB", 4990000, 10, "8GB", "256GB"));
 
-// productManager.addProduct(new Product("oppo","oppo_r10_8-256","./assets/item/rn10_5G_256_8gb.webp", "OPPO Reno 10 5G 8GB/256GB", 7490000, 10, "8GB", "256GB"));
+// productManager.addProduct(new Product("oppo","oppo_r10_8-256","./assets/item/op_r10_256_8gb.webp", "OPPO Reno 10 5G 8GB/256GB", 7490000, 10, "8GB", "256GB"));
 // productManager.addProduct(new Product("oppo","oppo_a79_8-256","./assets/item/op_a79_256_8gb.webp", "OPPO A79 5G 8GB/256GB", 7190000, 10, "8GB", "256GB"));
 // productManager.addProduct(new Product("oppo","oppo_a18_4-128","./assets/item/op_a18_128_4gb.webp", "OPPO A18 4GB/128GB", 3690000, 10, "4GB", "128GB"));
 // productManager.addProduct(new Product("oppo","oppo_a58_6-128","./assets/item/op_a58_128_6gb.webp", "OPPO A58 4G 6GB/128GB", 4690000, 10, "6GB", "256GB"));

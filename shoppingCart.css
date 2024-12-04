@@ -288,43 +288,57 @@ width: 38%;
 #orderHistoryContainer .center h1{
   font-size: 4rem;
 }
-@media (max-width: 991px){
-
-}
-@media (max-width: 768px){
-  #empty img{
+@media (max-width: 768px) {
+  #shopping_cart_page{
+    margin-top: 30px ;
+  }
+  #return_main_page, #dat_hang{
+    font-size: 1.6rem;
+  }
+  #gio_hang {
+    font-size: 2rem;
+  }
+  #empty img {
     width: 300px;
     height: 210px;
   }
-  #orderHistoryContainer{
+  #orderHistoryContainer {
     width: 100%;
   }
-  #cart th, #cart td{
+  #cart th, #cart td {
     font-size: 1.4rem;
   }
-  #sotientongcong div{
+  #sotientongcong div {
     border: none;
+    font-size: 1.6rem;
   }
-  #orderHistory, #orderDetail{
+  #orderHistory, #orderDetail {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
     font-size: 1.6rem !important;
   }
-  .center #titleOHC{
+  .center #titleOHC {
     font-size: 2rem !important;
   }
-  #orderHistory td, #orderHistory th{
+  #orderHistory td, #orderHistory th {
     font-size: 1.6rem !important;
   }
-  #sotientongcong div{
+  #sotientongcong div {
     border: none;
   }
 }
 @media (max-width: 480px){
+  #gio_hang{
+    font-size: 1.2rem;
+    margin-top: 40px;
+  }
   #empty img{
     width: 200px;
     height: 150px;
+  }
+  #empty h1, #empty p{
+    font-size: 1.1rem !important;
   }
   #cart th, #cart td{
     font-size: 1rem;
