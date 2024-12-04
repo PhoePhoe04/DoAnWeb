@@ -163,8 +163,8 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p class="sort-increase sortBtn" onclick="sortIncreament('iphone-page', 'productIPhone', this)">Giá tăng dần</p>
-                <p class="sort-decrease sortBtn" onclick="sortDecrement('iphone-page', 'productIPhone', this)">Giá giảm dần</p>
+                <p class="sort-increase sortBtn" onclick="toggleSort('iphone-page','iphone',this)">Giá tăng dần</p>
+                <p class="sort-decrease sortBtn" onclick="toggleSort('iphone-page','iphone',this)">Giá giảm dần</p>
               </div>
             </div>
 
@@ -236,8 +236,8 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p class="sort-increase sortBtn" onclick="sortIncreament('samsung-page', 'productSamSung', this)">Giá tăng dần</p>
-                <p class="sort-decrease sortBtn" onclick="sortDecrement('samsung-page', 'productSamSung', this)">Giá giảm dần</p>
+                <p class="sort-increase sortBtn" onclick="toggleSort('samsung-page','samsung',this)">Giá tăng dần</p>
+                <p class="sort-decrease sortBtn" onclick="toggleSort('samsung-page','samsung',this)">Giá giảm dần</p>
               </div>
             </div>
 
@@ -309,8 +309,8 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p class="sort-increase sortBtn" onclick="sortIncreament('xiaomi-page', 'productXiaomi', this)">Giá tăng dần</p>
-                <p class="sort-decrease sortBtn" onclick="sortDecrement('xiaomi-page', 'productXiaomi', this)">Giá giảm dần</p>
+                <p class="sort-increase sortBtn" onclick="toggleSort('xiaomi-page','xiaomi',this)">Giá tăng dần</p>
+                <p class="sort-decrease sortBtn" onclick="toggleSort('xiaomi-page','xiaomi',this)">Giá giảm dần</p>
               </div>
             </div>
 
@@ -382,12 +382,12 @@
               <!-- Button sort -->
               <div class="sort">
                 <p>Sắp xếp theo:</p>
-                <p class="sort-increase sortBtn" onclick="sortIncreament('oppo-page', 'productOppo', this)">Giá tăng dần</p>
-                <p class="sort-decrease sortBtn" onclick="sortDecrement('oppo-page', 'productOppo', this)">Giá giảm dần</p>
+                <p class="sort-increase sortBtn" onclick="toggleSort('oppo-page','oppo',this)">Giá tăng dần</p>
+                <p class="sort-decrease sortBtn" onclick="toggleSort('oppo-page','oppo',this)">Giá giảm dần</p>
               </div>
             </div>
 
-            <!-- Phần sản phẩm của Xiaomi -->
+            <!-- Phần sản phẩm của Oppo -->
             <div id="productOppo" class="oppo products"></div>
             <div class="showMore">
               <button id="showMoreBtn" onclick="showMoreProducts()">
@@ -632,6 +632,7 @@
         </div>
       </footer>
       
+    <script src="data.js"></script>
     <script src="login.js"></script>
     <script src="javascript.js"></script>
     <script src="shoppingCart.js"></script>
