@@ -31,6 +31,13 @@ function displayStatics() {
     staticsTableBody.innerHTML = ""; // Xóa dữ liệu cũ
     let orders = JSON.parse(localStorage.getItem("orders")) || [];
 
+    if (orders.length === 0) {
+        let noDataRow = document.createElement("tr");
+        noDataRow.innerHTML = "<td colspan='5'>Không có dữ liệu thống kê.</td>";
+        staticsTableBody.appendChild(noDataRow);
+        return;
+    }
+
     let totalAmount = 0; // Tổng giá tiền
     let totalQuantity = 0; // Tổng số lượng
     let productMap = {}; // Lưu trữ sản phẩm để gộp
@@ -51,13 +58,18 @@ function displayStatics() {
 
             // Chuyển đổi totalPrice từ chuỗi sang số
             let numericTotalPrice = parseInt(
-                product.totalPrice.replace(/[^0-9]/g, "") // Loại bỏ ký tự không phải số
+                product.totalPrice.replace(/[^\d]/g, "") // Loại bỏ tất cả ký tự không phải số
             );
 
-            // Gộp sản phẩm giống nhau
+            // Gộp sản phẩm giống nhau và chọn ngày bán gần đây nhất
             if (productMap[product.name]) {
                 productMap[product.name].quantity += parseInt(product.quantity);
                 productMap[product.name].totalPrice += numericTotalPrice;
+                // Cập nhật ngày bán gần đây nhất
+                let existingDate = new Date(productMap[product.name].date.split('/').reverse().join('-'));
+                if (orderDate > existingDate) {
+                    productMap[product.name].date = formatDate(orderDate);
+                }
             } else {
                 productMap[product.name] = {
                     img: product.img,
