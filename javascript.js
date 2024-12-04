@@ -506,24 +506,6 @@ filterProductsToUI("samsung-page", "productSamSung", "samsung");
 filterProductsToUI("xiaomi-page", "productXiaomi", "xiaomi");
 filterProductsToUI("oppo-page", "productOppo", "oppo");
 
-// function sortSelected(pageId){
-//   const page = document.getElementById(pageId);
-//   const sortButtons = page.querySelectorAll(".sortBtn");
-
-//   // Thêm sự kiện click cho từng nút
-//   sortButtons.forEach((button) => {
-//     button.addEventListener("click", () => {
-//       // Loại bỏ class 'sorted' khỏi tất cả các nút
-//       sortButtons.forEach((btn) => btn.classList.remove("sorted"));
-
-//       // Thêm class 'sorted' vào nút được nhấn
-//       button.classList.add("sorted");
-//     });
-//   });
-// }
-
-// sortSelected('iphone-page')
-
 // Hàm sắp xếp giá tăng dần
 function sortIncreament(pageId, containerProducts, element) {
   const page = document.getElementById(pageId);
@@ -576,8 +558,9 @@ function sortDecrement(pageId, containerProducts, element) {
 
 // Hàm cập nhật class "sorted"
 function updateSortedClass(activeElement) {
+  let parent = activeElement.closest(".sort");
   // Xóa class "sorted" khỏi tất cả các nút
-  document
+  parent
     .querySelectorAll(".sortBtn")
     .forEach((btn) => btn.classList.remove("sorted"));
 
