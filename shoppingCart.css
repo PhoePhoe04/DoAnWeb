@@ -27,8 +27,8 @@
   display: inline-block;
  } */
 #empty img{
-  width: 300px;
-  height: 200px;
+  width: 360px;
+  height: 290px;
 }
  #sangUIThanhToan{
   background-color: black;
@@ -80,7 +80,7 @@ width: 38%;
   width: 60rem;
   margin-left: auto;
   margin-right: auto;
-  overflow: auto;
+  overflow: hidden;
   display: none;
 }
 #orderHistoryContainer{
@@ -201,11 +201,11 @@ width: 38%;
 }
 #empty h1 {
   margin-bottom: 4px;
-  font-size: 1.8rem;
+  font-size: 3rem;
 }
 #empty p {
   margin-bottom: 4px;
-  font-size: 1.4rem;
+  font-size: 2rem;
 }
 
 #cart {
@@ -288,15 +288,28 @@ width: 38%;
 #orderHistoryContainer .center h1{
   font-size: 4rem;
 }
+#frmthanhtoan .center{
+  margin-top: 3px;
+  margin-bottom: 4px;
+}
 @media (max-width: 768px) {
   #shopping_cart_page{
     margin-top: 30px ;
   }
-  #return_main_page, #dat_hang{
+  #return_main_page, #dat_hang, #readOrderHistory{
+    font-size: 1.6rem;
+  }
+  #readOrderHistory{
     font-size: 1.6rem;
   }
   #gio_hang {
     font-size: 2rem;
+  }
+  #empty h1{
+    font-size: 2rem;
+  }
+  #empty p{
+    font-size: 1.6rem;
   }
   #empty img {
     width: 300px;
@@ -330,15 +343,15 @@ width: 38%;
 }
 @media (max-width: 480px){
   #gio_hang{
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     margin-top: 40px;
   }
   #empty img{
-    width: 200px;
-    height: 150px;
+    width: 280px;
+    height: 200px;
   }
   #empty h1, #empty p{
-    font-size: 1.1rem !important;
+    font-size: 1.6rem ;
   }
   #cart th, #cart td{
     font-size: 1rem;
@@ -363,24 +376,28 @@ width: 38%;
     border: none;
   }
   #cart{
-    width: 85%;
+    width: 96%;
   }
   #inputBankCard{
     width: 24rem;
   }
   #return_main_page,#readOrderHistory,#return_sc_page, #dat_hang, #sotientongcong div{
+    font-size: 1.2rem;
+  }
+  #readOrderHistory{
     font-size: 1.4rem;
   }
   .quantity{
     width: 2rem;
   }
   .control_quantity button{
-    width: 1rem;
+    width: 1.6rem;
   }
   #khung_dat_hang{
     width: 30rem;
     height: 16rem;
-    overflow: auto;
+    border-radius: 0;
+    box-shadow: none;
   }
   #frmdathang, #frmthanhtoan{
     width: 24rem !important;
@@ -388,11 +405,14 @@ width: 38%;
   }
   #frmthanhtoan label{
     font-size: 0.8rem;
-    width: 40% !important;
+    width: 40% ;
   }
-  /* #frmthanhtoan label:first-child{
-    width: 60% !important;
-  } */
+  #frmthanhtoan label[for="cash"]{
+    width: 54% !important;
+  }
+  #frmthanhtoan label[for="card"]{
+    width: 30% !important;
+  }
   #frmthanhtoan label[for="nameOnCard"]{
     width: 60% !important;
   }
@@ -415,6 +435,6 @@ width: 38%;
     width: 23.8rem;
   }
   #customerName, #customerAddress, #cusPhoneNumber{
-    width:12rem;
+    width: 12rem;
   }
 }

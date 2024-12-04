@@ -1,4 +1,5 @@
 var totalPrice = 0;
+var deviceWidth;
 user = {};
 data = {};
 const pattern = /[^\d]/g; // Không phải là số
@@ -288,6 +289,11 @@ function validatePhoneNumber()
     alert("Số điện thoại không đúng định dạng");
     return false;
   }
+  //Giao diện có chiều rộng 480 px thì hiện cái thanh scrolbar theo chiều dọc
+  if (deviceWidth === 480) {   
+    document.querySelector("#khung_dat_hang").style.overflow = "auto";
+    document.querySelector("#khung_dat_hang").style.overflowY = "auto";
+  } 
   document.querySelector("#frmdathang").style.display = "none";
 }
 document.querySelector("#frmdathang").onsubmit = (event) => {
@@ -300,23 +306,38 @@ document.querySelectorAll("input[type=checkbox]").forEach(a => {
   dathanhtoan = 0;
   if (a.id === "card") {
     a.addEventListener("change", () => {
-      document.querySelector("#cash").checked = false;
-      document.querySelector("#inputBankCard").style.display = "block";
-      document.querySelector("#cardNumber").required = true;
-      document.querySelector("#nameOnCard").required = true;
-      document.querySelector("#dateCreated").required = true;
-      payedByCard++;
-      dathanhtoan++;
+      if (a.checked === false) {
+        //Nếu khách hàng bỏ tích thanh toán bằng tiền mặt
+        document.querySelector("#inputBankCard").style.display = "none";
+        document.querySelector("#cardNumber").required = false;
+        document.querySelector("#nameOnCard").required = false;
+        document.querySelector("#dateCreated").required = false;
+        payedByCard--;
+        dathanhtoan--;
+      } else {      
+        //Nếu khách hàng bỏ tích thanh toán bằng thẻ ngân hàng 
+        document.querySelector("#cash").checked = false;
+        document.querySelector("#inputBankCard").style.display = "block";
+        document.querySelector("#cardNumber").required = true;
+        document.querySelector("#nameOnCard").required = true;
+        document.querySelector("#dateCreated").required = true;
+        payedByCard++;
+        dathanhtoan++;
+      }
     })
   }
   if (a.id === "cash") {
     a.addEventListener("change", () => {
-      document.querySelector("#card").checked = false;
-      document.querySelector("#inputBankCard").style.display = "none";
-      document.querySelector("#cardNumber").required = false;
-      document.querySelector("#nameOnCard").required = false;
-      document.querySelector("#dateCreated").required = false;
-      dathanhtoan++;
+      if (a.checked === false) {
+        dathanhtoan--;
+      }else{
+        document.querySelector("#card").checked = false;
+        document.querySelector("#inputBankCard").style.display = "none";
+        document.querySelector("#cardNumber").required = false;
+        document.querySelector("#nameOnCard").required = false;
+        document.querySelector("#dateCreated").required = false;
+        dathanhtoan++;
+      }
     })
   }
 })
@@ -362,10 +383,25 @@ function checkOrderHistory() {
     document.querySelector("#orderHistoryContainer").style.display = "none";
     document.querySelector("#empty").style.display = "flex";
   }else if (localStorage.getItem("checkedOrder")) {
-    document.querySelector("#empty h1").textContent = "Chào Mừng Bạn Trờ Lại Cửa Hàng Chúng Tôi";
-    document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
-    document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
-    displayOrderHistory();
+    var checkedOrder = JSON.parse(localStorage.getItem("checkedOrder"));
+    const user = JSON.parse(sessionStorage.getItem("loggedInUser"));
+    var ten = user.username;
+    const orders = JSON.parse(localStorage.getItem("orders"));
+    orders.forEach(element => {
+      if (element.name === ten) {    
+        if (checkedOrder) {
+          checkedOrder.forEach(check => {
+            if(check.id === element.id){
+              document.querySelector("#empty h1").textContent = "Chào Mừng Bạn Trờ Lại Cửa Hàng Chúng Tôi";
+              document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
+              document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
+              displayOrderHistory();
+              // Khách hàng chỉ thấy nút xem lịch sử mua hàng khi đã tạo đơn hàng ít nhất 1 lần
+            }
+          });
+        }
+      }
+    })
   } else {
     document.querySelector("#readOrderHistory").style.display = "none";
   }

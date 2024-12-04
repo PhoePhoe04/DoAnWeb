@@ -175,7 +175,6 @@ logoutButton.addEventListener("click", function () {
     // Cập nhật lại giao diện sau khi đăng xuất
     alert("Đã đăng xuất thành công.");
 });
-
 window.onload = function() {
     const loggedInUser = sessionStorage.getItem("loggedInUser");
     if (loggedInUser) {
