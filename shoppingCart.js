@@ -335,6 +335,98 @@ document.querySelectorAll("input[type=checkbox]").forEach(a => {
     })
   }
 })
+
+function displayOrder() {
+  let orderTableBody = document.getElementById("orderTableCustomer");
+  orderTableBody.innerHTML = "";
+  let orders = JSON.parse(localStorage.getItem("orders")) || [];
+  let checkedOrders = JSON.parse(localStorage.getItem("checkedOrder")) || [];
+
+  if (orders.length === 0) {
+      orderTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">Không có đơn hàng nào</td></tr>`;
+      return;
+  }
+
+  orders.forEach((order, index) => {
+      id_order[index] = order.id;
+      let newRow = document.createElement("tr");
+      let date = new Date(order.boughtDate);
+      let formattedDate = date.toLocaleDateString('vi-VN');
+      newRow.innerHTML = `
+          <td>${order.id}</td>
+          <td>${order.name}</td>
+          <td>${formattedDate}</td>
+          <td>${order.phone}</td>
+          <td>${order.address}</td>
+          <td class="details-action">
+              <button onclick="checkBill(${index})">
+                  <i class="fa-solid fa-x"></i>
+              </button>
+          </td>
+          <td style="width:100px; text-align:center;">
+              <a class="lnkSua lnkChiTiet" id="btnChiTiet${index}" 
+                 data-id="${index}" data-trangthai="0" title="Xem chi tiết" 
+                 href="#" onclick="handleDetailClick(event, ${index})">
+                 Chi tiết
+              </a>
+          </td>
+      `;
+      orderTableBody.appendChild(newRow);
+
+      // Tạo phần chi tiết đơn hàng (ẩn theo mặc định)
+      const orderDetailsDiv = document.createElement('div');
+      orderDetailsDiv.id = 'orderDetails' + index;
+      orderDetailsDiv.style.display = 'none';
+      // Hiển thị chi tiết sản phẩm trong đơn hàng
+      const orderDetailsContent = document.createElement('div');
+      orderDetailsContent.innerHTML = `
+          <table class="order-detail-table">
+              <thead>
+                  <tr>
+                      <th>Sản phẩm</th>
+                      <th>Số lượng</th>
+                      <th>Giá</th>
+                      <th>Tổng</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  ${order.boughtProducts.map(item =>{ 
+                      var price = item.totalPrice; 
+                      var money = price.replace(/[^\d]/g, "");
+                      number = parseInt(money);
+                      quantity = parseInt(item.quantity);
+                      singlePrice =  number / quantity;
+                      let singlePriceFormat = singlePrice.toLocaleString("vi-VN")+" VNĐ";
+                      return `
+                      <tr>
+                          <td>${item.name}</td>
+                          <td>${item.quantity}</td>
+                          <td>${singlePriceFormat}</td>
+                          <td>${price}</td>
+                      </tr>
+                  `}).join('')}
+              </tbody>
+          </table>
+      `;
+      orderDetailsDiv.appendChild(orderDetailsContent);
+      // Thêm phần chi tiết vào bảng
+      orderTableBody.appendChild(orderDetailsDiv);
+
+      // Kiểm tra trạng thái đã duyệt và thay đổi biểu tượng
+      const orderId = order.id;
+      const orderIndex = checkedOrders.findIndex(o => o.id === orderId);
+
+      if (orderIndex !== -1 && checkedOrders[orderIndex].mode === "pass") {
+          const button = document.querySelector(`button[onclick="checkBill(${index})"]`);
+          const icon = button.querySelector("i");
+          if (icon) {
+              icon.classList.remove("fa-x");
+              icon.classList.add("fa-check"); // Đổi sang biểu tượng dấu check
+          }
+      }
+  });
+}
+
 //Kiem tra thong tin thanh toan truoc khi submit from
 function validatePayedByCard(){
   if (payedByCard > 0) {
@@ -384,6 +476,7 @@ function checkOrderHistory() {
     const user = JSON.parse(sessionStorage.getItem("loggedInUser"));
     var ten = user.username;
     const orders = JSON.parse(localStorage.getItem("orders"));
+    var flag = 0;
     orders.forEach(element => {
       if (element.name === ten) {    
         if (checkedOrder) {
@@ -393,12 +486,15 @@ function checkOrderHistory() {
               document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
               document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
               // Khách hàng chỉ thấy nút xem lịch sử mua hàng khi đã tạo đơn hàng ít nhất 1 lần
-            }
+              flag++;
+            } 
           });
         }
       }
     })
-    displayOrderHistory();
+    if (flag === 1) {
+      displayOrderHistory();
+    }
   } else {
     document.querySelector("#readOrderHistory").style.display = "none";
   }
