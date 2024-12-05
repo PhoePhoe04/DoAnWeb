@@ -293,6 +293,9 @@ width: 38%;
   margin-bottom: 4px;
 }
 @media (max-width: 768px) {
+  #khung_dat_hang{
+    height: 178px;
+  }
   #shopping_cart_page{
     margin-top: 30px ;
   }

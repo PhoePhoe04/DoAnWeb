@@ -1,5 +1,4 @@
 var totalPrice = 0;
-var deviceWidth;
 user = {};
 data = {};
 const pattern = /[^\d]/g; // Không phải là số
@@ -289,11 +288,6 @@ function validatePhoneNumber()
     alert("Số điện thoại không đúng định dạng");
     return false;
   }
-  //Giao diện có chiều rộng 480 px thì hiện cái thanh scrolbar theo chiều dọc
-  if (deviceWidth === 480) {   
-    document.querySelector("#khung_dat_hang").style.overflow = "auto";
-    document.querySelector("#khung_dat_hang").style.overflowY = "auto";
-  } 
   document.querySelector("#frmdathang").style.display = "none";
 }
 document.querySelector("#frmdathang").onsubmit = (event) => {
@@ -382,6 +376,9 @@ function checkOrderHistory() {
     document.querySelector("#readOrderHistory").style.display = "none";
     document.querySelector("#orderHistoryContainer").style.display = "none";
     document.querySelector("#empty").style.display = "flex";
+    document.querySelector("#empty h1").textContent = "Bạn chưa mua sản phẩm của cửa hàng chúng tôi";
+    document.querySelector("#empty #firstP").textContent = "Bạn hãy tiếp tục mua sắm.";
+    document.querySelector("#empty #secondP").textContent = "Bạn sẽ tìm được chiếc điện thoại yêu thích của mình.";
   }else if (localStorage.getItem("checkedOrder")) {
     var checkedOrder = JSON.parse(localStorage.getItem("checkedOrder"));
     const user = JSON.parse(sessionStorage.getItem("loggedInUser"));
@@ -395,13 +392,13 @@ function checkOrderHistory() {
               document.querySelector("#empty h1").textContent = "Chào Mừng Bạn Trờ Lại Cửa Hàng Chúng Tôi";
               document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
               document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
-              displayOrderHistory();
               // Khách hàng chỉ thấy nút xem lịch sử mua hàng khi đã tạo đơn hàng ít nhất 1 lần
             }
           });
         }
       }
     })
+    displayOrderHistory();
   } else {
     document.querySelector("#readOrderHistory").style.display = "none";
   }
