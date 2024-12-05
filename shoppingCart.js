@@ -476,6 +476,7 @@ function checkOrderHistory() {
     const user = JSON.parse(sessionStorage.getItem("loggedInUser"));
     var ten = user.username;
     const orders = JSON.parse(localStorage.getItem("orders"));
+    var flag = 0;
     orders.forEach(element => {
       if (element.name === ten) {    
         if (checkedOrder) {
@@ -485,12 +486,15 @@ function checkOrderHistory() {
               document.querySelector("#empty #firstP").textContent = "Giỏ hàng của bạn đang trống";
               document.querySelector("#empty #secondP").textContent = "Chúng tui có nhiều điện thoại tuyệt vời dành cho bạn";
               // Khách hàng chỉ thấy nút xem lịch sử mua hàng khi đã tạo đơn hàng ít nhất 1 lần
-            }
+              flag++;
+            } 
           });
         }
       }
     })
-    displayOrderHistory();
+    if (flag === 1) {
+      displayOrderHistory();
+    }
   } else {
     document.querySelector("#readOrderHistory").style.display = "none";
   }
