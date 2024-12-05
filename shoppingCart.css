@@ -26,7 +26,7 @@
  #inputBankCard label, fieldset label{
   display: inline-block;
  } */
-#empty img{
+ #empty img{
   width: 360px;
   height: 290px;
 }
@@ -76,7 +76,7 @@ width: 38%;
   border-radius: 20px;
   backdrop-filter: blur(20px);
   box-shadow: 0 0 30px rgba(68, 39, 39, 0.5);
-  height: 180px;
+  height: 178px;
   width: 60rem;
   margin-left: auto;
   margin-right: auto;
